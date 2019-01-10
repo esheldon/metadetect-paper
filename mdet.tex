@@ -110,20 +110,22 @@ principle be shear dependent. This is demonstrated in the top rows of figure
 shearing, because the effect of the PSF occurs after the mapping.  This is
 demonstrated in the bottom rows of figure \ref{fig:toy}.
 
-\begin{figure}
-    \includegraphics[width=\columnwidth]{figures/toy.pdf}
+\begin{figure*}
+    %\includegraphics[width=\columnwidth]{figures/toy.pdf}
+    \includegraphics[width=\textwidth]{figures/toy.pdf}
 
     \caption{ Toy example of shear-dependent detection in the presence of a
-    PSF.  In the top row of plots, for which there was no PSF convolution, it
-    can be seen that the contours for the two objects do not overlap before or
-    after shearing. This is a general property of the shear transformation in
-    the weak regime.  However, when the image is convolved by a PSF, which is
-    independent of the transformation, the inner contours overlap only after
-    shearing.  A detection algorithm identified overlapping contours as one
-    object, this would manifest as a shear-dependent detection bias.
-    \label{fig:toy} }
+    PSF.  In panel a) two objects are present, convolved by a PSF with no
+    shear.  In panel b) the objects are shared by a shear $(0.0, 0.1)$ {\em
+    after} the PSF convolution. In this case the inner contours for the two
+    objects overlap before and after application of the shear.  This is a
+    general property of the shear transformation in the weak regime.   In panel
+    c) the shear is applied {\em before} the PSF convolution.  In this case the
+    inner contours do not overlap after shearing.  If a detection algorithm
+    always identified overlapping contours as one object, this effect would
+    manifest as a shear-dependent detection bias.  \label{fig:toy} }
 
-\end{figure}
+\end{figure*}
 
 \section{\textsc{METACALIBRATION}}
 

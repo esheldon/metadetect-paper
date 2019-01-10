@@ -1,11 +1,14 @@
+import numpy as np
 import images
 import biggles
 import galsim
+from galsim import Convolve, Add
 
 # arcsec/pixel
 SCALE=0.01
 SHEAR=(0.1, 0.0)
 LEVELS=2
+ZPERC=[1, 100.0]
 FWHM=0.47
 ccolor='blue'
 
@@ -23,74 +26,89 @@ def get_psf():
     return galsim.Gaussian(fwhm=FWHM)
 
 def get_image(objs):
-    return objs.drawImage(
+    im = objs.drawImage(
         nx=200,
         ny=200,
         scale=SCALE,
     ).array
+
+    im *= 1.0/im.max()
+    return im
 
 def main():
 
     o1, o2 = get_objects()
     psf = get_psf()
 
-    allo = galsim.Add(o1, o2)
-    allo_sheared = allo.shear(
+    allo_pre = Convolve(
+        Add(o1, o2),
+        psf,
+    )
+    allo_pre_sheared = allo_pre.shear(
         g1=SHEAR[0],
         g2=SHEAR[1],
     )
 
-    pallo = galsim.Convolve(allo, psf)
-    pallo_sheared = galsim.Convolve(allo_sheared, psf)
+    allo_post_sheared = Convolve(Add(o1, o2).shear(g1=SHEAR[0],g2=SHEAR[1]), psf)
 
-    im = get_image(allo)
-    im_sheared = get_image(allo_sheared)
+    im_pre = get_image(allo_pre)
+    im_pre_sheared = get_image(allo_pre_sheared)
+    im_post_sheared = get_image(allo_post_sheared)
 
-    pim = get_image(pallo)
-    pim_sheared = get_image(pallo_sheared)
-
-    plt=images.view(
-        im,
+    plt_pre=images.view(
+        im_pre,
         type='dens-cont',
         ccolor=ccolor,
         levels=LEVELS,
-        title='shear: 0, 0',
+        zrange=np.percentile(im_pre, ZPERC),
+        #title='shear: 0, 0',
         show=False,
     )
 
-    plt_sheared=images.view(
-        im_sheared,
+    plt_pre_sheared=images.view(
+        im_pre_sheared,
         type='dens-cont',
         ccolor=ccolor,
         levels=LEVELS,
-        title='shear: %g, %g' % SHEAR,
+        zrange=np.percentile(im_pre_sheared, ZPERC),
+        #title='shear: %g, %g' % SHEAR,
         show=False,
     )
 
-    pplt=images.view(
-        pim,
+    plt_post_sheared=images.view(
+        im_post_sheared,
         type='dens-cont',
         ccolor=ccolor,
         levels=LEVELS,
-        title='shear: 0, 0   with PSF',
+        zrange=np.percentile(im_post_sheared, ZPERC),
+        #title='shear: 0, 0   with PSF',
         show=False,
     )
 
-    pplt_sheared = images.view(
-        pim_sheared,
-        type='dens-cont',
-        ccolor=ccolor,
-        levels=LEVELS,
-        title='shear: %g, %g   with PSF' % SHEAR,
-        show=False,
+    plt_pre.add( 
+        biggles.PlotLabel(0.9, 0.9, 'a)', halign='right', color='white')
+    )
+    plt_pre_sheared.add( 
+        biggles.PlotLabel(0.9, 0.9, 'b)', halign='right', color='white')
+    )
+    plt_post_sheared.add( 
+        biggles.PlotLabel(0.9, 0.9, 'c)', halign='right', color='white')
     )
 
-    tab=biggles.Table(2,2,aspect_ratio=1)
+    """
+    tab=biggles.Table(3,1,aspect_ratio=3.0)
 
-    tab[0,0] = plt
-    tab[0,1] = plt_sheared
-    tab[1,0] = pplt
-    tab[1,1] = pplt_sheared
+    tab[0,0] = plt_pre
+    tab[1,0] = plt_pre_sheared
+    tab[2,0] = plt_post_sheared
+    """
+
+    tab=biggles.Table(1,3,aspect_ratio=1/3)
+
+    tab[0,0] = plt_pre
+    tab[0,1] = plt_pre_sheared
+    tab[0,2] = plt_post_sheared
+
     tab.show()
     tab.write('toy.pdf')
 
