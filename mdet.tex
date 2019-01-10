@@ -52,6 +52,8 @@
 \newcommand{\gest}{\mbox{\boldmath $\hat \gamma$}}
 \newcommand{\vecgam}{\mbox{\boldmath $\gamma$}}
 
+\newcommand{\bfd}{\textsc{BFD}}
+
 \title[Metadetection]{Mitigating Shear-dependent Detection Biases with \Mcal}
 
 \author[Sheldon et~al.]{Erin Sheldon$^1$, Matthew R. Becker$^2$,
@@ -89,31 +91,32 @@ Recently introduced methods for the estimation of weak gravitational lensing
 shear promise to provide calibration at the 0.1\% level, adequate for the
 requirements of future weak lensing surveys.  Two methods that have
 demonstrated sufficient accuracy without the use of calibration from
-simulations, and without loss of precision are the BFD method
+simulations, and without any compromise of precision, are the \bfd\ method
 \citep{BernBFD2016} and the \mcal\ method \citep{HuffMcal2017,SheldonMcal2017}.
 The tests of these methods, while stringent, did not include an important
 aspect of the real universe: the images of objects overlap on the sky. In this
 work we test \mcal\ in the presence of blending, and demonstrate that there is
-a bias associated with shear-dependent selection.  We introduce an improvement
-to the method that naturally accounts for this shear-dependent selection bias.
+a bias associated with shear-dependent detection.  We introduce an improvement
+to the method that naturally accounts for this shear-dependent detection bias.
 
 Proper accounting for blending is crucial for obtaining accurate redshifts
-distributions, which is in turn required to interpret the lensing signal (XXX good
-citation)?  From a pure shear measurement point of view, blending will also produce
-biased ellipticity measurements, and increase the variance of those shapes
-\citep{DawsonBlending2016}.  However, a method such as \mcal\ should be able
-to accurately calibrate this bias, so we do not expect blending itself to 
-be a problem.
+distributions, which are required to interpret the lensing signal (XXX good
+citation)?  From a pure shear measurement point of view, blending will also
+produce biased ellipticity measurements, and increase the variance of those
+shapes \citep{DawsonBlending2016}.  However, a method such as \mcal\ can
+accurately calibrate this bias.
 
 More important for shear calibration is the dependence of the detection on
 shear.  Because the shear transformation is a simple mapping in the weak shear
-regime, and the mapping preserves surface brightness, detection need not be
-shear dependent \citep{SchneiderBook92}.  For example, a detection algorithm
-that simply identifies connected regions above some threshold as a single
-object will not in principle be shear dependent. However, if the image is
-smeared by a point-spread-function (PSF), due to the atmosphere and detector,
-objects overlap differently after shearing, because the PSF convolution occurs
-after the shear mapping.  This effect is demonstrated in figure \ref{fig:toy}.
+regime, and the mapping preserves surface brightness \citep{SchneiderBook92},
+detection need not be shear dependent.  For example, a detection algorithm that
+simply identifies connected regions above some threshold as a single object
+will not in principle be shear dependent. However, if the image is smeared by a
+point-spread-function (PSF), due to the atmosphere and detector, the overlap of
+objects does depend on shear, because the PSF convolution occurs after the
+shear mapping.  This effect is demonstrated in figure \ref{fig:toy}.  In that
+case the simple threshold detection method mentioned above will manifest a
+shear-dependent detection bias.
 
 \begin{figure*}
     %\includegraphics[width=\textwidth]{figures/toy.pdf}
@@ -134,6 +137,12 @@ after the shear mapping.  This effect is demonstrated in figure \ref{fig:toy}.
 
 \end{figure*}
 
+Common detection schemes in use today, such at that in Source Extractor
+\citep{Bertin96} and the HST/LSST pipelines \citep{BoschHSC2018,BoschLSST2018}
+are based on thesholding, similar to the simple approach described above but
+differing in complexity and efficiency.  Thus we would expect their detection
+to also manifest shear dependence.
+
 Any shear-dependent measurement effects can in principle be taken into account
 within the \mcal\ formalism.  The implementations presented in
 \cite{HuffMcal2017} and \cite{SheldonMcal2017} work by applying artificial
@@ -141,7 +150,7 @@ shears to small postage stamp images associated with previous detections.  As
 we will demonstrate, detection effects can also be incorporated by instead
 shearing larger images and re-running the detection phase on each of the
 sheared images. There are number of technical challenges associated with this
-extension of the method, which we will address in turn.
+\mcal\ implementation, which we will address in turn.
 
 The paper is laid out as follows.... blah blah.
 
