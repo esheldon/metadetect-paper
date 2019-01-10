@@ -64,22 +64,52 @@
 
 \begin{abstract}
 
-    \Mcal\ is a new technique for measuring weak gravitational lensing shear
-    that is unbiased for isolated galaxy images.  In this work we test the
-    \mcal\ method with overlapping, or ``blended'' galaxy images.  Using
-    standard \mcal\ we find a significant shear calibration bias when objects
-    overlap. This bias is a few percent for galaxy densities relevant for
-    current surveys, and increases to tens of percent for future surveys.  This
-    bias is due to shear-dependent selection rather than blending itself; if
-    detection is shear independent, no de-blending of images is needed, in
-    principle.  Shear-dependent selection bias are completely accounted for
-    when including detection in the \mcal\ process.
+\Mcal\ is a new technique for measuring weak gravitational lensing shear that
+is unbiased for isolated galaxy images.  In this work we test the \mcal\ method
+with overlapping, or ``blended'' galaxy images.  Using standard \mcal\ we find
+a significant shear calibration bias when objects overlap. This bias is a few
+percent for galaxy densities relevant for current surveys, and increases to
+tens of percent for future surveys.  This bias is due to shear-dependent
+detection rather than blending itself; if detection is shear independent, no
+de-blending of images is needed, in principle.  We demonstrate that
+shear-dependent detection biases are accurately removed when including
+detection in the \mcal\ process.
 
 \end{abstract}
 
 \section{Introduction}
 
-blah
+
+Recently introduced methods for the estimation of weak gravitational lensing
+shear promise to provide calibration at the 0.1\% level, adequate for the
+requirements of future weak lensing surveys.  Two methods that have
+demonstrated sufficient accuracy without the use of calibration from
+simulations, and without loss of precision are the BFD method
+\citep{BernBFD2016} and the \mcal\ method \citep{HuffMcal2017,SheldonMcal2017}.
+The tests of these methods, while stringent, did not include an important
+aspect of the real universe: the images of objects overlap on the sky. In this
+work we test \mcal\ in the presence of blending, and demonstrate that there is
+a bias associated with shear-dependent selection.  We introduce an improvement
+to the method that naturally accounts for this shear-dependent selection bias.
+
+Proper accounting for blending is crucial for obtaining accurate redshifts
+distributions, which is in turn required to interpret the lensing signal (XXX good
+citation)?  From a pure shear measurement point of view, blending will also produce
+biased ellipticity measurements, and increase the variance of those shapes
+\citep{DawsonBlending2017}.  However, a method such as \mcal\ should be able
+to accurately calibrate this bias, so we do not expect blending itself to 
+be a problem.
+
+More important for shear calibration is the dependence of the detection on
+shear.  Because the shear transformation is a simple mapping in the weak shear
+regime, detection need not be shear dependent.  For example, a detection
+algorithm that simply identifies regions above some threshold will not in
+principle be shear dependent. This is demonstrated in panel XXX of figure
+\ref{fig:toy} for the case of very small pixels and no point-spread-function
+(PSF).  However, in the presence of a PSF and large pixels, objects overlap
+differently after shearing, because the effect of the PSF occurs after the
+mapping.  This is demonstrated in panel XXX of figure \ref{fig:toy}.
+
 
 \section{\textsc{METACALIBRATION}}
 
