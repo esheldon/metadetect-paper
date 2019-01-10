@@ -54,7 +54,8 @@
 
 \title[Metadetection]{Mitigating Shear-dependent Detection Biases with \Mcal}
 
-\author[Sheldon et~al.]{Erin Sheldon$^1$, et al.,
+\author[Sheldon et~al.]{Erin Sheldon$^1$, Matthew R. Becker, Eric M. Huff,
+Niall MacCrann, Michael Jarvis
   \\$^1$Brookhaven National Laboratory, Bldg. 510, Upton, NY 11973, USA 
 }
 
@@ -102,12 +103,13 @@ be a problem.
 
 More important for shear calibration is the dependence of the detection on
 shear.  Because the shear transformation is a simple mapping in the weak shear
-regime, detection need not be shear dependent.  For example, a detection
-algorithm that simply identifies connected regions above some threshold as a
-single object will not in principle be shear dependent. However, in the
-presence of a point-spread-function (PSF), objects overlap differently after
-shearing, because the effect of the PSF occurs after the mapping.  This effect
-is demonstrated in figure \ref{fig:toy}.
+regime, and the mapping preserves surface brightness, detection need not be
+shear dependent \citep{SchneiderBook92}.  For example, a detection algorithm
+that simply identifies connected regions above some threshold as a single
+object will not in principle be shear dependent. However, if the image is
+smeared by a point-spread-function (PSF), due to the atmosphere and detector,
+objects overlap differently after shearing, because the PSF convolution occurs
+after the shear mapping.  This effect is demonstrated in figure \ref{fig:toy}.
 
 \begin{figure*}
     %\includegraphics[width=\columnwidth]{figures/toy.pdf}
@@ -121,11 +123,23 @@ is demonstrated in figure \ref{fig:toy}.
     general property of the shear transformation in the weak regime.   In panel
     c) the shear is applied {\em before} the PSF convolution, which mimics real
     sky images.  In this case the inner contours do not overlap after shearing.
-    For case c), a detection algorithm that identified connected regions
-    above some threshold as a single object would manifest a shear-dependent detection bias.
-    \label{fig:toy} }
+    For case c) a detection algorithm that identified connected regions above
+    some threshold as a single object would manifest a shear-dependent
+    detection bias.  \label{fig:toy} }
 
 \end{figure*}
+
+Any shear-dependent measurement effects can in principle be taken into account
+with the \mcal\ formalism.  The implementations presented in
+\cite{HuffMcal2017} and \cite{SheldonMcal2017} work by applying artificial
+shears to small postage stamp images associated with previous detections.  As
+we will demonstrate, detection effects can also be incorporated by instead
+shearing larger images and re-running the detection phase on each of the
+sheared images. There are number of technical challenges associated with this
+extension of the algorithm, which we will address in turn.
+
+The paper is laid out as follows.... blah blah.
+
 
 \section{\textsc{METACALIBRATION}}
 
