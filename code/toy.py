@@ -2,7 +2,6 @@ import numpy as np
 import images
 import biggles
 import galsim
-from galsim import Convolve, Add
 
 # arcsec/pixel
 SCALE=0.01
@@ -10,7 +9,7 @@ SHEAR=(0.1, 0.0)
 LEVELS=2
 ZPERC=[1, 100.0]
 FWHM=0.47
-ccolor='blue'
+CCOLOR='blue'
 
 def get_objects():
     o1 = galsim.Gaussian(fwhm=FWHM)
@@ -40,8 +39,9 @@ def main():
     o1, o2 = get_objects()
     psf = get_psf()
 
-    allo_pre = Convolve(
-        Add(o1, o2),
+    allo = galsim.Add(o1, o2)
+    allo_pre = galsim.Convolve(
+        allo, 
         psf,
     )
     allo_pre_sheared = allo_pre.shear(
@@ -49,7 +49,14 @@ def main():
         g2=SHEAR[1],
     )
 
-    allo_post_sheared = Convolve(Add(o1, o2).shear(g1=SHEAR[0],g2=SHEAR[1]), psf)
+    allo_post = galsim.Add(o1, o2).shear(
+        g1=SHEAR[0],
+        g2=SHEAR[1],
+    )
+    allo_post_sheared = galsim.Convolve(
+        allo_post,
+        psf,
+    )
 
     im_pre = get_image(allo_pre)
     im_pre_sheared = get_image(allo_pre_sheared)
@@ -58,30 +65,27 @@ def main():
     plt_pre=images.view(
         im_pre,
         type='dens-cont',
-        ccolor=ccolor,
+        ccolor=CCOLOR,
         levels=LEVELS,
         zrange=np.percentile(im_pre, ZPERC),
-        #title='shear: 0, 0',
         show=False,
     )
 
     plt_pre_sheared=images.view(
         im_pre_sheared,
         type='dens-cont',
-        ccolor=ccolor,
+        ccolor=CCOLOR,
         levels=LEVELS,
         zrange=np.percentile(im_pre_sheared, ZPERC),
-        #title='shear: %g, %g' % SHEAR,
         show=False,
     )
 
     plt_post_sheared=images.view(
         im_post_sheared,
         type='dens-cont',
-        ccolor=ccolor,
+        ccolor=CCOLOR,
         levels=LEVELS,
         zrange=np.percentile(im_post_sheared, ZPERC),
-        #title='shear: 0, 0   with PSF',
         show=False,
     )
 
@@ -94,14 +98,6 @@ def main():
     plt_post_sheared.add( 
         biggles.PlotLabel(0.9, 0.9, '(c)', halign='right', color='white')
     )
-
-    """
-    tab=biggles.Table(3,1,aspect_ratio=3.0)
-
-    tab[0,0] = plt_pre
-    tab[1,0] = plt_pre_sheared
-    tab[2,0] = plt_post_sheared
-    """
 
     tab=biggles.Table(1,3,aspect_ratio=1/3)
 
