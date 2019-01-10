@@ -57,7 +57,7 @@
 \title[Metadetection]{Mitigating Shear-dependent Detection Biases with \Mcal}
 
 \author[Sheldon et~al.]{Erin Sheldon$^1$, Matthew R. Becker$^2$,
-Niall MacCrann$^{4,5}$, Michael Jarvis$^6$
+Niall MacCrann$^{3,4}$, Michael Jarvis$^5$
   \\$^1$Brookhaven National Laboratory, Bldg. 510, Upton, NY 11973, USA
   \\$^2$High Energy Physics Division, Argonne National Laboratory , Lemont, IL 60439, USA
   \\$^3$Center for Cosmology and Astro-Particle Physics, The Ohio State University, Columbus, OH 43210, USA
@@ -102,21 +102,21 @@ to the method that naturally accounts for this shear-dependent detection bias.
 Proper accounting for blending is crucial for obtaining accurate redshifts
 distributions, which are required to interpret the lensing signal (XXX good
 citation)?  From a pure shear measurement point of view, blending will also
-produce biased ellipticity measurements, and increase the variance of those
-shapes \citep{DawsonBlending2016}.  However, a method such as \mcal\ can
-accurately calibrate this bias.
+produce biased ellipticity measurements, and increase the variance of the
+measured ellipticities \citep{DawsonBlending2016}.
 
-More important for shear calibration is the dependence of the detection on
-shear.  Because the shear transformation is a simple mapping in the weak shear
-regime, and the mapping preserves surface brightness \citep{SchneiderBook92},
-detection need not be shear dependent.  For example, a detection algorithm that
-simply identifies connected regions above some threshold as a single object
-will not in principle be shear dependent. However, if the image is smeared by a
-point-spread-function (PSF), due to the atmosphere and detector, the overlap of
-objects does depend on shear, because the PSF convolution occurs after the
-shear mapping.  This effect is demonstrated in figure \ref{fig:toy}.  In that
-case the simple threshold detection method mentioned above will manifest a
-shear-dependent detection bias.
+A method such as \mcal\ can accurately calibrate ellipticity biases associated
+with blending.  More problematic for shear calibration is the dependence of the
+detection on shear.  Because the shear transformation is a simple mapping in
+the weak shear regime, and the mapping preserves surface brightness
+\citep{SchneiderBook92}, detection need not be shear dependent.  For example, a
+detection algorithm that simply identifies connected regions above some
+threshold as a single object will not in principle be shear dependent. However,
+if the image is smeared by a point-spread-function (PSF), due to the atmosphere
+and detector, the overlap of objects does depend on shear, because the PSF
+convolution occurs after the shear mapping.  This effect is demonstrated in
+figure \ref{fig:toy}.  In that case the simple threshold detection method
+mentioned above will manifest a shear-dependent detection bias.
 
 \begin{figure*}
     %\includegraphics[width=\textwidth]{figures/toy.pdf}
@@ -137,7 +137,7 @@ shear-dependent detection bias.
 
 \end{figure*}
 
-Common detection schemes in use today, such at that in Source Extractor
+Common detection schemes in use today, such at those in Source Extractor
 \citep{Bertin96} and the HST/LSST pipelines \citep{BoschHSC2018,BoschLSST2018}
 are based on thesholding, similar to the simple approach described above but
 differing in complexity and efficiency.  Thus we would expect their detection
