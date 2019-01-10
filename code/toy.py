@@ -111,5 +111,6 @@ def main():
 
     tab.show()
     tab.write('toy.pdf')
+    tab.write('toy.png',dpi=150)
 
 main()
