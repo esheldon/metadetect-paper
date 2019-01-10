@@ -103,12 +103,11 @@ be a problem.
 More important for shear calibration is the dependence of the detection on
 shear.  Because the shear transformation is a simple mapping in the weak shear
 regime, detection need not be shear dependent.  For example, a detection
-algorithm that simply identifies regions above some threshold will not in
-principle be shear dependent. This is demonstrated in the top rows of figure
-\ref{fig:toy} for the case of very small pixels and no point-spread-function
-(PSF).  However, in the presence of a PSF, objects overlap differently after
-shearing, because the effect of the PSF occurs after the mapping.  This is
-demonstrated in the bottom rows of figure \ref{fig:toy}.
+algorithm that simply identifies connected regions above some threshold as a
+single object will not in principle be shear dependent. However, in the
+presence of a point-spread-function (PSF), objects overlap differently after
+shearing, because the effect of the PSF occurs after the mapping.  This effect
+is demonstrated in figure \ref{fig:toy}.
 
 \begin{figure*}
     %\includegraphics[width=\columnwidth]{figures/toy.pdf}
@@ -120,10 +119,11 @@ demonstrated in the bottom rows of figure \ref{fig:toy}.
     after} the PSF convolution. In this case the inner contours for the two
     objects overlap before and after application of the shear.  This is a
     general property of the shear transformation in the weak regime.   In panel
-    c) the shear is applied {\em before} the PSF convolution.  In this case the
-    inner contours do not overlap after shearing.  If a detection algorithm
-    always identified overlapping contours as one object, this effect would
-    manifest as a shear-dependent detection bias.  \label{fig:toy} }
+    c) the shear is applied {\em before} the PSF convolution, which mimics real
+    sky images.  In this case the inner contours do not overlap after shearing.
+    For case c), a detection algorithm that identified connected regions
+    above some threshold as a single object would manifest a shear-dependent detection bias.
+    \label{fig:toy} }
 
 \end{figure*}
 
