@@ -104,12 +104,27 @@ More important for shear calibration is the dependence of the detection on
 shear.  Because the shear transformation is a simple mapping in the weak shear
 regime, detection need not be shear dependent.  For example, a detection
 algorithm that simply identifies regions above some threshold will not in
-principle be shear dependent. This is demonstrated in panel XXX of figure
+principle be shear dependent. This is demonstrated in the top rows of figure
 \ref{fig:toy} for the case of very small pixels and no point-spread-function
-(PSF).  However, in the presence of a PSF and large pixels, objects overlap
-differently after shearing, because the effect of the PSF occurs after the
-mapping.  This is demonstrated in panel XXX of figure \ref{fig:toy}.
+(PSF).  However, in the presence of a PSF, objects overlap differently after
+shearing, because the effect of the PSF occurs after the mapping.  This is
+demonstrated in the bottom rows of figure \ref{fig:toy}.
 
+\begin{figure}
+    \includegraphics[width=\columnwidth]{figures/toy.pdf}
+
+	\caption{
+        Toy example of shear-dependent detection in the presence of a PSF.  In
+        the top row of plots, for which there was no PSF convolution, and it
+        can be seen that the inner contours do not overlap before or after
+        shearing. This is a general property of the shear transformation.
+        However, when the image is convolved by a PSF, which is independent of
+        the transformation, the inner contours overlap only after shearing.  A
+        detection algorithm identified overlapping contours as one object, this
+        would manifest as a shear-dependent detection bias.  \label{fig:toy}
+    }
+
+\end{figure}
 
 \section{\textsc{METACALIBRATION}}
 
@@ -126,7 +141,7 @@ blah
 \subsection{Bias in Simulations of Galaxy Pairs}
 
 \begin{figure}
-    \includegraphics[width=\columnwidth]{pairs-mc-bdkpair.pdf}
+    \includegraphics[width=\columnwidth]{figures/pairs-mc-bdkpair.pdf}
 
 \end{figure}
 Erin's pair tests
