@@ -20,7 +20,7 @@
 \newcommand\notewrite[1]{\todo[color=orange, inline, size=\small]{To write: #1}}
 \newcommand\noteask[1]{\todo[color=cyan, inline, size=\small]{To ask: #1}}
 \newcommand\notecontrib[1]{\todo[color=green, inline, size=\small]{Contributors: #1}}
-\newcommand\ess[1]{\todo[color=red, inline, size=\small]{Erin: #1}}
+\newcommand\ess[1]{\todo[color=orange, inline, size=\small]{Erin: #1}}
 
 \newcommand{\vecg}{\mbox{\boldmath $g$}}
 \newcommand{\vece}{\mbox{\boldmath $e$}}
@@ -42,6 +42,7 @@
 \newcommand{\lsstreq}{$2\times 10^{-3}$}
 
 \newcommand{\mcal}{\textsc{metacalibration}}
+\newcommand{\mdet}{\textsc{metadetection}}
 \newcommand{\Mcalshort}{\textsc{metacal}}
 \newcommand{\Mcal}{\textsc{Metacalibration}}
 \newcommand{\vest}{\mbox{\boldmath $e$}}
@@ -87,17 +88,78 @@ Erin's pair tests
 
 Erin's tests with WeakLensingDeblending and Matt's tests
 
+\begin{table}
+    \centering
+    \begin{tabular}{|l|l|c|c|}
+        \hline
+        Sim & Method         & \snr\ Cut & m             \\
+        \hline
+        \hline
+        DES & MOF+metacal    & \snr$ > 10$ & $-0.016 \pm 0.003$  \\
+        DES & MOF+metacal    & \snr$ > 15$ & $-0.038 \pm 0.003$  \\
+        DES & MOF+metacal    & \snr$ > 20$ & $-0.053 \pm 0.003$  \\
+        \hline
+        LSST  & MOF+metacal    & \snr$ > 10$ & $-0.131 \pm 0.005$  \\
+        LSST  & MOF+metacal    & \snr$ > 15$ & $-0.124 \pm 0.005$  \\
+        LSST  & MOF+metacal    & \snr$ > 20$ & $-0.149 \pm 0.005$  \\
+        \hline
+
+
+    \end{tabular}
+    
+    \caption{
+            Bias for standard \mcal\ with MOF deblending in simulations with
+            realistic galaxy size, flux and noise.  In all cases a cut of
+            $T/T_{PSF} > 0.5$ was also applied.  \ess{numbers are placeholders,
+            need to run regular MOF+metacal on descwl sims}
+            \label{tab:mcal:deblending}
+    }
+
+\end{table}
+
+
 \section{Mitigating Shear-dependent Detection Biases with \textsc{METACALIBRATION}}
 blah
 
 \subsection{Results for Simulated Galaxy Pairs}
 
-Erin's results with pairs
+Erin's results with pairs.  Discuss results in the figure.
 
 \subsection{Results for Simulations with Representative Galaxy Density and Noise}
 
 Erin's results with WeakLensingDeblending and Matt's tests without
 psf variation or masking
+
+\begin{table}
+    \centering
+    \begin{tabular}{|l|l|c|c|}
+        \hline
+        Sim & Method         & \snr\ Cut & m             \\
+        \hline
+        \hline
+        DES & \mdet+moments & \snr$ > 10$ & $-0.0010 \pm 0.0013$  \\
+        DES & \mdet+moments & \snr$ > 15$ & $+0.0000 \pm 0.0013$  \\
+        DES & \mdet+moments & \snr$ > 20$ & $+0.0002 \pm 0.0013$  \\
+        \hline
+        LSST  & \mdet+moments & \snr$ > 10$ & $-0.0027 \pm 0.0011$  \\
+        LSST  & \mdet+moments & \snr$ > 15$ & $-0.0018 \pm 0.0011$  \\
+        LSST  & \mdet+moments & \snr$ > 20$ & $+0.0001 \pm 0.0011$  \\
+        \hline
+
+
+    \end{tabular}
+    
+    \caption{
+        Bias for \mcal, including detection in the process (a.k.a. \mdet).  No
+        deblending was performed, and simple weighted moments were used
+        without PSF correction.  In all cases a cut of $T/T_{PSF} > 0.5$ was
+        also applied.  \ess{LSST needs to be redone with better
+        psf handling.  } \label{tab:mdet}
+    }
+
+\end{table}
+
+
 
 \subsection{Results for Simulations with Realistic Masking and PSF Variation}
 
