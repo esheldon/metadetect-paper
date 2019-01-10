@@ -126,6 +126,7 @@ blah
 Erin's results with pairs.  Discuss results in the figure.
 
 \subsection{Results for Simulations with Representative Galaxy Density and Noise}
+\label{sec:res:constpsf}
 
 Erin's results with WeakLensingDeblending and Matt's tests without
 psf variation or masking
@@ -150,11 +151,12 @@ psf variation or masking
     \end{tabular}
     
     \caption{
-        Bias for \mcal, including detection in the process (a.k.a. \mdet).  No
+        Bias for \mcal, including detection in the process (a.k.a. \mdet).  These
+        simulations have no PSF variation or masking.  No
         deblending was performed, and simple weighted moments were used
         without PSF correction.  In all cases a cut of $T/T_{PSF} > 0.5$ was
         also applied.  \ess{LSST needs to be redone with better
-        psf handling.  } \label{tab:mdet}
+        psf handling.  } \label{tab:mdet:constpsf}
     }
 
 \end{table}
@@ -162,8 +164,37 @@ psf variation or masking
 
 
 \subsection{Results for Simulations with Realistic Masking and PSF Variation}
+\label{sec:res:varpsf}
 
-Matt's stuff with the full glory
+Matt's stuff with the full glory.  If all are equally unbiased, we can remove
+secion \ref{sec:res:constpsf}
+
+\begin{table}
+    \centering
+    \begin{tabular}{|l|l|c|c|}
+        \hline
+        Sim & Method         & \snr\ Cut & m             \\
+        \hline
+        \hline
+        DES & \mdet+moments & \snr$ > 10$ & $-0.0010 \pm 0.0013$  \\
+        DES & \mdet+moments & \snr$ > 15$ & $+0.0000 \pm 0.0013$  \\
+        DES & \mdet+moments & \snr$ > 20$ & $+0.0002 \pm 0.0013$  \\
+        \hline
+        LSST  & \mdet+moments & \snr$ > 10$ & $-0.0027 \pm 0.0011$  \\
+        LSST  & \mdet+moments & \snr$ > 15$ & $-0.0018 \pm 0.0011$  \\
+        LSST  & \mdet+moments & \snr$ > 20$ & $+0.0001 \pm 0.0011$  \\
+        \hline
+
+
+    \end{tabular}
+    
+    \caption{
+        Same as table \ref{tab:mdet:constpsf} but with realistic masking and
+        spatial PSF variation.  \ess{numbers are placeholders} \label{tab:mdet:varpsf}
+    }
+
+\end{table}
+
 
 \section{Summary}
 blah
