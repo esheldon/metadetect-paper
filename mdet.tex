@@ -110,7 +110,7 @@ with blending.  More problematic for shear calibration is the dependence of the
 detection on shear.  Because the shear transformation is a simple mapping in
 the weak shear regime, and the mapping preserves surface brightness
 \citep{SchneiderBook92}, detection need not be shear dependent.  For example, a
-detection algorithm that simply identifies connected regions above some
+detection algorithm that simply identifies connected regions above a
 threshold as a single object will not in principle be shear dependent. However,
 if the image is smeared by a point-spread-function (PSF), due to the atmosphere
 and detector, the overlap of objects does depend on shear, because the PSF
@@ -132,7 +132,7 @@ mentioned above will manifest a shear-dependent detection bias.
     panel (c) the shear is applied {\em before} the PSF convolution, which
     mimics real sky images.  In this case the inner contours do not overlap
     after shearing.  For case (c) a detection algorithm that identified
-    connected regions above some threshold as a single object would manifest a
+    connected regions above a threshold as a single object would manifest a
     shear-dependent detection bias.  \label{fig:toy} }
 
 \end{figure*}
