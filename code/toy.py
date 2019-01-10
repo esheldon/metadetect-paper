@@ -86,13 +86,13 @@ def main():
     )
 
     plt_pre.add( 
-        biggles.PlotLabel(0.9, 0.9, 'a)', halign='right', color='white')
+        biggles.PlotLabel(0.9, 0.9, '(a)', halign='right', color='white')
     )
     plt_pre_sheared.add( 
-        biggles.PlotLabel(0.9, 0.9, 'b)', halign='right', color='white')
+        biggles.PlotLabel(0.9, 0.9, '(b)', halign='right', color='white')
     )
     plt_post_sheared.add( 
-        biggles.PlotLabel(0.9, 0.9, 'c)', halign='right', color='white')
+        biggles.PlotLabel(0.9, 0.9, '(c)', halign='right', color='white')
     )
 
     """

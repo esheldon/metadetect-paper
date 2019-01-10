@@ -58,8 +58,8 @@
 Niall MacCrann$^{4,5}$, Michael Jarvis$^6$
   \\$^1$Brookhaven National Laboratory, Bldg. 510, Upton, NY 11973, USA
   \\$^2$High Energy Physics Division, Argonne National Laboratory , Lemont, IL 60439, USA
-  \\$^3$Center  for  Cosmology  and  Astro-Particle  Physics,  The Ohio State University, Columbus, OH 43210, USA
-  \\$^4$ Department   of   Physics,   The   Ohio   State   University, Columbus, OH 43210, USA
+  \\$^3$Center for Cosmology and Astro-Particle Physics, The Ohio State University, Columbus, OH 43210, USA
+  \\$^4$Department of Physics, The Ohio State University, Columbus, OH 43210, USA
   \\$^5$Department of Physics and Astronomy, University of Pennsylvania, Philadelphia, PA 19104, USA
 }
 
@@ -120,27 +120,28 @@ after the shear mapping.  This effect is demonstrated in figure \ref{fig:toy}.
     \includegraphics[width=\textwidth]{figures/toy.pdf}
 
     \caption{ Toy example of shear-dependent detection in the presence of a
-    PSF.  In panel a) two objects are present, convolved by a PSF with no
-    shear.  In panel b) the objects are shared by a shear $(0.0, 0.1)$ {\em
-    after} the PSF convolution. In this case the inner contours for the two
-    objects overlap before and after application of the shear.  This is a
-    general property of the shear transformation in the weak regime.   In panel
-    c) the shear is applied {\em before} the PSF convolution, which mimics real
-    sky images.  In this case the inner contours do not overlap after shearing.
-    For case c) a detection algorithm that identified connected regions above
-    some threshold as a single object would manifest a shear-dependent
-    detection bias.  \label{fig:toy} }
+    PSF.  In panel (a) two objects are present, convolved by a PSF with no
+    shear.  Contours represent constant brightness.  In panel (b) the objects
+    are shared by a shear $(0.0, 0.1)$ {\em after} the PSF convolution.
+    Contours are the same as panel (a).  In this case the inner contours for
+    the two objects overlap before and after application of the shear.  This is
+    a general property of the shear transformation in the weak regime.   In
+    panel (c) the shear is applied {\em before} the PSF convolution, which
+    mimics real sky images.  In this case the inner contours do not overlap
+    after shearing.  For case (c) a detection algorithm that identified
+    connected regions above some threshold as a single object would manifest a
+    shear-dependent detection bias.  \label{fig:toy} }
 
 \end{figure*}
 
 Any shear-dependent measurement effects can in principle be taken into account
-with the \mcal\ formalism.  The implementations presented in
+within the \mcal\ formalism.  The implementations presented in
 \cite{HuffMcal2017} and \cite{SheldonMcal2017} work by applying artificial
 shears to small postage stamp images associated with previous detections.  As
 we will demonstrate, detection effects can also be incorporated by instead
 shearing larger images and re-running the detection phase on each of the
 sheared images. There are number of technical challenges associated with this
-extension of the algorithm, which we will address in turn.
+extension of the method, which we will address in turn.
 
 The paper is laid out as follows.... blah blah.
 
