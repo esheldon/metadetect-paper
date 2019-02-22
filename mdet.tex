@@ -148,7 +148,7 @@ differing in complexity and efficiency.  Thus we would expect their detection
 to also manifest shear dependence.
 
 \ess{I also showed that a simple peak
-finder is biased, probably should dig that up}.
+finder is biased, probably should dig that up}
 
 Any shear-dependent measurement effects can in principle be taken into account
 within the \mcal\ formalism.  However, the implementations presented in
@@ -183,6 +183,38 @@ blah
 
 
 \subsection{Galaxy Pairs}
+
+We will first show tests with two simulated galaxies at various separations,
+similar to the case shown in figure \ref{fig:toy}.  The galaxies were each a
+combination of a bulge component, modeled as a De Vaucouleurs' profile
+\citep{devauc1948} and disk component modeled as an exponential.
+
+The fraction of light in the bulge was random and ranged uniformly between 0.0
+and 1.0. The disk ellipticity was drawn from the distribution presented in
+\cite{ba14}, equation 24, with ellipticity variance set to 0.20, with a random
+orientation.  The bulge was given the same orientation as the disk but with
+ellipticity set to the disk ellipticity times a random number drawn uniformly
+between 0.0 and 0.5.  The half light radius of the disk
+$r_{50}^{\mathrm{disk}}$ was set to a uniform random draw between 0.4 and 0.6
+arcsec; that of the bulge was a random draw between $0.4
+r_{50}^{\mathrm{disk}}$ and $0.6 r_{50}^{\mathrm{disk}}$.  The bulge was
+shifted from the center of the disk within a radius
+0.05$r_{50}^{\mathrm{disk}}$ and in a random direction.
+
+The light of the disk was divided between a smooth component and a set of
+simulated ``knots of star formation'', represented by point sources placed
+randomly with the same exponential distribution as the disk.  Between 1 and 50
+knots were placed, such that the fraction light in the knots ranged between
+0.4\% and 20\%.
+
+The total flux and noise were set such that the signal-to-noise ratio ranged
+uniformly between 20 and 30.
+
+Two of these randomly generated galaxies were placed in an image, with
+separation ranging from 1.0 and 4.0 arcsec. The pair were placed such that the
+mid-point between them corresponded to the center of the image, and the line
+between the pair had a random random orientation relative to the coordinate
+axes.  Each object was given an additional random dither within a pixel.
 
 \subsection{Simulations with Representative Galaxy Density and Noise}
 
