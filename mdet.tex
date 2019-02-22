@@ -182,7 +182,7 @@ blah
 \end{figure*}
 
 
-\subsection{Galaxy Pairs}
+\subsection{Galaxy Pairs} \label{sec:pairs}
 
 We will first show tests with two simulated galaxies at various separations,
 similar to the case shown in figure \ref{fig:toy}.  The galaxies were each a
@@ -208,13 +208,31 @@ knots were placed, such that the fraction light in the knots ranged between
 0.4\% and 20\%.
 
 The total flux and noise were set such that the signal-to-noise ratio ranged
-uniformly between 20 and 30.
+uniformly between 25 and 35.
 
 Two of these randomly generated galaxies were placed in an image, with
 separation ranging from 1.0 and 4.0 arcsec. The pair were placed such that the
 mid-point between them corresponded to the center of the image, and the line
 between the pair had a random random orientation relative to the coordinate
 axes.  Each object was given an additional random dither within a pixel.
+
+All images were generated using the \texttt{GALSIM} software package
+\citep{GALSIM2015}, with pixel scale of 0.263 arcseconds.
+
+Example images are shown in figure \ref{fig:pairs}
+
+\begin{figure*}
+    \includegraphics[width=\textwidth]{figures/bdk-comb.png}
+
+    \caption{ Example images of simulated galaxies used for
+    the pair tests presented in section \ref{sec:pairs} 
+    \label{fig:pairs}.  From left to right in the top row, the
+    separations are 1.0, 1.5, 2.0. From left to right in
+    the bottom row the separations are 3.0 and 4.0 arscec. The
+    pixel scale is 0.263 arcsec.}
+
+\end{figure*}
+
 
 \subsection{Simulations with Representative Galaxy Density and Noise}
 
