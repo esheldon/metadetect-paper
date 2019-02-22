@@ -173,15 +173,6 @@ blah
 
 \section{Simulations}
 
-\begin{figure*}
-    \includegraphics[width=0.9\columnwidth]{figures/des-rgb-000000-crop.png}
-    \includegraphics[width=0.9\columnwidth]{figures/lsst-rgb-000003-crop.png}
-
-    \caption{Example images from the DES (left) and LSST (right) simulations.  \label{fig:simimages} }
-
-\end{figure*}
-
-
 \subsection{Galaxy Pairs} \label{sec:pairs}
 
 We will first show tests with two simulated galaxies at various separations,
@@ -215,6 +206,8 @@ separation ranging from 1.0 and 4.0 arcsec. The pair were placed such that the
 mid-point between them corresponded to the center of the image, and the line
 between the pair had a random random orientation relative to the coordinate
 axes.  Each object was given an additional random dither within a pixel.
+The galaxies were treated as totally transparent, such that the value in
+a pixel was equal to the total sum from both galaxies plus noise.
 
 All images were generated using the \texttt{GALSIM} software package
 \citep{GALSIM2015}, with pixel scale of 0.263 arcseconds.
@@ -235,6 +228,16 @@ Example images are shown in figure \ref{fig:pairs}
 
 \subsection{Simulations with Representative Galaxy Density and Noise}
 
+\begin{figure*}
+    \includegraphics[width=0.9\columnwidth]{figures/des-rgb-000000-crop.png}
+    \includegraphics[width=0.9\columnwidth]{figures/lsst-rgb-000003-crop.png}
+
+    \caption{Example images from the DES (left) and LSST (right) simulations.  \label{fig:simimages} }
+
+\end{figure*}
+
+
+
 \section{Shear-dependent Detection Biases}
 
 \subsection{Bias in Simulations of Galaxy Pairs}
@@ -242,19 +245,23 @@ Example images are shown in figure \ref{fig:pairs}
 \begin{figure}
     \includegraphics[width=\columnwidth]{figures/pairs-mc-bdkpair.pdf}
 
-    \caption{ Multiplicative bias for pairs of galaxies (see \S \ref
-    {sec:pairs} for details) at various separations.  At 4.0 arcsec separation,
-    two objects were detected in all cases.  At 1.5 arcseconds two objects were
-    detected in half the cases.  At 1.0 arcsec a single object was detected in
-    all cases.  Red triangles represent standard \mcal\ with MOF deblending.
-    Blue circles represent \mcal+MOF with detection included as part of the
-    process.  Green pluses represent \mcal\ with detection included but without
-    deblending, and using simple weighted moments without PSF correction. Very
-    large biases are seen for standard \mcal+MOF when detection becomes
-    uncertain, for example at 1.5 arcsec separations.  By including detection
-    in the process the biases are greatly reduced.  The bias is reduced
-    even in the case where no deblending was performed, indicating the bias
-    is due to shear-dependent detection, not light blending.
+    \caption{ Mean multiplicative shear bias measured for pairs of simulated
+    galaxies (see \S \ref {sec:pairs} for details) at various separations.  At
+    each separation, a large number of trials was generated with random
+    orientations of the pair.  At 4.0 arcsec separation, two objects were
+    detected in all cases.  At 1.5 arcseconds two objects were detected in half
+    the cases.  At 1.0 arcsec a single object was detected in all cases.  Red
+    triangles represent standard \mcal\ with MOF deblending for modeling all
+    detected objects.  Blue circles represent \mcal+MOF with detection included
+    as part of the process.  Green pluses represent \mcal\ with detection
+    included but without deblending, and using simple weighted moments without
+    PSF correction as the shear estimator. Very large biases are seen for
+    standard \mcal+MOF when detection becomes uncertain, for example at 1.5
+    arcsec separations.  When detection is included in the \mcal\ process the
+    biases are greatly reduced.  The bias is reduced even in the case where no
+    deblending was performed and no PSF correction or detailed object modeling
+    were performed.  This indicates the bias is due to shear-dependent
+    detection, not light blending or details of the object modeling.
     \label{fig:pairbias}}
 
 \end{figure}
