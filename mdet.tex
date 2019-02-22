@@ -224,12 +224,11 @@ Example images are shown in figure \ref{fig:pairs}
 \begin{figure*}
     \includegraphics[width=\textwidth]{figures/bdk-comb.png}
 
-    \caption{ Example images of simulated galaxies used for
-    the pair tests presented in section \ref{sec:pairs} 
-    \label{fig:pairs}.  From left to right in the top row, the
-    separations are 1.0, 1.5, 2.0. From left to right in
-    the bottom row the separations are 3.0 and 4.0 arscec. The
-    pixel scale is 0.263 arcsec.}
+    \caption{ Example images of simulated galaxies used for the pair tests
+    presented in section \ref{sec:pairs}.  From left to right in the top row,
+    the separations are 1.0, 1.5, 2.0. From left to right in the bottom row the
+    separations are 3.0 and 4.0 arscec. The pixel scale is 0.263 arcsec.
+    \label{fig:pairs} }
 
 \end{figure*}
 
@@ -242,6 +241,21 @@ Example images are shown in figure \ref{fig:pairs}
 
 \begin{figure}
     \includegraphics[width=\columnwidth]{figures/pairs-mc-bdkpair.pdf}
+
+    \caption{ Multiplicative bias for pairs of galaxies (see \S \ref
+    {sec:pairs} for details) at various separations.  At 4.0 arcsec separation,
+    two objects were detected in all cases.  At 1.5 arcseconds two objects were
+    detected in half the cases.  At 1.0 arcsec a single object was detected in
+    all cases.  Red triangles represent standard \mcal\ with MOF deblending.
+    Blue circles represent \mcal+MOF with detection included as part of the
+    process.  Green pluses represent \mcal\ with detection included but without
+    deblending, and using simple weighted moments without PSF correction. Very
+    large biases are seen for standard \mcal+MOF when detection becomes
+    uncertain, for example at 1.5 arcsec separations.  By including detection
+    in the process the biases are greatly reduced.  The bias is reduced
+    even in the case where no deblending was performed, indicating the bias
+    is due to shear-dependent detection, not light blending.
+    \label{fig:pairbias}}
 
 \end{figure}
 Erin's pair tests
