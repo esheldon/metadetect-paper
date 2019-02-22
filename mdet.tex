@@ -99,24 +99,28 @@ work we test \mcal\ in the presence of blending, and demonstrate that there is
 a bias associated with shear-dependent detection.  We introduce an improvement
 to the method that naturally accounts for this shear-dependent detection bias.
 
-Proper accounting for blending is crucial for obtaining accurate redshifts
-distributions, which are required to interpret the lensing signal (XXX good
-citation)?  From a pure shear measurement point of view, blending will also
-produce biased ellipticity measurements, and increase the variance of the
-measured ellipticities \citep{DawsonBlending2016}.
+%Proper accounting for blending is crucial for obtaining accurate redshifts
+%distributions, which are required to interpret the lensing signal (XXX good
+%citation)?  
 
-A method such as \mcal\ can accurately calibrate ellipticity biases associated
-with blending.  More problematic for shear calibration is the dependence of the
-detection on shear.  Because the shear transformation is a simple mapping in
-the weak shear regime, and the mapping preserves surface brightness
-\citep{SchneiderBook92}, detection need not be shear dependent.  For example, a
-detection algorithm that simply identifies connected regions above a
+Weak lensing measurements typically involve measurement of some kind of
+ellipticity or second moments of a galaxy light profile.  Blending will produce
+biases and increased variance in these measurements \citep{DawsonBlending2016}.
+
+A method such as \mcal\ can in principle calibrate any measurement biases, even
+those associated with blending.  More problematic for shear calibration is the
+dependence of the object detection on shear.  Because the shear transformation
+is a simple mapping in the weak shear regime, and the mapping preserves surface
+brightness \citep{SchneiderBook92}, detection need not be shear dependent.  For
+example, a detection algorithm that simply identifies connected regions above a
 threshold as a single object will not in principle be shear dependent. However,
-if the image is smeared by a point-spread-function (PSF), due to the atmosphere
-and detector, the overlap of objects does depend on shear, because the PSF
-convolution occurs after the shear mapping.  This effect is demonstrated in
-figure \ref{fig:toy}.  In that case the simple threshold detection method
-mentioned above will manifest a shear-dependent detection bias.
+in real observations the image is smeared by a point-spread-function (PSF) due
+to the atmosphere, telescope optics or detector. In this case the overlap of
+objects does depend on shear because the PSF convolution occurs after the shear
+mapping.  This effect is demonstrated in figure \ref{fig:toy}.  In this case
+the simple threshold detection method mentioned above will manifest a
+shear-dependent detection bias.
+
 
 \begin{figure*}
     %\includegraphics[width=\textwidth]{figures/toy.pdf}
@@ -143,14 +147,22 @@ are based on thesholding, similar to the simple approach described above but
 differing in complexity and efficiency.  Thus we would expect their detection
 to also manifest shear dependence.
 
+\ess{I also showed that a simple peak
+finder is biased, probably should dig that up}.
+
 Any shear-dependent measurement effects can in principle be taken into account
-within the \mcal\ formalism.  The implementations presented in
+within the \mcal\ formalism.  However, the implementations presented in
 \cite{HuffMcal2017} and \cite{SheldonMcal2017} work by applying artificial
-shears to small postage stamp images associated with previous detections.  As
-we will demonstrate, detection effects can also be incorporated by instead
-shearing larger images and re-running the detection phase on each of the
-sheared images. There are number of technical challenges associated with this
-\mcal\ implementation, which we will address in turn.
+shears to small postage stamp images for objects found in an {\em independent}
+detection step.  Corrections for selection effects were derived in
+\cite{SheldonMcal2017}, but those do not work near the detection threshold if
+detection is not included as part of the \mcal\ process.  As we will
+demonstrate, detection effects can incorporated naturally by shearing larger
+images, rather than small postage stamps, and re-running the detection phase on
+each of the sheared images, in addition to ellipticity measurements. In this
+process, shear measurement errors, selection effects and detection effects
+are all accounted for.  There are number of technical challenges associated
+with this \mcal\ implementation, which we will address in turn.
 
 The paper is laid out as follows.... blah blah.
 
