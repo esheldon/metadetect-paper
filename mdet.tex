@@ -420,7 +420,8 @@ Using this model, we seed equal amounts of E- and B-mode power on a grid of
 $128\times128$ cells using random phases. Each cell of the grid is one
 arcsec in size. We normalize the overall shape variance to $0.05^2$. We then use
 the $g1$ and $g2$ components of this model to set the shape of the PSF at each
-location. We model the PSF profile as a Moffat with shape parameter $\beta=2.5$.
+location. Note that we also bound the total ellipticity to at most 0.5.
+We model the PSF profile as a Moffat with shape parameter $\beta=2.5$.
 The size of the Moffat profile is set to be proportional to $\mu^{-3/4}$,
 where $\mu$ is the magnification computer from the power spectra realization. The
 proportionality constant is drawn randomly from a log-normal model with
