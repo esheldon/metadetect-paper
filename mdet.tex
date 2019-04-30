@@ -54,6 +54,8 @@
 \newcommand{\gest}{\mbox{\boldmath $\hat \gamma$}}
 \newcommand{\vecgam}{\mbox{\boldmath $\gamma$}}
 
+\newcommand{\sx}{\textsc{SExtractor}}
+
 \newcommand{\bfd}{\textsc{BFD}}
 
 \newcommand{\vonkarman}{{von K\'arm\'an}~}
@@ -175,6 +177,10 @@ The paper is laid out as follows.... blah blah.
 
 blah
 
+\section{MOF Deblending}
+
+blah
+
 \section{Simulations}
 
 \subsection{Galaxy Pairs} \label{sec:pairs}
@@ -246,6 +252,24 @@ Example images are shown in figure \ref{fig:pairs}
 
 \subsection{Bias in Simulations of Galaxy Pairs}
 
+We tested \mcal\ with MOF deblending using the galaxy pair simulation presented
+in \S \ref{sec:pairs}.  Detection was performed using \sx, with settings
+matching those used for DES year 5 survey reductions (XXX ref).  We got similar
+results using a simple local peak finder for detection.
+
+The multiplicative bias $m$ is shown in figure \ref{fig:pairbias} as a function
+of the pair distance.  For a large separation of 4 arcsec, two objects are
+detected in essentially all cases and no significant bias is seen.  For smaller
+separations, the two objects overlap more significantly and the detection
+becomes more ambiguous, with only one object detected in some cases.  The bias
+grows as the separation decreases, with the maximum bias occurring at about 1.5
+arcsec separation.  At 1.5 arcsec separation the detection is most ambiguous,
+with two objects detected in half the cases.  For smaller separations the
+objects overlap more and detection becomes less ambiguous, with one object
+detected in more than half of the cases.  At separations of 1 arcsec, the two
+objects are detected as one essentially in every case, and again no significant
+bias is detected.
+
 \begin{figure}
     \includegraphics[width=\columnwidth]{figures/pairs-mc-bdkpair.pdf}
 
@@ -260,7 +284,7 @@ Example images are shown in figure \ref{fig:pairs}
     as part of the process.  Green pluses represent \mcal\ with detection
     included but without deblending, and using simple weighted moments without
     PSF correction as the shear estimator. Very large biases are seen for
-    standard \mcal+MOF when detection becomes uncertain, for example at 1.5
+    standard \mcal+MOF as detection becomes ambiguous, for example at 1.5
     arcsec separations.  When detection is included in the \mcal\ process the
     biases are greatly reduced.  The bias is reduced even in the case where no
     deblending was performed and no PSF correction or detailed object modeling
@@ -269,7 +293,11 @@ Example images are shown in figure \ref{fig:pairs}
     \label{fig:pairbias}}
 
 \end{figure}
-Erin's pair tests
+
+The correspondence between detection ambiguity and shear bias is a hint that
+the bias is caused by shear-dependent detection.  As we will show in \S
+\ref{sec:mdetpairs}, we can correct this bias by including detection in the
+\mcal\ process, even if no explicit deblending is performed.
 
 \subsection{Bias in Simulations with Representative Galaxy Density and Noise}
 
@@ -308,7 +336,7 @@ Erin's tests with WeakLensingDeblending and Matt's tests
 \section{Mitigating Shear-dependent Detection Biases with \textsc{METACALIBRATION}}
 blah
 
-\subsection{Results for Simulated Galaxy Pairs}
+\subsection{Results for Simulated Galaxy Pairs} \label{sec:mdetpairs}
 
 Erin's results with pairs.  Discuss results in the figure.
 
