@@ -20,7 +20,8 @@
 \newcommand\notewrite[1]{\todo[color=orange, inline, size=\small]{To write: #1}}
 \newcommand\noteask[1]{\todo[color=cyan, inline, size=\small]{To ask: #1}}
 \newcommand\notecontrib[1]{\todo[color=green, inline, size=\small]{Contributors: #1}}
-\newcommand\ess[1]{\todo[color=yellow, inline, size=\small]{Erin: #1}}
+\newcommand\esstodo[1]{\todo[color=yellow, inline, size=\small]{ESS: #1}}
+\newcommand{\ess}[1]{\textcolor{red}{[ESS: \bf #1]}}
 \newcommand{\mrb}[1]{\textcolor{purple}{[MRB: \bf #1]}}
 
 
@@ -149,12 +150,9 @@ shear-dependent detection bias.
 
 Common detection schemes in use today, such at those in Source Extractor
 \citep{Bertin96} and the HST/LSST pipelines \citep{BoschHSC2018,BoschLSST2018}
-are based on thesholding, similar to the simple approach described above but
-differing in complexity and efficiency.  Thus we would expect their detection
-to also manifest shear dependence.
-
-\ess{I also showed that a simple peak
-finder is biased, probably should dig that up}
+are based on thresholding, similar to the simple approach described above but
+differing in complexity and efficiency.  Thus we would expect detections
+produced by those codes to also manifest shear dependence.
 
 Any shear-dependent measurement effects can in principle be taken into account
 within the \mcal\ formalism.  However, the implementations presented in
@@ -165,10 +163,10 @@ detection step.  Corrections for selection effects were derived in
 detection is not included as part of the \mcal\ process.  As we will
 demonstrate, detection effects can incorporated naturally by shearing larger
 images, rather than small postage stamps, and re-running the detection phase on
-each of the sheared images, in addition to ellipticity measurements. In this
-process, shear measurement errors, selection effects and detection effects
-are all accounted for.  There are number of technical challenges associated
-with this \mcal\ implementation, which we will address in turn.
+each of the sheared images. In this process, shear measurement errors,
+selection effects and detection effects are all accounted for.  There are
+number of technical challenges associated with this \mcal\ implementation,
+which we will address in turn.
 
 The paper is laid out as follows.... blah blah.
 
@@ -254,7 +252,7 @@ Example images are shown in figure \ref{fig:pairs}
 
 We tested \mcal\ with MOF deblending using the galaxy pair simulation presented
 in \S \ref{sec:pairs}.  Detection was performed using \sx, with settings
-matching those used for DES year 5 survey reductions (XXX ref).  We got similar
+matching those used for DES year 5 survey reductions \ess{ref}.  We got similar
 results using a simple local peak finder for detection.
 
 The multiplicative bias $m$ is shown in figure \ref{fig:pairbias} as a function
@@ -325,7 +323,7 @@ Erin's tests with WeakLensingDeblending and Matt's tests
     \caption{
             Bias for standard \mcal\ with MOF deblending in simulations with
             realistic galaxy size, flux and noise.  In all cases a cut of
-            $T/T_{PSF} > 0.5$ was also applied.  \ess{numbers are placeholders,
+            $T/T_{PSF} > 0.5$ was also applied.  \esstodo{numbers are placeholders,
             need to run regular MOF+metacal on descwl sims}
             \label{tab:mcal:deblending}
     }
@@ -387,7 +385,7 @@ psf variation or masking
         simulations have no PSF variation or masking.  No
         deblending was performed, and simple weighted moments were used
         without PSF correction.  In all cases a cut of $T/T_{PSF} > 0.5$ was
-        also applied.  \ess{LSST needs to be redone with better
+        also applied.  \esstodo{LSST needs to be redone with better
         psf handling.  } \label{tab:mdet:constpsf}
     }
 
@@ -424,7 +422,7 @@ section \ref{sec:res:constpsf}
 
     \caption{
         Same as table \ref{tab:mdet:constpsf} but with realistic masking and
-        spatial PSF variation.  \ess{numbers are placeholders} \label{tab:mdet:varpsf}
+        spatial PSF variation.  \esstodo{numbers are placeholders} \label{tab:mdet:varpsf}
     }
 
 \end{table}
@@ -460,7 +458,7 @@ We further add an additional Gaussian truncation of the power
 \end{displaymath}
 at a scale of $r=1$ arcsec in order to reduce the level of resulting
 PSF variation.
-\ess{How do we justify that?   Based on exposure time?}
+\esstodo{How do we justify that?   Based on exposure time?}
 
 Using this model, we seed equal amounts of E- and B-mode power on a grid of
 $128\times128$ cells using random phases. Each cell of the grid is one
@@ -489,7 +487,7 @@ DECam
 observations\footnote{\url{https://github.com/GalSim-developers/GalSim/blob/releases/2.1/examples/great3/cgc.yaml}}.
 Finally, we note that simulations of metadetection with this PSF model show
 $\approx-0.8\%$ multiplicative biases.
-\ess{What 0.8\% for LSST depth?  Are you using smaller variations for
+\esstodo{What 0.8\% for LSST depth?  Are you using smaller variations for
 the LSST sims to show we are ok for LSST?}
 
 \begin{figure*}
