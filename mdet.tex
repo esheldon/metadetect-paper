@@ -130,21 +130,21 @@ shear-dependent detection bias.
 
 
 \begin{figure*}
-    %\includegraphics[width=\textwidth]{figures/toy.pdf}
-    \includegraphics[width=\textwidth]{figures/toy.png}
+  %\includegraphics[width=\textwidth]{figures/toy.pdf}
+  \includegraphics[width=\textwidth]{figures/toy.png}
 
-    \caption{ Toy example of shear-dependent detection in the presence of a
-    PSF.  In panel (a) two objects are present, convolved by a PSF with no
-    shear.  Contours represent constant brightness.  In panel (b) the objects
-    are sheared by $\gamma = (0.0, 0.1)$ {\em after} the PSF convolution.  Contours are
-    the same as panel (a).  In this case the inner contours for the two objects
-    overlap before and after application of the shear.  This is a general
-    property of the shear transformation in the weak regime.   In panel (c) the
-    shear is applied {\em before} the PSF convolution, which mimics real sky
-    images.  In this case the inner contours do not overlap after shearing.
-    For case (c) a detection algorithm that identified connected regions above
-    a threshold as a single object would manifest a shear-dependent detection
-    bias.  \label{fig:toy} }
+  \caption{ Toy example of shear-dependent detection in the presence of a
+  PSF.  In panel (a) two objects are present, convolved by a PSF with no
+  shear.  Contours represent constant brightness.  In panel (b) the objects
+  are sheared by $\gamma = (0.0, 0.1)$ {\em after} the PSF convolution.
+  Contours are the same as panel (a).  In this case the inner contours for
+  the two objects overlap before and after application of the shear.  This is
+  a general property of the shear transformation in the weak regime. In panel
+  (c) the shear is applied {\em before} the PSF convolution, which mimics real
+  sky images. In this case the inner contours do not overlap after shearing.
+  For case (c) a detection algorithm that identified connected regions above
+  a threshold as a single object would manifest a shear-dependent detection
+  bias.  \label{fig:toy} }
 
 \end{figure*}
 
@@ -238,10 +238,9 @@ Example images are shown in figure \ref{fig:pairs}
     \includegraphics[width=0.9\columnwidth]{figures/des-rgb-000000-crop.png}
     \includegraphics[width=0.9\columnwidth]{figures/lsst-rgb-000003-crop.png}
 
-    \caption{Example images from the DES (left) and LSST (right) simulations.  \label{fig:simimages} }
-
+    \caption{Example images from the DES (left) and LSST (right) simulations.
+    \label{fig:simimages}}
 \end{figure*}
-
 
 
 \section{Shear-dependent Detection Biases}
@@ -269,7 +268,7 @@ bias is detected.
 \begin{figure}
     \includegraphics[width=\columnwidth]{figures/pairs-mc-bdkpair.pdf}
 
-    \caption{ Mean multiplicative shear bias measured for pairs of simulated
+    \caption{Mean multiplicative shear bias measured for pairs of simulated
     galaxies (see \S \ref {sec:pairs} for details) at various separations.  At
     each separation, a large number of trials was generated with random
     orientations of the pair.  At 4.0 arcsec separation, two objects were
@@ -284,8 +283,9 @@ bias is detected.
     arcsec separations.  When detection is included in the \mcal\ process the
     biases are greatly reduced.  The bias is reduced even in the case where no
     deblending was performed and no PSF correction or detailed object modeling
-    were performed.  This indicates the bias is due to shear-dependent
-    detection, not light blending or details of the object modeling.
+    were performed.  This indicates the large majority bias is due to
+    shear-dependent detection, not light blending or details of the object
+    modeling.
     \label{fig:pairbias}}
 
 \end{figure}
@@ -300,31 +300,28 @@ the bias is caused by shear-dependent detection.  As we will show in \S
 Erin's tests with WeakLensingDeblending and Matt's tests
 
 \begin{table}
-    \centering
-    \begin{tabular}{|l|l|c|c|}
-        \hline
-        Sim & Method         & \snr\ Cut & m             \\
-        \hline
-        \hline
-        DES & MOF+metacal    & \snr$ > 10$ & $-0.016 \pm 0.003$  \\
-        DES & MOF+metacal    & \snr$ > 15$ & $-0.038 \pm 0.003$  \\
-        DES & MOF+metacal    & \snr$ > 20$ & $-0.053 \pm 0.003$  \\
-        \hline
-        LSST  & MOF+metacal    & \snr$ > 10$ & $-0.131 \pm 0.005$  \\
-        LSST  & MOF+metacal    & \snr$ > 15$ & $-0.124 \pm 0.005$  \\
-        LSST  & MOF+metacal    & \snr$ > 20$ & $-0.149 \pm 0.005$  \\
-        \hline
+  \centering
+  \begin{tabular}{|l|l|c|c|}
+    \hline
+    Sim & Method         & \snr\ Cut & m             \\
+    \hline
+    \hline
+    DES & MOF+metacal    & \snr$ > 10$ & $-0.063 \pm 0.001$  \\
+    DES & MOF+metacal    & \snr$ > 15$ & $-0.050 \pm 0.001$  \\
+    DES & MOF+metacal    & \snr$ > 20$ & $-0.041 \pm 0.001$  \\
+    \hline
+    LSST  & MOF+metacal    & \snr$ > 10$ & $-0.086 \pm 0.005$  \\
+    LSST  & MOF+metacal    & \snr$ > 15$ & $-0.073 \pm 0.004$  \\
+    LSST  & MOF+metacal    & \snr$ > 20$ & $-0.059 \pm 0.004$  \\
+    \hline
+  \end{tabular}
 
-
-    \end{tabular}
-
-    \caption{
-            Bias for standard \mcal\ with MOF deblending in simulations with
-            realistic galaxy size, flux and noise.  In all cases a cut of
-            $T/T_{PSF} > 0.5$ was also applied.  \esstodo{numbers are placeholders,
-            need to run regular MOF+metacal on descwl sims}
-            \label{tab:mcal:deblending}
-    }
+  \caption{
+    Bias for standard \mcal\ with MOF deblending in simulations with
+    realistic galaxy size, flux and noise.  In all cases a cut of
+    $T/T_{PSF} > 0.5$ was also applied.
+    \label{tab:mcal:deblending}
+  }
 
 \end{table}
 
@@ -356,36 +353,30 @@ location of maximum detection ambiguity.
 \subsection{Results for Simulations with Representative Galaxy Density and Noise}
 \label{sec:res:constpsf}
 
-Erin's results with WeakLensingDeblending and Matt's tests without
-psf variation or masking
-
 \begin{table}
-    \centering
-    \begin{tabular}{|l|l|c|c|}
-        \hline
-        Sim & Method         & \snr\ Cut & m             \\
-        \hline
-        \hline
-        DES & \mdet+moments & \snr$ > 10$ & $-0.0010 \pm 0.0013$  \\
-        DES & \mdet+moments & \snr$ > 15$ & $+0.0000 \pm 0.0013$  \\
-        DES & \mdet+moments & \snr$ > 20$ & $+0.0002 \pm 0.0013$  \\
-        \hline
-        LSST  & \mdet+moments & \snr$ > 10$ & $-0.0027 \pm 0.0011$  \\
-        LSST  & \mdet+moments & \snr$ > 15$ & $-0.0018 \pm 0.0011$  \\
-        LSST  & \mdet+moments & \snr$ > 20$ & $+0.0001 \pm 0.0011$  \\
-        \hline
+  \centering
+  \begin{tabular}{|l|l|c|c|}
+    \hline
+    Sim & Method         & \snr\ Cut & m             \\
+    \hline
+    \hline
+    DES & \mdet+moments & \snr$ > 10$ & $-0.0010 \pm 0.0013$  \\
+    DES & \mdet+moments & \snr$ > 15$ & $+0.0000 \pm 0.0013$  \\
+    DES & \mdet+moments & \snr$ > 20$ & $+0.0002 \pm 0.0013$  \\
+    \hline
+    LSST  & \mdet+moments & \snr$ > 10$ & $-0.0027 \pm 0.0011$  \\
+    LSST  & \mdet+moments & \snr$ > 15$ & $-0.0018 \pm 0.0011$  \\
+    LSST  & \mdet+moments & \snr$ > 20$ & $+0.0001 \pm 0.0011$  \\
+    \hline
+  \end{tabular}
 
-
-    \end{tabular}
-
-    \caption{
-        Bias for \mcal, including detection in the process (a.k.a. \mdet).  These
-        simulations have no PSF variation or masking.  No
-        deblending was performed, and simple weighted moments were used
-        without PSF correction.  In all cases a cut of $T/T_{PSF} > 0.5$ was
-        also applied.  \esstodo{LSST needs to be redone with better
-        psf handling.  } \label{tab:mdet:constpsf}
-    }
+  \caption{
+    Bias for \mcal, including detection in the process (a.k.a. \mdet). These
+    simulations have no PSF variation or masking.  No deblending was performed,
+    and simple weighted moments were used without PSF correction.
+    In all cases a cut of $T/T_{PSF} > 1.2$ was also applied.
+    \label{tab:mdet:constpsf}
+  }
 
 \end{table}
 
