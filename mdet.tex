@@ -48,6 +48,7 @@
 \newcommand{\mdet}{\textsc{metadetection}}
 \newcommand{\Mcalshort}{\textsc{metacal}}
 \newcommand{\Mcal}{\textsc{Metacalibration}}
+\newcommand{\Mdet}{\textsc{Metadetection}}
 \newcommand{\vest}{\mbox{\boldmath $e$}}
 \newcommand{\est}{e}
 \newcommand{\mcalR}{\mbox{\boldmath $R$}}
@@ -61,12 +62,12 @@
 
 \newcommand{\vonkarman}{{von K\'arm\'an}~}
 
-\title[Metadetection]{Mitigating Shear-dependent Detection Biases with \Mcal}
+\title[\Mdet]{\Mdet: Mitigating Shear-dependent Detection Biases with \Mcal}
 
 \author[Sheldon et~al.]{Erin Sheldon$^1$, Matthew R. Becker$^2$,
 Niall MacCrann$^{3,4}$, Michael Jarvis$^5$
   \\$^1$Brookhaven National Laboratory, Bldg. 510, Upton, NY 11973, USA
-  \\$^2$High Energy Physics Division, Argonne National Laboratory , Lemont, IL 60439, USA
+  \\$^2$High Energy Physics Division, Argonne National Laboratory, Lemont, IL 60439, USA
   \\$^3$Center for Cosmology and Astro-Particle Physics, The Ohio State University, Columbus, OH 43210, USA
   \\$^4$Department of Physics, The Ohio State University, Columbus, OH 43210, USA
   \\$^5$Department of Physics and Astronomy, University of Pennsylvania, Philadelphia, PA 19104, USA
@@ -83,11 +84,11 @@ is unbiased for isolated galaxy images.  In this work we test the \mcal\ method
 with overlapping, or ``blended'' galaxy images.  Using standard \mcal\ we find
 a significant shear calibration bias when objects overlap. This bias is a few
 percent for galaxy densities relevant for current surveys, and increases to
-tens of percent for future surveys.  This bias is due to shear-dependent
+nearly ten percent for future surveys.  This bias is due to shear-dependent
 detection rather than blending itself; if detection is shear independent, no
 de-blending of images is needed, in principle.  We demonstrate that
 shear-dependent detection biases are accurately removed when including
-detection in the \mcal\ process.
+detection in the \mcal\ process, a technique we call \mdet.
 
 \end{abstract}
 
@@ -103,30 +104,22 @@ simulations, and without any compromise of precision, are the \bfd\ method
 The tests of these methods, while stringent, did not include an important
 aspect of the real universe: the images of objects overlap on the sky. In this
 work we test \mcal\ in the presence of blending, and demonstrate that there is
-a bias associated with shear-dependent detection.  We introduce an improvement
+a bias associated with shear-dependent detection. We introduce an improvement
 to the method that naturally accounts for this shear-dependent detection bias.
 
-%Proper accounting for blending is crucial for obtaining accurate redshifts
-%distributions, which are required to interpret the lensing signal (XXX good
-%citation)?
-
-Weak lensing measurements typically involve measurement of some kind of
-ellipticity or second moments of a galaxy light profile.  Blending will produce
-biases and increased variance in these measurements \citep{DawsonBlending2016}.
-
 A method such as \mcal\ can in principle calibrate any measurement biases, even
-those associated with blending.  More problematic for shear calibration is the
-dependence of the object detection on shear.  Because the shear transformation
-is a simple mapping in the weak shear regime, and the mapping preserves surface
-brightness \citep{SchneiderBook92}, detection need not be shear dependent.  For
-example, a detection algorithm that simply identifies connected regions above a
-threshold as a single object will not in principle be shear dependent. However,
-in real observations the image is smeared by a point-spread-function (PSF) due
-to the atmosphere, telescope optics or detector. In this case the overlap of
-objects does depend on shear because the PSF convolution occurs after the shear
-mapping.  This effect is demonstrated in figure \ref{fig:toy}.  In this case
-the simple threshold detection method mentioned above will manifest a
-shear-dependent detection bias.
+those associated with blending \citep[e.g.,][]{DawsonBlending2016}. More problematic for
+shear calibration is the dependence of the object detection on shear. In the
+weak shear regime, the lensing mapping is simple shear transformation that
+preserves surface brightness \citep{SchneiderBook92}. For such a simple mapping, detection need not
+be shear dependent. For example, a detection algorithm that simply identifies
+connected regions above a threshold as a single object will not in principle be
+shear dependent. However, in real observations the image is smeared by a
+point-spread-function (PSF) due to the atmosphere, telescope optics or detector.
+In this case the overlap of objects does depend on shear because the PSF
+convolution occurs after the shear mapping. In this case the simple threshold
+detection method mentioned above will manifest a shear-dependent detection bias.
+This effect is demonstrated in figure \ref{fig:toy}.
 
 
 \begin{figure*}
@@ -151,88 +144,159 @@ shear-dependent detection bias.
 Common detection schemes in use today, such at those in Source Extractor
 \citep{Bertin96} and the HST/LSST pipelines \citep{BoschHSC2018,BoschLSST2018}
 are based on thresholding, similar to the simple approach described above but
-differing in complexity and efficiency.  Thus we would expect detections
-produced by those codes to also manifest shear dependence.
+differing in complexity and efficiency. Thus we would expect detections
+produced by those codes to also manifest shear dependence. An open question,
+which we will not address in this work, is whether or not one can derive a
+detection algorithm which is independent of the shear applied to the image
+in the presence of PSF and detector distortions. Such an algorithm would
+in principle eliminate the shear-dependent detection biases explored in this
+work.
 
-Any shear-dependent measurement effects can in principle be taken into account
-within the \mcal\ formalism.  However, the implementations presented in
-\cite{HuffMcal2017} and \cite{SheldonMcal2017} work by applying artificial
-shears to small postage stamp images for objects found in an {\em independent}
-detection step.  Corrections for selection effects were derived in
-\cite{SheldonMcal2017}, but those do not work near the detection threshold if
-detection is not included as part of the \mcal\ process.  As we will
-demonstrate, detection effects can incorporated naturally by shearing larger
-images, rather than small postage stamps, and re-running the detection phase on
+Current implementations of \mcal\ \citep[e.g.,][]{HuffMcal2017,SheldonMcal2017},
+when used with the common detection schemes discussed above, are expected to exhibit shear-dependent
+detection biases. These implementations of \mcal\ work by applying artificial
+shears to small postage stamp images for objects found in a {\em preexisting, independent}
+detection step. This detection step has the shear-dependent detection bias in it already,
+and thus any shear applied when running \mcal\ does not properly measure the full shape response
+to shear. Note that corrections for selection effects were derived in
+\cite{SheldonMcal2017}, but those do not work near the detection threshold since objects
+needed for the corrections may not have been found at all. As we will
+demonstrate, detection effects can be incorporated naturally by shearing larger
+images, rather than small postage stamps, and re-running the detection algorithm on
 each of the sheared images. In this process, shear measurement errors,
-selection effects and detection effects are all accounted for.  There are
-number of technical challenges associated with this \mcal\ implementation,
-which we will address in turn.
+selection effects and detection effects are all accounted for. We call this technique
+\mdet.
+
+There are a number of technical challenges associated with \mdet, only some of which
+we will address in this work. First, larger images can have non-trivial
+PSF and world coordinate system (WCS) variation. Usually these observational details
+are approximately constant over small post-stamps and so can be dealt with easily.
+Second, larger regions of images can have non-trivial masking patterns due to
+stellar diffraction spikes, cosmic rays, etc. In the implementation presented in
+this work, we use fast Fourier transforms (FFTs) to handle convolutions, so that
+this data needs to be interpolated in some way. Finally, \mdet\ involves shearing
+a large patch of sky, including shearing the space between objects. This operation
+is qualitatively different from shearing each object about its center (what \mcal\ does)
+or from the shearing applied by a cosmological density field (which is a mixture of
+the two). The degree to which we can handle these technical challenges will ultimately
+determine the accuracy of \mdet\ when used to analyze imaging survey data.
+
 
 The paper is laid out as follows.... blah blah.
 
+\section{Analysis and Simulation Techniques}
+\label{sec:sims}
 
-\section{\textsc{METACALIBRATION}}
+In this section, we describe our object simulation and measurement techniques. In
+all cases, we use the \galsim\ \citep{GALSIM2015} software package
+to generate images, perform convolutions etc. We use the \texttt{SEP} \citep{sep}
+Python wrapper of the Source Extractor software package \citep{Bertin96} for
+source detection as needed. Finally, we make extensive use of \ngmix\
+for object measurement and the \mcal\ implementation.
 
-blah
+\subsection{\textsc{Metacalibration}}
 
-\section{MOF Deblending}
+\mcal\ is a general technique that computes the linear response of image measurements
+to an applied shear using only the observed image. Up to linear order, we can
+write the response of an image measurement to an applied shear as
 
-blah
+\begin{eqnarray}
+f(I, \gamma) & \approx & f(I, \gamma=0) + \left.\frac{\partial f}{\partial\gamma}\right|_{\gamma=0} \gamma + O(\gamma^2)\nonumber\\
+&\equiv& f(I, \gamma=0) + R \gamma + O(\gamma^2)
+\end{eqnarray}
+where $f(I,\gamma)$ is the image measurement (e.g., object detection and shape
+measurement), $I$ is the image, $\gamma$ is the applied shear, and $R$ is the response of the
+image measurement at zero applied shear.
 
-\section{Simulations}
+\mcal\ estimates this response via a
+numerical, finite-difference derivative
+\begin{displaymath}
+  \hat{R} \approx \frac{f(I, +\epsilon) - f(I, -\epsilon)}{2\epsilon}\ .
+\end{displaymath}
+where $\hat{R}$ is the estimated response of the object to shear
+and $\epsilon$ is a small shear, usually of order 0.01. In detail, one must
+appropriately handle the PSF and other observational effects when computing
+$\hat R$. Note that as the estimated responses per-object are quite noisy,
+they are typically averaged over many images/objects in order to estimate
+the response of a set of images/objects to a shear.
 
-\subsection{Galaxy Pairs} \label{sec:pairs}
+In the notation above, we have denoted the object shape measurement as
+$f(I, \gamma)$ representing the measurement performed on an image at some applied
+shear. This notation reflects the fact that \mcal\ can in fact measure the response
+of almost any image manipulation, including the detection of objects as described
+in this work. From this perspective, \mdet\ is measuring the full response of
+an image (of possibly multiple objects) to a constant shear.
 
-We will first show tests with two simulated galaxies at various separations,
-similar to the case shown in figure \ref{fig:toy}.  The galaxies were each a
-combination of a bulge component, modeled as a De Vaucouleurs' profile
-\citep{devauc1948} and disk component modeled as an exponential.
+\subsection{Multi-object Fitting Deblending}
 
-The fraction of light in the bulge was random and ranged uniformly between 0.0
-and 1.0. The disk ellipticity was drawn from the distribution presented in
-\cite{ba14}, equation 24, with ellipticity variance set to 0.20, with a random
-orientation.  The bulge was given the same orientation as the disk but with
-ellipticity set to the disk ellipticity times a random number drawn uniformly
-between 0.0 and 0.5.  The half light radius of the disk
+Multi-object Fitting (MOF) deblending is a technique employed by the Dark
+Energy Survey for accounting for blended objects when performing image
+measurements \citep{DESY1cat}. It is representative of a set of techniques that
+rely on fitting models to a set of preexisting detections. The model fit is
+then used directly to form a flux measurement or indirectly by using it to
+approximately remove the light of the neighboring objects in the image
+before further processing. Typically, the models are a linear combination
+of a bulge-like and disk-like component.
+
+In this work, we use a MOF algorithm
+that relies on \ngmix. It is an improved version of the MOF fitter from the
+DES Y1 analysis which is both more stable and faster. It uses a linear combination
+of a De Vaucouleurs' \citep{devauc1948} profile and exponential profile. The
+profiles are constrained to be cocentric, coeliptical, and to have a fixed
+fixed size ratio. The relative amplitude of the two profiles, the fraction of the
+total flux in the De Vaucouleurs' profile, is a free parameter and is allowed
+to vary outside of the range [0, 1]. Finally, to process a large number of
+objects, we follow \citet{DESY1cat} and break them up into interacting groups.
+These groups of objects are then simultaneously fit using a least-squares loss
+function.
+
+\subsection{Galaxy Pair Simulations}
+\label{sec:sims:pairs}
+
+In order to isolate the effects of detecton easily, we employ a similation setup
+consisting of two simulated galaxies with a variable separation between them. By
+varying the separation of the objects, we can turn on and off detection effects in
+a controlled way.
+
+The galaxies are each a combination of a bulge component, modeled as a
+De Vaucouleurs' profile \citep{devauc1948} and disk component modeled as
+an exponential. The fraction of light in the bulge was random and ranged
+uniformly between 0.0 and 1.0. The disk ellipticity was drawn from the
+distribution presented in \cite{ba14}, equation 24, with ellipticity variance
+set to 0.20, with a random orientation. The bulge was given the same orientation
+as the disk but with ellipticity set to the disk ellipticity times a random
+number drawn uniformly between 0.0 and 0.5. The half-light radius of the disk
 $r_{50}^{\mathrm{disk}}$ was set to a uniform random draw between 0.4 and 0.6
-arcsec; that of the bulge was a random draw between $0.4
-r_{50}^{\mathrm{disk}}$ and $0.6 r_{50}^{\mathrm{disk}}$.  The bulge was
-shifted from the center of the disk within a radius
-0.05$r_{50}^{\mathrm{disk}}$ and in a random direction.
-
+arcsec. The half-light radius of the bulge was a random draw between $0.4 r_{50}^{\mathrm{disk}}$
+and $0.6 r_{50}^{\mathrm{disk}}$. The bulge was shifted from the center of the
+disk within a radius 0.05$r_{50}^{\mathrm{disk}}$ and in a random direction.
 The light of the disk was divided between a smooth component and a set of
 simulated ``knots of star formation'', represented by point sources placed
 randomly with the same exponential distribution as the disk.  Between 1 and 50
 knots were placed, such that the fraction light in the knots ranged between
-0.4\% and 20\%.
+0.4\% and 20\%. Finally, the total flux and noise were set such that the
+signal-to-noise ratio ranged uniformly between 25 and 35.
 
-The total flux and noise were set such that the signal-to-noise ratio ranged
-uniformly between 25 and 35.
-
-Two of these randomly generated galaxies were placed in an image, with
-separation ranging from 1.0 and 4.0 arcsec. The pair were placed such that the
+We place two of these randomly generated galaxies in an image, with
+separation ranging from 1.0 and 4.0 arcsec. The pair is placed such that the
 the line between the pair had a uniform random orientation relative to the
-coordinate axes.  Each object was given an additional random dither within a
-pixel.  The galaxies were treated as transparent, such that the value in a
-pixel was equal to the total sum from both galaxies plus noise.
-
-All images were generated using the \texttt{GALSIM} software package
-\citep{GALSIM2015}, with pixel scale of 0.263 arcseconds.
+coordinate axes. Each object was given an additional random dither within a
+pixel. The galaxies were treated as transparent, such that the value in a
+pixel was equal to the total sum from both galaxies plus noise. The pixel scale
+was set to 0.263 arcseconds, appropriate for a ground-based, DES-like survey.
 Example images are shown in figure \ref{fig:pairs}
 
 \begin{figure*}
     \includegraphics[width=\textwidth]{figures/bdk-comb.png}
-
-    \caption{ Example images of simulated galaxies used for the pair tests
-    presented in section \ref{sec:pairs}.  From left to right in the top row,
+    \caption{Example images of simulated galaxies used for the pair tests
+    presented in section \ref{sec:sims:pairs}.  From left to right in the top row,
     the separations are 1.0, 1.5, 2.0. From left to right in the bottom row the
     separations are 3.0 and 4.0 arscec. The pixel scale is 0.263 arcsec.
-    \label{fig:pairs} }
-
+    \label{fig:pairs}}
 \end{figure*}
 
-
 \subsection{Simulations with Representative Galaxy Density and Noise}
+\label{sec:sims:realgals}
 
 \begin{figure*}
     \includegraphics[width=0.9\columnwidth]{figures/des-rgb-000000-crop.png}
@@ -248,7 +312,7 @@ Example images are shown in figure \ref{fig:pairs}
 \subsection{Bias in Simulations of Galaxy Pairs}
 
 We tested \mcal\ with MOF deblending using the galaxy pair simulation presented
-in \S \ref{sec:pairs}.  Detection was performed using \sx, with settings
+in \S \ref{sec:sims:pairs}.  Detection was performed using \sx, with settings
 matching those used for DES year 5 survey reductions \ess{ref}.  We got similar
 results using a simple local peak finder for detection.
 
@@ -269,7 +333,7 @@ bias is detected.
     \includegraphics[width=\columnwidth]{figures/pairs-mc-bdkpair.pdf}
 
     \caption{Mean multiplicative shear bias measured for pairs of simulated
-    galaxies (see \S \ref {sec:pairs} for details) at various separations.  At
+    galaxies (see \S \ref {sec:sims:pairs} for details) at various separations.  At
     each separation, a large number of trials was generated with random
     orientations of the pair.  At 4.0 arcsec separation, two objects were
     detected in all cases.  At 1.5 arcseconds two objects were detected in half
@@ -299,31 +363,131 @@ the bias is caused by shear-dependent detection.  As we will show in \S
 
 Erin's tests with WeakLensingDeblending and Matt's tests
 
-\begin{table}
+% raw outputs
+% DES mcal+MOF
+% s2n: 10
+%     # of sims: 49499
+%     m       : -0.066781 +/- 0.009613
+%     c       : -0.000055 +/- 0.000371
+% s2n: 15
+%     # of sims: 49496
+%     m       : -0.050463 +/- 0.008567
+%     c       : 0.000271 +/- 0.000416
+% s2n: 20
+%     # of sims: 49476
+%     m       : -0.037302 +/- 0.007727
+%     c       : 0.000201 +/- 0.000449
+
+% LSST mcal+MOF
+% s2n: 10
+%     # of sims: 49014
+%     m       : -0.082423 +/- 0.005180
+%     c       : -0.000245 +/- 0.000192
+% s2n: 15
+%     # of sims: 49014
+%     m       : -0.066753 +/- 0.004539
+%     c       : -0.000173 +/- 0.000197
+% s2n: 20
+%     # of sims: 49014
+%     m       : -0.062331 +/- 0.004279
+%     c       : -0.000094 +/- 0.000210
+
+% DES shear scene
+% s2n: 10
+%     # of sims: 9997419
+%     m       : 0.000161 +/- 0.000857
+%     c       : -0.000011 +/- 0.000034
+% s2n: 15
+%     # of sims: 9982020
+%     m       : 0.000407 +/- 0.000786
+%     c       : -0.000036 +/- 0.000039
+% s2n: 20
+%     # of sims: 9928501
+%     m       : 0.000814 +/- 0.000754
+%     c       : -0.000013 +/- 0.000044
+
+% LSST shear scene
+% s2n: 10
+%     # of sims: 9996600
+%     m       : 0.000472 +/- 0.000433
+%     c       : -0.000024 +/- 0.000018
+% s2n: 15
+%     # of sims: 9996600
+%     m       : -0.000015 +/- 0.000339
+%     c       : -0.000003 +/- 0.000017
+% s2n: 20
+%     # of sims: 9996600
+%     m       : 0.000190 +/- 0.000284
+%     c       : -0.000012 +/- 0.000018
+
+% DES no shear scene
+% s2n: 10
+%     # of sims: 9995117
+%     m       : -0.003574 +/- 0.001228
+%     c       : -0.000043 +/- 0.000037
+% s2n: 15
+%     # of sims: 9983339
+%     m       : -0.000999 +/- 0.000997
+%     c       : -0.000057 +/- 0.000040
+% s2n: 20
+%     # of sims: 9938170
+%     m       : -0.002601 +/- 0.000948
+%     c       : -0.000017 +/- 0.000044
+
+
+\begin{table*}
   \centering
-  \begin{tabular}{|l|l|c|c|}
+  \caption{
+    Multiplicative biases in weak lensing simulations for various shear
+    measurement techniques. In all cases, the simulations use realistic
+    galaxy shapes, galaxy sizes and noise for the given survey. For measurements using standard \mcal\ with
+    MOF deblending, a cut of $T/T_{PSF} > 0.5$ was also applied. Measurements with
+    \mdet\ and moments used a size cut of $T/T_{PSF} > 1.2$. In the case of \mdet\ with moments,
+    no deblending corrections are applied and the moments are a simple weighted moment
+    with no PSF correction.}
+  \label{tab:shearmeas}
+
+  \begin{tabular}{|l|l|l|l|c|c|}
     \hline
-    Sim & Method         & \snr\ Cut & m             \\
+    Simulation & Method & Full Scene Sheared? & PSF & \snr\ Cut & m \\
     \hline
     \hline
-    DES & MOF+metacal    & \snr$ > 10$ & $-0.063 \pm 0.001$  \\
-    DES & MOF+metacal    & \snr$ > 15$ & $-0.050 \pm 0.001$  \\
-    DES & MOF+metacal    & \snr$ > 20$ & $-0.041 \pm 0.001$  \\
+    \multicolumn{6}{c}{metacal+MOF - full scene sheared}\\
     \hline
-    LSST  & MOF+metacal    & \snr$ > 10$ & $-0.086 \pm 0.005$  \\
-    LSST  & MOF+metacal    & \snr$ > 15$ & $-0.073 \pm 0.004$  \\
-    LSST  & MOF+metacal    & \snr$ > 20$ & $-0.059 \pm 0.004$  \\
+    \hline
+    DES   & metacal+MOF & yes & constant & \snr$ > 10$ & $-0.067 \pm 0.010$  \\
+    DES   & metacal+MOF & yes & constant & \snr$ > 15$ & $-0.050 \pm 0.009$  \\
+    DES   & metacal+MOF & yes & constant & \snr$ > 20$ & $-0.037 \pm 0.008$  \\
+    \hline
+    LSST  & metacal+MOF & yes & constant & \snr$ > 10$ & $-0.082 \pm 0.005$  \\
+    LSST  & metacal+MOF & yes & constant & \snr$ > 15$ & $-0.067 \pm 0.005$  \\
+    LSST  & metacal+MOF & yes & constant & \snr$ > 20$ & $-0.062 \pm 0.004$  \\
+    \hline
+    \hline
+    \multicolumn{6}{c}{metadetect+moments - full scene sheared}\\
+    \hline
+    DES   & metadetect+moments & yes & constant & \snr$ > 10$ & $+0.00016 \pm 0.00086$  \\
+    DES   & metadetect+moments & yes & constant & \snr$ > 15$ & $+0.00041 \pm 0.00079$  \\
+    DES   & metadetect+moments & yes & constant & \snr$ > 20$ & $+0.00081 \pm 0.00075$  \\
+    \hline
+    LSST  & metadetect+moments & yes & constant & \snr$ > 10$ & $+0.00047 \pm 0.00043$  \\
+    LSST  & metadetect+moments & yes & constant & \snr$ > 15$ & $-0.00002 \pm 0.00034$  \\
+    LSST  & metadetect+moments & yes & constant & \snr$ > 20$ & $+0.00019 \pm 0.00028$  \\
+    \hline
+    \hline
+    \multicolumn{6}{c}{metadetect+moments - individual objects sheared}\\
+    \hline
+    DES   & metadetect+moments & no & constant & \snr$ > 10$ & $-0.0036 \pm 0.0012$  \\
+    DES   & metadetect+moments & no & constant & \snr$ > 15$ & $-0.0010 \pm 0.0010$  \\
+    DES   & metadetect+moments & no & constant & \snr$ > 20$ & $-0.0026 \pm 0.0009$  \\
+    \hline
+    LSST  & metadetect+moments & no & constant & \snr$ > 10$ & $\pm$  \\
+    LSST  & metadetect+moments & no & constant & \snr$ > 15$ & $\pm$  \\
+    LSST  & metadetect+moments & no & constant & \snr$ > 20$ & $\pm$  \\
     \hline
   \end{tabular}
 
-  \caption{
-    Bias for standard \mcal\ with MOF deblending in simulations with
-    realistic galaxy size, flux and noise.  In all cases a cut of
-    $T/T_{PSF} > 0.5$ was also applied.
-    \label{tab:mcal:deblending}
-  }
-
-\end{table}
+\end{table*}
 
 
 \section{Mitigating Shear-dependent Detection Biases with \textsc{METACALIBRATION}}
@@ -353,34 +517,6 @@ location of maximum detection ambiguity.
 \subsection{Results for Simulations with Representative Galaxy Density and Noise}
 \label{sec:res:constpsf}
 
-\begin{table}
-  \centering
-  \begin{tabular}{|l|l|c|c|}
-    \hline
-    Sim & Method         & \snr\ Cut & m             \\
-    \hline
-    \hline
-    DES & \mdet+moments & \snr$ > 10$ & $-0.0010 \pm 0.0013$  \\
-    DES & \mdet+moments & \snr$ > 15$ & $+0.0000 \pm 0.0013$  \\
-    DES & \mdet+moments & \snr$ > 20$ & $+0.0002 \pm 0.0013$  \\
-    \hline
-    LSST  & \mdet+moments & \snr$ > 10$ & $-0.0027 \pm 0.0011$  \\
-    LSST  & \mdet+moments & \snr$ > 15$ & $-0.0018 \pm 0.0011$  \\
-    LSST  & \mdet+moments & \snr$ > 20$ & $+0.0001 \pm 0.0011$  \\
-    \hline
-  \end{tabular}
-
-  \caption{
-    Bias for \mcal, including detection in the process (a.k.a. \mdet). These
-    simulations have no PSF variation or masking.  No deblending was performed,
-    and simple weighted moments were used without PSF correction.
-    In all cases a cut of $T/T_{PSF} > 1.2$ was also applied.
-    \label{tab:mdet:constpsf}
-  }
-
-\end{table}
-
-
 
 \subsection{Results for Simulations with Realistic Masking and PSF Variation}
 \label{sec:res:varpsf}
@@ -390,31 +526,8 @@ section \ref{sec:res:constpsf}
 
 \mrb{Do we want to show masking?}
 
-\begin{table}
-    \centering
-    \begin{tabular}{|l|l|c|c|}
-        \hline
-        Sim & Method         & \snr\ Cut & m             \\
-        \hline
-        \hline
-        DES & \mdet+moments & \snr$ > 10$ & $-0.0010 \pm 0.0013$  \\
-        DES & \mdet+moments & \snr$ > 15$ & $+0.0000 \pm 0.0013$  \\
-        DES & \mdet+moments & \snr$ > 20$ & $+0.0002 \pm 0.0013$  \\
-        \hline
-        LSST  & \mdet+moments & \snr$ > 10$ & $-0.0027 \pm 0.0011$  \\
-        LSST  & \mdet+moments & \snr$ > 15$ & $-0.0018 \pm 0.0011$  \\
-        LSST  & \mdet+moments & \snr$ > 20$ & $+0.0001 \pm 0.0011$  \\
-        \hline
-
-
-    \end{tabular}
-
-    \caption{
-        Same as table \ref{tab:mdet:constpsf} but with realistic masking and
-        spatial PSF variation.  \esstodo{numbers are placeholders} \label{tab:mdet:varpsf}
-    }
-
-\end{table}
+\subsection{Physical Limits on Shear Inference with \mdet}
+\label{sec:res:physlim}
 
 
 \section{Summary}
