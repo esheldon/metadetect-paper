@@ -447,43 +447,57 @@ Erin's tests with WeakLensingDeblending and Matt's tests
     with no PSF correction.}
   \label{tab:shearmeas}
 
-  \begin{tabular}{|l|l|l|l|c|c|}
+  \begin{tabular}{|l|l|l|l|l|c|c|}
     \hline
-    Simulation & Method & Full Scene Sheared? & PSF & \snr\ Cut & m \\
+    Simulation & Method & Full Scene Sheared? & Masking Effects? & PSF & \snr\ Cut & m \\
     \hline
+
     \hline
-    \multicolumn{6}{c}{metacal+MOF - full scene sheared}\\
+    \multicolumn{7}{c}{metacal+MOF - full scene sheared - constant PSF - no masking effects}\\
     \hline
+    DES   & metacal+MOF & yes & no & constant & \snr$ > 10$ & $-0.067 \pm 0.010$  \\
+    DES   & metacal+MOF & yes & no & constant & \snr$ > 15$ & $-0.050 \pm 0.009$  \\
+    DES   & metacal+MOF & yes & no & constant & \snr$ > 20$ & $-0.037 \pm 0.008$  \\
     \hline
-    DES   & metacal+MOF & yes & constant & \snr$ > 10$ & $-0.067 \pm 0.010$  \\
-    DES   & metacal+MOF & yes & constant & \snr$ > 15$ & $-0.050 \pm 0.009$  \\
-    DES   & metacal+MOF & yes & constant & \snr$ > 20$ & $-0.037 \pm 0.008$  \\
+    LSST  & metacal+MOF & yes & no & constant & \snr$ > 10$ & $-0.082 \pm 0.005$  \\
+    LSST  & metacal+MOF & yes & no & constant & \snr$ > 15$ & $-0.067 \pm 0.005$  \\
+    LSST  & metacal+MOF & yes & no & constant & \snr$ > 20$ & $-0.062 \pm 0.004$  \\
     \hline
-    LSST  & metacal+MOF & yes & constant & \snr$ > 10$ & $-0.082 \pm 0.005$  \\
-    LSST  & metacal+MOF & yes & constant & \snr$ > 15$ & $-0.067 \pm 0.005$  \\
-    LSST  & metacal+MOF & yes & constant & \snr$ > 20$ & $-0.062 \pm 0.004$  \\
+
     \hline
+    \multicolumn{7}{c}{metadetect+moments - full scene sheared - constant PSF - no masking effects}\\
     \hline
-    \multicolumn{6}{c}{metadetect+moments - full scene sheared}\\
+    DES   & metadetect+moments & yes & no & constant & \snr$ > 10$ & $+0.00016 \pm 0.00086$  \\
+    DES   & metadetect+moments & yes & no & constant & \snr$ > 15$ & $+0.00041 \pm 0.00079$  \\
+    DES   & metadetect+moments & yes & no & constant & \snr$ > 20$ & $+0.00081 \pm 0.00075$  \\
     \hline
-    DES   & metadetect+moments & yes & constant & \snr$ > 10$ & $+0.00016 \pm 0.00086$  \\
-    DES   & metadetect+moments & yes & constant & \snr$ > 15$ & $+0.00041 \pm 0.00079$  \\
-    DES   & metadetect+moments & yes & constant & \snr$ > 20$ & $+0.00081 \pm 0.00075$  \\
+    LSST  & metadetect+moments & yes & no & constant & \snr$ > 10$ & $+0.00047 \pm 0.00043$  \\
+    LSST  & metadetect+moments & yes & no & constant & \snr$ > 15$ & $-0.00002 \pm 0.00034$  \\
+    LSST  & metadetect+moments & yes & no & constant & \snr$ > 20$ & $+0.00019 \pm 0.00028$  \\
     \hline
-    LSST  & metadetect+moments & yes & constant & \snr$ > 10$ & $+0.00047 \pm 0.00043$  \\
-    LSST  & metadetect+moments & yes & constant & \snr$ > 15$ & $-0.00002 \pm 0.00034$  \\
-    LSST  & metadetect+moments & yes & constant & \snr$ > 20$ & $+0.00019 \pm 0.00028$  \\
+
     \hline
+    \multicolumn{7}{c}{metadetect+moments - full scene sheared - varying PSF - masking effects}\\
     \hline
-    \multicolumn{6}{c}{metadetect+moments - individual objects sheared}\\
+    DES   & metadetect+moments & yes & yes & varying & \snr$ > 10$ & $\pm$  \\
+    DES   & metadetect+moments & yes & yes & varying & \snr$ > 15$ & $\pm$  \\
+    DES   & metadetect+moments & yes & yes & varying & \snr$ > 20$ & $\pm$  \\
     \hline
-    DES   & metadetect+moments & no & constant & \snr$ > 10$ & $-0.0036 \pm 0.0012$  \\
-    DES   & metadetect+moments & no & constant & \snr$ > 15$ & $-0.0010 \pm 0.0010$  \\
-    DES   & metadetect+moments & no & constant & \snr$ > 20$ & $-0.0026 \pm 0.0009$  \\
+    LSST  & metadetect+moments & yes & yes & varying & \snr$ > 10$ & $\pm$  \\
+    LSST  & metadetect+moments & yes & yes & varying & \snr$ > 15$ & $\pm$  \\
+    LSST  & metadetect+moments & yes & yes & varying & \snr$ > 20$ & $\pm$  \\
     \hline
-    LSST  & metadetect+moments & no & constant & \snr$ > 10$ & $\pm$  \\
-    LSST  & metadetect+moments & no & constant & \snr$ > 15$ & $\pm$  \\
-    LSST  & metadetect+moments & no & constant & \snr$ > 20$ & $\pm$  \\
+
+    \hline
+    \multicolumn{7}{c}{metadetect+moments - individual objects sheared - constant PSF - no masking effects}\\
+    \hline
+    DES   & metadetect+moments & no & no & constant & \snr$ > 10$ & $-0.0036 \pm 0.0012$  \\
+    DES   & metadetect+moments & no & no & constant & \snr$ > 15$ & $-0.0010 \pm 0.0010$  \\
+    DES   & metadetect+moments & no & no & constant & \snr$ > 20$ & $-0.0026 \pm 0.0009$  \\
+    \hline
+    LSST  & metadetect+moments & no & no & constant & \snr$ > 10$ & $\pm$  \\
+    LSST  & metadetect+moments & no & no & constant & \snr$ > 15$ & $\pm$  \\
+    LSST  & metadetect+moments & no & no & constant & \snr$ > 20$ & $\pm$  \\
     \hline
   \end{tabular}
 
