@@ -580,23 +580,50 @@ we can correct for both of these effects, and any others, simultaneously.
 
 
 \section{Mitigating Shear-dependent Detection Biases with \textsc{METACALIBRATION}}
-blah
 
-\subsection{Results for Simulated Galaxy Pairs} \label{sec:mdetpairs}
+In the previous section, we demonstrated that source detection is a significant
+source of bias in shear measurements with \mcal. Here we test a straight-forward
+fix for this bias, namely including source detection in the \mcal\ process. We
+have implemented this fix as follows. We take relatively large images (typically
+1 arcminute on a side) and apply \mcal\ directly to the full image using the
+PSF at the center of the image. For each of the five \mcal\ images, we apply
+\sx\ to detect sources. We then measure shears in postage stamps around each
+detection in each image using an non-PSF corrected, Gaussian-weighted moment.
+These five catalogs are then combined into a single estimate for the shear in
+the patch by computing the average shear response for the image
+\begin{eqnarray}
+\hat g &=& \frac{\hat g_{\mathrm{obs}}}{\hat R}\\
+\hat g_{\rm obs} &=& \left<g_{\mathrm{no\,shear}}\right>\\
+\hat R &=& \frac{\left<g_{\rm plus}\right> - \left<g_{\rm minus}\right>}{2\Delta g}
+\end{eqnarray}
+where the equations above are for a single shear component. We term this
+process \mdet.
 
-In figure \ref{fig:pairbias} we show results for pairs of galaxies, including
-detection in the \mcal\ process.   The blue filled circles represent the case
-where deblending is performed using MOF.  The green plus signs represent the
+Note that the averages above are over the catalogs from running source detection
+on each sheared image. We make no attempt to match objects between the different
+sheared images. In fact, doing so would potentially bring back in the shear
+detection biases since using only matched objects would impart a shear dependent
+selection into the matched catalogs. This last fact has implications for
+analyses using \mdet\ in the analysis of surveys where reference or "gold"
+samples of galaxies are typically constructed. See more discussion in the
+conclusions below.
+
+\subsection{Results for Simulated Galaxy Pairs}
+\label{sec:mdetpairs}
+
+In figure \ref{fig:pairbias} we show results for the pairs of galaxies, including
+detection in the \mcal\ process. The blue filled circles represent the case
+where deblending is performed using MOF. The green plus signs represent the
 case where no deblending was performed. For the undeblended case we further
-simplified the process:  simple weighted moments were taken at the position
-determined by \sx\ using a fixed weight function with full-width at half maximum
-1.2 arcsec, without any correction for the PSF.
+simplified the process: simple weighted moments were taken at the position
+determined by \sx\ using a fixed weight function with full-width at half
+maximum 1.2 arcsec, without any correction for the PSF.
 
 In both cases the bias is greatly reduced, with significant bias seen only at
 the special separation of 1.5 arcsec, where the two objects are detected as one
-object in half of the cases.  This demonstrates that the bias we see is not
+object in half of the cases. This demonstrates that the bias we see is not
 primarily due to the process of deblending itself, but rather shear-dependent
-detection effects.  The remaining biases at 1.5 arcsec tend to be different
+detection effects. The remaining biases at 1.5 arcsec tend to be different
 sign for the deblended and non-deblended cases, which shows there is a
 qualitative difference in how the two measurements respond to the shear. As we
 will show below, we find no significant bias for more realistic DES and
@@ -606,10 +633,33 @@ location of maximum detection ambiguity.
 \subsection{Results for Simulations with Representative Galaxy Density and Noise}
 \label{sec:res:constpsf}
 
+We show results for DES-like and LSST-like surveys in Table~\ref{tab:shearmeas}.
+We have assumed a constant PSF and constant shear for these simulations. We find
+that in all cases our \mdet\ shear measurements are unbiased up to
+second-order shear effects. This conclusion holds despite the extensive blending
+of the object images and the large source detection effects we decoumented
+above. They also meet or exceed the requirements for analyzing an LSST-like survey
+\mrb{ref}.
 
-\subsection{Physical Limits on Shear Inference with \mdet}
-\label{sec:res:physlim}
+Finally, we address a key physical assumption made by \mdet, namely that of constant
+shear. In a constant shear image, the space between objects is sheared in the
+same way the objects are. This shearing of the full scene matches the \mdet\
+shearing steps exactly and thus allows us to calibrate the mean shear in the
+image to high precision. A realistic image with a mix of objects under different
+shears at different redshifts can be thought of as a sum of series of constant
+shear images with the full scene sheared independently for each image in the sum.
+This image would not exactly match the \mdet\ process and thus we might expect
+some residual bias in the shear calibration.
 
+In order to obtain an estimate and bound on this effect, we make a simple
+modification to our simulations. When building them, instead of shearing the
+full scene to impart the true shear to the image, we shear each object
+individually and then add it to the image. This modification leaves the space
+between objects maximally unsheared. Results for these simulations are in the
+bottom rows of Table~\ref{tab:shearmeas}. We find small residual biases in this
+case, of order $\sim-0.3\%$. Further, we expect these biases to depend on
+the density of blended objects in the survey, with larger residual biases
+for LSST-like surveys than DES-like surveys.
 
 \section{Summary}
 blah
