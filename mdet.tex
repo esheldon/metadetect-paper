@@ -405,15 +405,23 @@ In order to unpack the source of the bias in this case, we compare two different
 catalog of the true source positions using a 1.2 arcsecond Gaussian weighted
 moment shape measurement. The second employs \mcal\ with the same shape
 measurement, but using \sx\ detections instead of the true object positions. We
-find that while the first \mcal\ shear measurement is unbiased, the second
-exhibits a bias of \mrb{add numbers}. Note that this shape measurement makes no
-corrections for object blending, but in the case where we use the true object
-positions, it is still unbiased. Thus we have demonstrated that at least in
-principle, \mcal\ is not sensitive to blending.\footnote{In practice, we have
-found that when using \mcal\ with true detections and more complicated shape
-measurements, biases can reappear. Thus whether or not a \mcal\ shape
-measurement is sensitive to blending depends explicitly on the shape measurement
-technique used with the \mcal\ image manipulations.}
+find that while the first \mcal\ shear measurement is unbiased
+($-0.0011\pm0.0012$), the second exhibits a bias of
+$-0.058\pm0.001$.\footnote{The simulations with the true source positions are
+computationally slow because they involve measurements on all sources, even ones
+which are undetectable. Thus we were unable to decrease the errors on the
+multiplicative bias below $\sim0.1\%$. However, for simulations with round,
+exponential, high signal-to-noise objects only, we have found that \mcal\ with
+the true source positions and a weighted moment is unbiased at high precision
+($0.00033 +/- 0.00009$) in the presence of blending.} Note that this shape
+measurement makes no corrections for object blending, but in the case where we
+use the true object positions, it is still unbiased. Thus we have demonstrated
+that given a set of true source locations, \mcal\ is not sensitive to
+blending.\footnote{In practice, we have found that when using \mcal\ with true
+detections and more complicated shape measurements, biases can reappear. Thus
+whether or not a \mcal\ shape measurement is sensitive to blending depends
+explicitly on the shape measurement technique used with the \mcal\ image
+manipulations.}
 
 This set of tests also demonstrates explicitly that source detection can cause
 significant shear measurement biases even for techniques which are robust to
@@ -423,7 +431,7 @@ way which depends on the underlying shear, as illustrated with a toy example in
 Figure~\ref{fig:toy} and the galaxy pair tests above. However, we have found
 that even for extremely high signal-to-noise exponential objects placed on a
 grid, using \mcal\ with the Gaussian weighted moments around object centers
-determined by \sx\ still results in small biases, $\sim-0.2\%$. Thus at least
+determined by \sx\ still results in small biases, $\sim\!-0.2\%$. Thus at least
 some of the biases have to do with the effect of the underlying shear on object
 centering. Importantly, once we include object detection in the \mcal\ process,
 we can correct for both of these effects, and any others, simultaneously.
