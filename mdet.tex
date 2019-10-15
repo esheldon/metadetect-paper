@@ -213,31 +213,37 @@ measurements to an applied shear using only the observed image. Up to linear
 order, we can write the response of an image measurement to an applied shear as
 
 \begin{eqnarray}
-f(I, \gamma) & \approx & f(I, \gamma=0) + \left.\frac{\partial f}{\partial\gamma}\right|_{\gamma=0} \gamma + O(\gamma^2)\nonumber\\
-&\equiv& f(I, \gamma=0) + R \gamma + O(\gamma^2)
+\boldsymbol{e} & \approx & \left.\boldsymbol{e}\right|_{\gamma=0} +
+                       \left.\frac{\partial \boldsymbol{e}}{\partial\boldsymbol\gamma}\right|_{\gamma=0} \boldsymbol\gamma +
+                       O(\boldsymbol\gamma^2)\nonumber\\
+           & \equiv  & \left.\boldsymbol{e}\right|_{\gamma=0} +
+                       \boldsymbol{R} \boldsymbol\gamma +
+                       O(\boldsymbol\gamma^2)
 \end{eqnarray}
-where $f(I,\gamma)$ is the image measurement (e.g., object detection and shape
-measurement), $I$ is the image, $\gamma$ is the applied shear, and $R$ is the response of the
-image measurement at zero applied shear.
+where $\boldsymbol{e}$ is the image measurement (e.g., object detection and shape
+measurement), $\boldsymbol\gamma$ is the applied shear, and $\boldsymbol{R}$ is
+the response (matrix) of the image measurement at zero applied shear,
+$R_{ij}=\partial e_i /\partial \gamma_j$.
 
-\mcal\ estimates this response via a
-numerical, finite-difference derivative
+\mcal\ estimates this response via an numerical, finite-difference derivative
 \begin{displaymath}
-  \hat{R} \approx \frac{f(I, +\epsilon) - f(I, -\epsilon)}{2\epsilon}\ .
+  \hat{R_{ij}} \approx \frac{e_i^{+} - e_i^{-}}{2\Delta\gamma_j}\ .
 \end{displaymath}
-where $\hat{R}$ is the estimated response of the object to shear
-and $\epsilon$ is a small shear, usually of order 0.01. In detail, one must
-appropriately handle the PSF and other observational effects when computing
-$\hat R$. Note that as the estimated responses per-object are quite noisy,
-they are typically averaged over many images/objects in order to estimate
-the response of a set of images/objects to a shear.
+where $\hat{R_{ij}}$ is the estimated response of the object to shear
+and $\Delta\gamma_j$ is a small shear, usually of order 0.01. The quantity
+$e_i^{+/-}$ is the $i$-th shape component measured on an image sheared with
+$\pm\Delta\gamma_j$. In detail, one must appropriately handle the PSF and
+other observational effects when computing $\hat R_{ij}$. Note that as the
+estimated responses per-object are quite noisy, they are typically averaged
+over many images/objects in order to estimate the response of a set of
+images/objects to a shear.
 
-In the notation above, we have denoted the object shape measurement as $f(I,
-\gamma)$ representing the measurement performed on an image at some applied
-shear. This notation reflects the fact that \mcal\ can in fact measure the
-response of almost any image manipulation, including the detection of objects as
-described in this work. From this perspective, \mdet\ is measuring the full
-response of an image (of possibly multiple objects) to a constant shear.
+In the notation above, we have denoted the object shape measurement as $\boldsymbol{e}$,
+which implies both detection of objects {\it and} the shape measurements. In fact,
+\mcal\ can measure the response of almost any image manipulation, including the
+detection of objects as described in this work. From this perspective, \mdet\
+is measuring the full response of an image (of possibly multiple objects) to
+a constant shear.
 
 \subsection{Multi-object Fitting Deblending}
 
@@ -592,15 +598,14 @@ detection in each image using an non-PSF corrected, Gaussian-weighted moment.
 These five catalogs are then combined into a single estimate for the shear in
 the patch by computing the average shear response for the image
 \begin{eqnarray}
-\hat g &=& \frac{\hat g_{\mathrm{obs}}}{\hat R}\\
-\hat g_{\rm obs} &=& \left<g_{\mathrm{no\,shear}}\right>\\
-\hat R &=& \frac{\left<g_{\rm plus}\right> - \left<g_{\rm minus}\right>}{2\Delta g}
+\langle \boldsymbol\gamma \rangle &\approx& \langle \boldsymbol{R}\rangle^{-1}\langle\boldsymbol{e}\rangle\\
+\langle R_{ij}\rangle &=& \frac{\langle e_i^{+}\rangle - \langle e_i^{-}\rangle}{2\Delta\gamma_j}
 \end{eqnarray}
-where the equations above are for a single shear component. We term this
+where the equation for the response above is for a single shear component. We term this
 process \mdet.
 
-Note that the averages above are over the catalogs from running source detection
-on each sheared image. We make no attempt to match objects between the different
+Note that the averages above are over the {\it catalogs} from running source detection
+and shape measurement on each sheared image. We make no attempt to match objects between the different
 sheared images. In fact, doing so would potentially bring back in the shear
 detection biases since using only matched objects would impart a shear dependent
 selection into the matched catalogs. This last fact has implications for
