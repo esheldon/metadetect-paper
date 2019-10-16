@@ -1,0 +1,77 @@
+% \appendix
+%
+% \section{Fast Approximate Variable PSF Models}
+%
+% In this work we use a fast, approximate variable PSF model. This model eases the
+% computational requirements for the simulations while also retaining the
+% essential features of realistic PSF variation. In this appendix, we present
+% the model and verify its statistical properties against more realistic PSF models.
+%
+% We start with the results of \citet{heymans2012}. They fit the \vonkarman model
+% of atmospheric turbulence
+%
+% \begin{displaymath}
+%   P(\ell) \propto \left(\ell^{2} + \frac{1}{\theta_{0}^2}\right)^{-11/6}
+% \end{displaymath}
+% to images with high stellar density. Here $\theta_{0}$ is the outer scale of
+% turbulence. \citep{heymans2012} find that $\theta_{0}\approx3$ arcmin.
+% We further add an additional Gaussian truncation of the power
+%
+% \begin{displaymath}
+%   P_{trunc}(\ell) \propto P(\ell)\exp\left(-\ell^2r^{2}\right)
+% \end{displaymath}
+% at a scale of $r=1$ arcsec in order to reduce the level of resulting
+% PSF variation.
+% \esstodo{How do we justify that?   Based on exposure time?}
+%
+% Using this model, we seed equal amounts of E- and B-mode power on a grid of
+% $128\times128$ cells using random phases. Each cell of the grid is one
+% arcsec in size. We normalize the overall shape variance to $0.05^2$. We then use
+% the $g1$ and $g2$ components of this model to set the shape of the PSF at each
+% location. Note that we also bound the total ellipticity to at most 0.5.
+% We model the PSF profile as a Moffat with shape parameter $\beta=2.5$.
+% The size of the Moffat profile is set to be proportional to $\mu^{-3/4}$,
+% where $\mu$ is the magnification computed from the power spectra realization. The
+% proportionality constant is drawn randomly from a log-normal model with
+% scatter 0.1 arcmin and a central value set so the final PSF size. This mimics
+% the typical seeing conditions of a given survey.
+%
+% We show an example PSF for a DES-like survey in Figure~\ref{fig:pspsf}.  Over a
+% 1 square arcminute patch, our approximate models generate PSF shape and size
+% variation that are $\gtrsim10\times$ that seen in real 90 second exposures
+% with DECam \mrb{ref}, or the expected variation in a 15 second exposure with
+% LSST \mrb{ref}.  Figure~\ref{fig:psxi} shows the $\xi_{\pm}$ shear correlation
+% functions averaged over 100 realizations of our models. For comparison, we
+% expect at most shear correlation function amplitudes of $\sim10^{-4}$ for LSST
+% \mrb{ref} and for DESCam 90 second exposures. The DECam models were generated
+% using the methods of \mrb{ref} but for DECam-like environmental conditions. For
+% the optical contributions to the PSF, we use a set of randomly drawn
+% aberrations (similar to GREAT3 \mrb{ref}), but with values more typical of
+% DECam
+% observations\footnote{\url{https://github.com/GalSim-developers/GalSim/blob/releases/2.1/examples/great3/cgc.yaml}}.
+% Finally, we note that simulations of metadetection with this PSF model show
+% $\approx-0.8\%$ multiplicative biases.
+% \esstodo{What 0.8\% for LSST depth?  Are you using smaller variations for
+% the LSST sims to show we are ok for LSST?}
+%
+% \begin{figure*}
+%   \includegraphics[width=\textwidth]{figures/pspsf.pdf}
+%   \caption{
+%     Variable PSF model statistics for a DECam-like exposure. The top-left
+%     panel shows the variation in the FWHM in arcseconds. The top-right panel
+%     shows a visualization of the PSF shape variation. The bottom-left panel shows
+%     the variation in the $1$-component of the PSF shape. The bottom-right panel
+%     shows the variation in the $2$-component of the PSF shape. The variation in
+%     this model is $\gtrsim10\times$ larger than the typical PSF variation for
+%     either DECam or expected LSST observations.
+%     \label{fig:pspsf}}
+% \end{figure*}
+%
+% \begin{figure}
+%   \includegraphics[width=\columnwidth]{figures/psxi.pdf}
+%   \caption{
+%     Variable PSF model shear correlation functions for a DECam-like exposure. LSST
+%     is expected to have shear correlation function magnitudes around
+%     $\sim10^{-4}$ \mrb{ref}.
+%     \label{fig:psxi}}
+% \end{figure}

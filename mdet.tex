@@ -316,13 +316,14 @@ shown in figure \ref{fig:pairs}
 \subsection{Simulations with Representative Galaxy Density and Noise}
 \label{sec:sims:realgals}
 
-We use the WeakLensingDeblending \mrb{citation} package in order to generate
-simulations with realistic galaxy densities and pixel noise for both the
+We use the \texttt{WeakLensingDeblending}\footnote{\url{https://github.com/LSSTDESC/WeakLensingDeblending}}
+package in order to generate simulations with realistic galaxy densities and pixel noise for both the
 DES and LSST surveys. We generated images in the r-, i-, and z-bands with an
 effective depth that is roughly equivalent to full 5 and 10 year coadd image
 for the DES and LSST respectively. We have neglected the effects of PSF
 variation and use a constant PSF per-band with the typical
-(expected) seeing for each survey. For the DES image simulations, we have
+(expected) seeing for each survey ($\sim\!1$ arcsec and $\sim\!0.8$ arcsec resepctively).
+For the DES image simulations, we have
 fixed the exposure times for a single-epoch image to 90 seconds, so that
 the full-depth coadd images have exposure times of 900 seconds. Example images
 for each survey are shown in Figure~\ref{fig:simimages}.
@@ -332,9 +333,10 @@ for each survey are shown in Figure~\ref{fig:simimages}.
     \includegraphics[width=0.9\columnwidth]{figures/lsst_gri.jpg}
     \caption{
         Example images from the DES (left) and LSST (right) simulations. Each
-        multicolor, $gri$-band image is approximately $\sim\!2.2$` on a side. The
-        DES images have a pixel scale 0.263 arcsec and the LSST images have 0.2
-        arcsec. 
+        multicolor, $gri$-band image is approximately $\sim\!2.2$ arcmin on a side. The
+        DES images have a pixel scale 0.263 arcsec and a PSF FWHM of $\sim\!1$ arcsec.
+        The LSST images have a pixel scale of 0.2 arcsec and a PSF FWHM of $\sim\!0.8$
+        arcsec.
         \label{fig:simimages}}
 \end{figure*}
 
@@ -647,7 +649,7 @@ that in all cases our \mdet\ shear measurements are unbiased up to
 second-order shear effects. This conclusion holds despite the extensive blending
 of the object images and the large source detection effects we decoumented
 above. They also meet or exceed the requirements for analyzing an LSST-like survey
-\mrb{ref}.
+\citep[e.g.,][]{huterer2006}.
 
 Finally, we address a key physical assumption made by \mdet, namely that of constant
 shear. In a constant shear image, the space between objects is sheared in the
@@ -669,89 +671,111 @@ case, of order $\sim-0.3\%$. Further, we expect these biases to depend on
 the density of blended objects in the survey, with larger residual biases
 for LSST-like surveys than DES-like surveys.
 
+\section{Moving Beyond Simple Simulations: Handling PSF Variation}
+
+In order to apply \mdet\ to a real, multiband, multiepoch survey like the
+DES or LSST, we will need to be able to handle realistic levels of PSF variation,
+missing data, and non-trivial WCS transformations. We will address these issues
+more fully in future work currently in preparation. However, here we will address
+the issue of PSF variation, which is technically more challenging since \mdet\
+requires us to deconvolve the PSF over relatively large regions of sky. Here, we
+will show that the image coadding process used in a realistic multiepoch survey
+naturally reduces the PSF variation enough to render this effect negligible.
+
+For these simulations, we use the same DES-like and LSST-like simulations as above,
+but create the PSF model by stacking some number of variable PSF models. In order
+to place an upper bound on this effect, we have created a variable PSF model that
+has significantly more variation than we expect in real data. See Appendix~\ref{app:pspsf}
+for details. With only stacking one of the PSF models in Appendix~\ref{app:pspsf},
+we find a multiplicative bias of $XYZ$. However, once we stack five of these models,
+which is a minimum amount of coadding expected for both the DES and LSST, we find
+a multiplicative bias of only $XYZ$. Thus we expect that in a realistic survey
+scenario, PSF variation is not a fundamental limitation for \mdet.
+
+
 \section{Summary}
 blah
 
 \bibliographystyle{mnras}
 \bibliography{references}
 
-% \appendix
-%
-% \section{Fast Approximate Variable PSF Models}
-%
-% In this work we use a fast, approximate variable PSF model. This model eases the
-% computational requirements for the simulations while also retaining the
-% essential features of realistic PSF variation. In this appendix, we present
-% the model and verify its statistical properties against more realistic PSF models.
-%
-% We start with the results of \citet{heymans2012}. They fit the \vonkarman model
-% of atmospheric turbulence
-%
-% \begin{displaymath}
-%   P(\ell) \propto \left(\ell^{2} + \frac{1}{\theta_{0}^2}\right)^{-11/6}
-% \end{displaymath}
-% to images with high stellar density. Here $\theta_{0}$ is the outer scale of
-% turbulence. \citep{heymans2012} find that $\theta_{0}\approx3$ arcmin.
-% We further add an additional Gaussian truncation of the power
-%
-% \begin{displaymath}
-%   P_{trunc}(\ell) \propto P(\ell)\exp\left(-\ell^2r^{2}\right)
-% \end{displaymath}
-% at a scale of $r=1$ arcsec in order to reduce the level of resulting
-% PSF variation.
-% \esstodo{How do we justify that?   Based on exposure time?}
-%
-% Using this model, we seed equal amounts of E- and B-mode power on a grid of
-% $128\times128$ cells using random phases. Each cell of the grid is one
-% arcsec in size. We normalize the overall shape variance to $0.05^2$. We then use
-% the $g1$ and $g2$ components of this model to set the shape of the PSF at each
-% location. Note that we also bound the total ellipticity to at most 0.5.
-% We model the PSF profile as a Moffat with shape parameter $\beta=2.5$.
-% The size of the Moffat profile is set to be proportional to $\mu^{-3/4}$,
-% where $\mu$ is the magnification computed from the power spectra realization. The
-% proportionality constant is drawn randomly from a log-normal model with
-% scatter 0.1 arcmin and a central value set so the final PSF size. This mimics
-% the typical seeing conditions of a given survey.
-%
-% We show an example PSF for a DES-like survey in Figure~\ref{fig:pspsf}.  Over a
-% 1 square arcminute patch, our approximate models generate PSF shape and size
-% variation that are $\gtrsim10\times$ that seen in real 90 second exposures
-% with DECam \mrb{ref}, or the expected variation in a 15 second exposure with
-% LSST \mrb{ref}.  Figure~\ref{fig:psxi} shows the $\xi_{\pm}$ shear correlation
-% functions averaged over 100 realizations of our models. For comparison, we
-% expect at most shear correlation function amplitudes of $\sim10^{-4}$ for LSST
-% \mrb{ref} and for DESCam 90 second exposures. The DECam models were generated
-% using the methods of \mrb{ref} but for DECam-like environmental conditions. For
-% the optical contributions to the PSF, we use a set of randomly drawn
-% aberrations (similar to GREAT3 \mrb{ref}), but with values more typical of
-% DECam
-% observations\footnote{\url{https://github.com/GalSim-developers/GalSim/blob/releases/2.1/examples/great3/cgc.yaml}}.
-% Finally, we note that simulations of metadetection with this PSF model show
-% $\approx-0.8\%$ multiplicative biases.
-% \esstodo{What 0.8\% for LSST depth?  Are you using smaller variations for
-% the LSST sims to show we are ok for LSST?}
-%
-% \begin{figure*}
-%   \includegraphics[width=\textwidth]{figures/pspsf.pdf}
-%   \caption{
-%     Variable PSF model statistics for a DECam-like exposure. The top-left
-%     panel shows the variation in the FWHM in arcseconds. The top-right panel
-%     shows a visualization of the PSF shape variation. The bottom-left panel shows
-%     the variation in the $1$-component of the PSF shape. The bottom-right panel
-%     shows the variation in the $2$-component of the PSF shape. The variation in
-%     this model is $\gtrsim10\times$ larger than the typical PSF variation for
-%     either DECam or expected LSST observations.
-%     \label{fig:pspsf}}
-% \end{figure*}
-%
-% \begin{figure}
-%   \includegraphics[width=\columnwidth]{figures/psxi.pdf}
-%   \caption{
-%     Variable PSF model shear correlation functions for a DECam-like exposure. LSST
-%     is expected to have shear correlation function magnitudes around
-%     $\sim10^{-4}$ \mrb{ref}.
-%     \label{fig:psxi}}
-% \end{figure}
+\appendix
+
+\section{Fast Approximate Variable PSF Models}\label{app:pspsf}
+
+In this work we use a fast, approximate variable PSF model. This model eases the
+computational requirements for the simulations while also retaining the
+essential features of realistic PSF variation. In this appendix, we present
+the model and verify its statistical properties against more realistic PSF models.
+
+We start with the results of \citet{heymans2012}. They fit the \vonkarman model
+of atmospheric turbulence
+
+\begin{displaymath}
+  P(\ell) \propto \left(\ell^{2} + \frac{1}{\theta_{0}^2}\right)^{-11/6}
+\end{displaymath}
+to images with high stellar density. Here $\theta_{0}$ is the outer scale of
+turbulence. \citep{heymans2012} find that $\theta_{0}\approx3$ arcmin.
+We further add an additional Gaussian truncation of the power
+
+\begin{displaymath}
+  P_{trunc}(\ell) \propto P(\ell)\exp\left(-\ell^2r^{2}\right)
+\end{displaymath}
+at a scale of $r=1$ arcsec in order to reduce the level of resulting
+PSF variation. Below we show that even with this modification, our models
+still have more power than a realistic model for a survey, making them useful
+for providing upper limits on the effects of PSF variation.
+
+Using this model, we seed equal amounts of E- and B-mode power on a grid of
+$128\times128$ cells using random phases. Each cell of the grid is one
+arcsec in size. We normalize the overall shape variance to $0.05^2$. We then use
+the $g1$ and $g2$ components of this model to set the shape of the PSF at each
+location. Note that we also bound the total ellipticity to at most 0.5.
+We model the PSF profile as a Moffat with shape parameter $\beta=2.5$.
+The size of the Moffat profile is set to be proportional to $\mu^{-3/4}$,
+where $\mu$ is the magnification computed from the power spectra realization. The
+proportionality constant is drawn randomly from a log-normal model with
+scatter 0.1 arcmin and a central value set so the final PSF size. This mimics
+the typical seeing conditions of a given survey.
+
+We show an example PSF for a DES-like survey in Figure~\ref{fig:pspsf}.  Over a
+1 square arcminute patch, our approximate models generate PSF shape and size
+variation that are $\gtrsim10\times$ that seen in real 90 second exposures
+with DECam \mrb{ref}, or the expected variation in a 15 second exposure with
+LSST \mrb{ref}.  Figure~\ref{fig:psxi} shows the $\xi_{\pm}$ shear correlation
+functions averaged over 100 realizations of our models. For comparison, we
+expect at most shear correlation function amplitudes of $\sim10^{-4}$ for LSST
+\mrb{ref} and for DESCam 90 second exposures. The DECam models were generated
+using the methods of \mrb{ref} but for DECam-like environmental conditions. For
+the optical contributions to the PSF, we use a set of randomly drawn
+aberrations (similar to GREAT3 \mrb{ref}), but with values more typical of
+DECam
+observations\footnote{\url{https://github.com/GalSim-developers/GalSim/blob/releases/2.1/examples/great3/cgc.yaml}}.
+Finally, we note that simulations of \mdet\ with this PSF model show
+$\approx-0.8\%$ multiplicative biases for a DES-like survey at full depth but
+without simulating the reduction of PSF variation due to stacking.
+
+\begin{figure*}
+  \includegraphics[width=\textwidth]{figures/pspsf.pdf}
+  \caption{
+    Variable PSF model statistics for a DECam-like exposure. The top-left
+    panel shows the variation in the FWHM in arcseconds. The top-right panel
+    shows a visualization of the PSF shape variation. The bottom-left panel shows
+    the variation in the $1$-component of the PSF shape. The bottom-right panel
+    shows the variation in the $2$-component of the PSF shape. The variation in
+    this model is $\gtrsim10\times$ larger than the typical PSF variation for
+    either DECam or expected LSST observations.
+    \label{fig:pspsf}}
+\end{figure*}
+
+\begin{figure}
+  \includegraphics[width=\columnwidth]{figures/psxi.pdf}
+  \caption{
+    Variable PSF model shear correlation functions for a DECam-like exposure. LSST
+    is expected to have shear correlation function magnitudes around
+    $\sim10^{-4}$ \mrb{ref}.
+    \label{fig:psxi}}
+\end{figure}
 
 
 \bsp
