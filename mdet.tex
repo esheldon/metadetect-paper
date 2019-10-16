@@ -214,11 +214,11 @@ order, we can write the response of an image measurement to an applied shear as
 
 \begin{eqnarray}
 \boldsymbol{e} & \approx & \left.\boldsymbol{e}\right|_{\gamma=0} +
-                       \left.\frac{\partial \boldsymbol{e}}{\partial\boldsymbol\gamma}\right|_{\gamma=0} \boldsymbol\gamma +
-                       O(\boldsymbol\gamma^2)\nonumber\\
-           & \equiv  & \left.\boldsymbol{e}\right|_{\gamma=0} +
-                       \boldsymbol{R} \boldsymbol\gamma +
-                       O(\boldsymbol\gamma^2)
+                           \left.\frac{\partial \boldsymbol{e}}{\partial\boldsymbol\gamma}\right|_{\gamma=0} \boldsymbol\gamma +
+                           O(\boldsymbol\gamma^2)\nonumber\\
+               & \equiv  & \left.\boldsymbol{e}\right|_{\gamma=0} +
+                           \boldsymbol{R} \boldsymbol\gamma +
+                           O(\boldsymbol\gamma^2)
 \end{eqnarray}
 where $\boldsymbol{e}$ is the image measurement (e.g., object detection and shape
 measurement), $\boldsymbol\gamma$ is the applied shear, and $\boldsymbol{R}$ is
@@ -227,7 +227,7 @@ $R_{ij}=\partial e_i /\partial \gamma_j$.
 
 \mcal\ estimates this response via an numerical, finite-difference derivative
 \begin{displaymath}
-  \hat{R_{ij}} \approx \frac{e_i^{+} - e_i^{-}}{2\Delta\gamma_j}\ .
+R_{ij} \approx \frac{e_i^{+} - e_i^{-}}{2\Delta\gamma_j}\ .
 \end{displaymath}
 where $\hat{R_{ij}}$ is the estimated response of the object to shear
 and $\Delta\gamma_j$ is a small shear, usually of order 0.01. The quantity
