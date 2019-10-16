@@ -741,14 +741,14 @@ the typical seeing conditions of a given survey.
 We show an example PSF for a DES-like survey in Figure~\ref{fig:pspsf}.  Over a
 1 square arcminute patch, our approximate models generate PSF shape and size
 variation that are $\gtrsim10\times$ that seen in real 90 second exposures
-with DECam \mrb{ref}, or the expected variation in a 15 second exposure with
-LSST \mrb{ref}.  Figure~\ref{fig:psxi} shows the $\xi_{\pm}$ shear correlation
+with DECam \citep{DESY1shear}, or the expected variation in a 15 second exposure with
+LSST \citep{jee2011} over similar scales. Figure~\ref{fig:psxi} shows the $\xi_{\pm}$ shear correlation
 functions averaged over 100 realizations of our models. For comparison, we
 expect at most shear correlation function amplitudes of $\sim10^{-4}$ for LSST
-\mrb{ref} and for DESCam 90 second exposures. The DECam models were generated
-using the methods of \mrb{ref} but for DECam-like environmental conditions. For
+\citep{jee2011} and for DESCam 90 second exposures. The DECam models were generated
+using the methods of \citep{jee2011} but for DECam-like environmental conditions. For
 the optical contributions to the PSF, we use a set of randomly drawn
-aberrations (similar to GREAT3 \mrb{ref}), but with values more typical of
+aberrations (similar to GREAT3 \citep{great3}), but with values more typical of
 DECam
 observations\footnote{\url{https://github.com/GalSim-developers/GalSim/blob/releases/2.1/examples/great3/cgc.yaml}}.
 Finally, we note that simulations of \mdet\ with this PSF model show
@@ -773,7 +773,7 @@ without simulating the reduction of PSF variation due to stacking.
   \caption{
     Variable PSF model shear correlation functions for a DECam-like exposure. LSST
     is expected to have shear correlation function magnitudes around
-    $\sim10^{-4}$ \mrb{ref}.
+    $\sim\!10^{-4}$ \citep{jee2011}.
     \label{fig:psxi}}
 \end{figure}
 
