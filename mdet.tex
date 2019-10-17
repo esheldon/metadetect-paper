@@ -683,7 +683,7 @@ for LSST-like surveys than DES-like surveys.
 
 \section{Moving Beyond Simple Simulations: Handling PSF Variation}
 
-In order to apply \mdet\ to a real, multiband, multiepoch survey like the
+In order to apply \mdet\ to a real, multi-band, multi-epoch survey like the
 DES or LSST, we will need to be able to handle realistic levels of PSF variation,
 missing data, and non-trivial WCS transformations. We will address these issues
 more fully in future work currently in preparation. However, here we will address
@@ -693,18 +693,42 @@ will show that the image coadding process used in a realistic multiepoch survey
 naturally reduces the PSF variation enough to render this effect negligible.
 
 For these simulations, we use the same DES-like and LSST-like simulations as above,
-but create the PSF model by stacking some number of variable PSF models. In order
+but create the PSF model by stacking some number of variable PSF models. \mdet\ is then
+performed using the stacked PSF model at the center of the image. In order
 to place an upper bound on this effect, we have created a variable PSF model that
 has significantly more variation than we expect in real data. See Appendix~\ref{app:pspsf}
-for details. With only stacking one of the PSF models in Appendix~\ref{app:pspsf},
-we find a multiplicative bias of $XYZ$. However, once we stack five of these models,
+for details. With only stacking one of the PSF models from Appendix~\ref{app:pspsf},
+we find an multiplicative bias of $XYZ$. However, once we stack five of these models,
 which is a minimum amount of coadding expected for both the DES and LSST, we find
-a multiplicative bias of only $XYZ$. Thus we expect that in a realistic survey
+an multiplicative bias of only $XYZ$. Thus we expect that in a realistic survey
 scenario, PSF variation is not a fundamental limitation for \mdet.
 
 
 \section{Summary}
-blah
+
+In this work, we have explored how \mcal\ weak lensing measurements perform in
+realistic scenarios where a large fraction of the objects overlap and the detection
+of objects can be ambiguous. These conditions will characterize all future weak
+lensing surveys and so accurate performance in this regime is critical to getting
+the most scientific gains from the surveys. We find that \mcal\ used with MOF-like
+object deblending techniques has severe, many percent biases that get worse with
+the degree of object blending. We then demonstrated that by including the detection
+of objects in the \mcal\ process, we can eliminate these biases at high precision
+even for an LSST-like survey. This technique, which we call \mdet, appears to be
+extremely promising for future surveys.
+
+Future work will be needed in two directions in order to fully realize the
+potential of \mdet. First, specific procedures for the multi-epoch image coadding,
+the handling of missing data, and the handling of the PSF variation will be needed to
+apply \mdet\ to real survey data. We have work in preparation already to develop
+these procedures for the DES and LSST. Further, we demonstrated above that PSF
+variation naturally averages down during the image coaddition process so that it
+can safely be ignored. Second, we will need procedures to process the \mdet\ outputs,
+which are five catalogs for the full survey, into the various summary statistics
+(e.g., shear correlation functions) used to constrain cosmological models. In particular,
+care must be taken to not match these catalogs to one another or some external catalog
+because this matching process could reintroduce the shear-dependent object detection biases.
+The solutions to these issues will be the limiting factor in \mdet.
 
 \bibliographystyle{mnras}
 \bibliography{references}
