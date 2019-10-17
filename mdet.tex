@@ -91,7 +91,14 @@ We demonstrate that shear-dependent object detection biases are accurately
 removed when including object detection in the \mcal\ process, a technique we call
 \mdet. Finally, we discuss the physical limits of \mdet's accuracy and address one
 of the primary barriers to applying \mdet\ to realistic data, the variation of the
-point-spread function across the image.
+point-spread function across the image. We find that while PSF variation can be
+accounted for, \mdet's key assumption, that the entire image is sheared, as opposed to
+only the objects in the image, can result in few tenths of percent biases. However,
+more work will be required to estimate this effect in realistic cosmological scenarios
+since weak lensing over cosmological distances produces a combination of objects that
+are sheared independently of their neighbors and objects that are sheared together,
+including the space between them. Future work will address these issues and apply \mdet\
+to data from current surveys.
 
 \end{abstract}
 
@@ -412,51 +419,6 @@ the bias is caused by shear-dependent detection. Next, we perform simulations
 of DES- and LSST-like surveys and show explicitly that by turning object
 detection off, we can eliminate these detection biases.
 
-\subsection{Bias in Simulations with Representative Galaxy Density and Noise}
-
-We now explore the effects of detection in simulations that are representative
-of real survey images. As a baseline, we note that \mcal\ with MOF
-deblending and \sx\ detections results in catastrophic biases, $\sim-5\%$, for
-a DES-like survey. Simulations of LSST-like surveys demonstrate even larger
-biases. See Table~\ref{tab:shearmeas} for details. Note also that this
-procedure closely matches that currently done with DES data.
-
-In order to unpack the source of the bias in this case, we compare two different
-\mcal\ shear measurements. The first \mcal\ shear measurement is done on a
-catalog of the true source positions using a 1.2 arcsecond Gaussian weighted
-moment shape measurement. The second employs \mcal\ with the same shape
-measurement, but using \sx\ detections instead of the true object positions. We
-find that while the first \mcal\ shear measurement is unbiased
-($-0.0011\pm0.0012$), the second exhibits a bias of
-$-0.058\pm0.001$.\footnote{The simulations with the true source positions are
-computationally slow because they involve measurements on all sources, even ones
-which are undetectable. Thus we were unable to decrease the errors on the
-multiplicative bias below $\sim0.1\%$. However, for simulations with round,
-exponential, high signal-to-noise objects only, we have found that \mcal\ with
-the true source positions and a weighted moment is unbiased at high precision
-($0.00033 +/- 0.00009$) in the presence of blending.} Note that this shape
-measurement makes no corrections for object blending, but in the case where we
-use the true object positions, it is still unbiased. Thus we have demonstrated
-that given a set of true source locations, \mcal\ is not sensitive to
-blending.\footnote{In practice, we have found that when using \mcal\ with true
-detections and more complicated shape measurements, biases can reappear. Thus
-whether or not a \mcal\ shape measurement is sensitive to blending depends
-explicitly on the shape measurement technique used with the \mcal\ image
-manipulations.}
-
-This set of tests also demonstrates explicitly that source detection can cause
-significant shear measurement biases even for techniques which are robust to
-blending. The source detection biases probably originate from multiple causes.
-One of those causes is undoubtedly related to merging or splitting objects in a
-way which depends on the underlying shear, as illustrated with a toy example in
-Figure~\ref{fig:toy} and the galaxy pair tests above. However, we have found
-that even for extremely high signal-to-noise exponential objects placed on a
-grid, using \mcal\ with the Gaussian weighted moments around object centers
-determined by \sx\ still results in small biases, $\sim\!-0.2\%$. Thus at least
-some of the biases have to do with the effect of the underlying shear on object
-centering. Importantly, once we include object detection in the \mcal\ process,
-we can correct for both of these effects, and any others, simultaneously.
-
 % raw outputs
 % DES mcal+MOF
 % s2n: 10
@@ -599,6 +561,51 @@ we can correct for both of these effects, and any others, simultaneously.
 
 \end{table*}
 
+\subsection{Bias in Simulations with Representative Galaxy Density and Noise}
+
+We now explore the effects of detection in simulations that are representative
+of real survey images. As a baseline, we note that \mcal\ with MOF
+deblending and \sx\ detections results in catastrophic biases, $\sim-5\%$, for
+a DES-like survey. Simulations of LSST-like surveys demonstrate even larger
+biases. See Table~\ref{tab:shearmeas} for details. Note also that this
+procedure closely matches that currently done with DES data.
+
+In order to unpack the source of the bias in this case, we compare two different
+\mcal\ shear measurements. The first \mcal\ shear measurement is done on a
+catalog of the true source positions using a 1.2 arcsecond Gaussian weighted
+moment shape measurement. The second employs \mcal\ with the same shape
+measurement, but using \sx\ detections instead of the true object positions. We
+find that while the first \mcal\ shear measurement is unbiased
+($-0.0011\pm0.0012$), the second exhibits a bias of
+$-0.058\pm0.001$.\footnote{The simulations with the true source positions are
+computationally slow because they involve measurements on all sources, even ones
+which are undetectable. Thus we were unable to decrease the errors on the
+multiplicative bias below $\sim0.1\%$. However, for simulations with round,
+exponential, high signal-to-noise objects only, we have found that \mcal\ with
+the true source positions and a weighted moment is unbiased at high precision
+($0.00033 +/- 0.00009$) in the presence of blending.} Note that this shape
+measurement makes no corrections for object blending, but in the case where we
+use the true object positions, it is still unbiased. Thus we have demonstrated
+that given a set of true source locations, \mcal\ is not sensitive to
+blending.\footnote{In practice, we have found that when using \mcal\ with true
+detections and more complicated shape measurements, biases can reappear. Thus
+whether or not a \mcal\ shape measurement is sensitive to blending depends
+explicitly on the shape measurement technique used with the \mcal\ image
+manipulations.}
+
+This set of tests also demonstrates explicitly that source detection can cause
+significant shear measurement biases even for techniques which are robust to
+blending. The source detection biases probably originate from multiple causes.
+One of those causes is undoubtedly related to merging or splitting objects in a
+way which depends on the underlying shear, as illustrated with a toy example in
+Figure~\ref{fig:toy} and the galaxy pair tests above. However, we have found
+that even for extremely high signal-to-noise exponential objects placed on a
+grid, using \mcal\ with the Gaussian weighted moments around object centers
+determined by \sx\ still results in small biases, $\sim\!-0.2\%$. Thus at least
+some of the biases have to do with the effect of the underlying shear on object
+centering. Importantly, once we include object detection in the \mcal\ process,
+we can correct for both of these effects, and any others, simultaneously.
+
 
 \section{Mitigating Shear-dependent Detection Biases with \textsc{METACALIBRATION}}
 
@@ -737,6 +744,29 @@ The solutions to these issues will be the limiting factor in \mdet.
 
 \section{Fast Approximate Variable PSF Models}\label{app:pspsf}
 
+\begin{figure*}
+  \includegraphics[width=\textwidth]{figures/pspsf.pdf}
+  \caption{
+    Variable PSF model statistics for a DECam-like exposure. The top-left
+    panel shows the variation in the FWHM in arcseconds. The top-right panel
+    shows a visualization of the PSF shape variation. The bottom-left panel shows
+    the variation in the $1$-component of the PSF shape. The bottom-right panel
+    shows the variation in the $2$-component of the PSF shape. The variation in
+    this model is $\gtrsim10\times$ larger than the typical PSF variation for
+    either DECam or expected LSST observations.
+    \label{fig:pspsf}}
+\end{figure*}
+
+\begin{figure}
+  \includegraphics[width=\columnwidth]{figures/psxi.pdf}
+  \caption{
+    Variable PSF model shear correlation functions for a DECam-like exposure. LSST
+    is expected to have shear correlation function magnitudes around
+    $\sim\!10^{-4}$ \citep{jee2011}.
+    \label{fig:psxi}}
+\end{figure}
+
+
 In this work we use a fast, approximate variable PSF model. This model eases the
 computational requirements for the simulations while also retaining the
 essential features of realistic PSF variation. In this appendix, we present
@@ -788,28 +818,6 @@ observations\footnote{\url{https://github.com/GalSim-developers/GalSim/blob/rele
 Finally, we note that simulations of \mdet\ with this PSF model show
 $\approx-0.8\%$ multiplicative biases for a DES-like survey at full depth but
 without simulating the reduction of PSF variation due to stacking.
-
-\begin{figure*}
-  \includegraphics[width=\textwidth]{figures/pspsf.pdf}
-  \caption{
-    Variable PSF model statistics for a DECam-like exposure. The top-left
-    panel shows the variation in the FWHM in arcseconds. The top-right panel
-    shows a visualization of the PSF shape variation. The bottom-left panel shows
-    the variation in the $1$-component of the PSF shape. The bottom-right panel
-    shows the variation in the $2$-component of the PSF shape. The variation in
-    this model is $\gtrsim10\times$ larger than the typical PSF variation for
-    either DECam or expected LSST observations.
-    \label{fig:pspsf}}
-\end{figure*}
-
-\begin{figure}
-  \includegraphics[width=\columnwidth]{figures/psxi.pdf}
-  \caption{
-    Variable PSF model shear correlation functions for a DECam-like exposure. LSST
-    is expected to have shear correlation function magnitudes around
-    $\sim\!10^{-4}$ \citep{jee2011}.
-    \label{fig:psxi}}
-\end{figure}
 
 
 \bsp
