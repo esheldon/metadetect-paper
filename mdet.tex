@@ -182,13 +182,16 @@ exhibit the strongest biases. Further, we provide evidence that object
 deblending techniques that are based on the observed set of objects cannot
 correct for the biases. Next, we demonstrate that \mdet\ can produce unbiased
 shear estimates in simulations with realistic, LSST-like levels of object
-blending. Finally, we estimate the impact of the main physical assumption
+blending. After that, we estimate the impact of the main physical assumption
 made by \mdet, namely that all objects in a small region of the sky are at the
-same redshift and experience the same shear.
+same redshift and experience the same shear. Finally, we begin to address some
+of the technical challenges of implementing \mdet\ on real imaging data by
+demonstrating that the technique, when applied to multi-epoch imaging surveys,
+can naturally average out enough of the PSF variation.
 
-Future work will need to address a number of technical challenges associated
-with implementing \mdet\ on real data. First, larger images can have non-trivial
-PSF and world coordinate system (WCS) variation. Usually these observational
+Future work will need to continue to address a number of technical challenges associated
+with implementing \mdet\ on real data. First, beyond PSF variaton, larger images
+can have non-trivial world coordinate system (WCS) variation. Usually these observational
 details are approximately constant over small post-stamps and so can be dealt
 with easily. Second, larger regions of images can have non-trivial masking
 patterns due to stellar diffraction spikes, cosmic rays, etc. In the
@@ -197,8 +200,7 @@ handle convolutions, so that this data needs to be interpolated in some way.
 Finally, \mdet\ catalogs will need to be incorporated into the full set of
 downstream analysis tasks (e.g., photometric redshift estimation, the
 construction of summary statistics) in order to be used for cosmological
-constraints. We address some, but not all, of these issues in a companion paper
-(Becker et al., 2019). The degree to which we can handle these technical
+constraints. The degree to which we can handle all of these technical
 challenges will ultimately determine the accuracy of \mdet\ when used to analyze
 imaging survey data.
 
