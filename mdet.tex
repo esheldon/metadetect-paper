@@ -107,35 +107,47 @@ issues and apply \mdet\ to data from current surveys.
 
 Recently introduced methods for the estimation of weak gravitational lensing
 shear promise to provide calibration at the 0.1\% level, adequate for the
-requirements of future weak lensing surveys.  Two methods that have
-demonstrated sufficient accuracy without the use of calibration from
-simulations, and without any compromise of precision, are the \bfd\ method
+requirements of future weak lensing surveys.  At the time of writing, two
+methods have demonstrated sufficient accuracy without reliance on calibration
+from simulations, and without any compromise of precision: the \bfd\ method
 \citep{BernBFD2016} and the \mcal\ method \citep{HuffMcal2017,SheldonMcal2017}.
-The tests of these methods, while stringent, did not include an important
+Previous tests of these methods, while stringent, did not include an important
 aspect of the real universe: the images of objects overlap on the sky. In this
 work we test \mcal\ in the presence of blending, and demonstrate that there is
-a bias associated with shear-dependent object detection. We introduce an improvement
-to the method that naturally accounts for this shear-dependent object detection bias.
+a bias associated with shear-dependent object detection. We introduce an
+extension to the method that naturally accounts for this shear-dependent
+object detection bias.
 
-A method such as \mcal\ can in principle calibrate any measurement biases, even
-those associated with blending \citep[e.g.,][]{DawsonBlending2016}. More
+A method such as \mcal\ can in principle calibrate any shear measurement
+biases, even those associated with blending \citep[for discussion of blending
+effects see, e.g.,][]{DawsonBlending2016}. As we will demonstrate, more
 problematic for shear calibration is the dependence of the object detection on
-shear.\footnote{In this work, we will use the terms "detection" and "object detection"
-interchangeably to mean the detection of an object above threshold. This process
-is distinct but related to the detection of flux above threshold in an image.
-The detection of objects typically includes a step that processes pixels with
-detected flux into a catalog of objects in the image.} In the weak shear regime, the lensing mapping is simple shear
-transformation that preserves surface brightness \citep{SchneiderBook92}. For
-such a simple mapping, object detection need not be shear dependent. For example, an
-object detection algorithm that simply identifies connected regions above a threshold
-as a single object will not in principle be shear dependent. However, in real
-observations the image is smeared by a point-spread-function (PSF) due to the
-atmosphere, telescope optics or detector. In this case the overlap of objects
-does depend on shear because the PSF convolution occurs after the shear mapping.
-In this case the simple threshold objct detection method mentioned above will manifest
-a shear-dependent object detection bias. This effect is demonstrated in figure
-\ref{fig:toy}.
+shear.
 
+At this stage it is worthwhile to define exactly what we mean by object
+detection.  For isolated objects, object detection is closely related to the
+detection of regions of an image with pixel value above some threshold; this is
+perhaps the traditional meaning of the word detection. But when objects overlap
+on the sky, whether due to physical association or chance projection, there is
+an additional desire to determine how many objects there are in each region
+above threshold.  This process has sometimes been called ``deblending'', but we
+reserve that term to specifically mean the process of assigning a fraction of
+the light in each pixel to each detected objects.  In this work, for the sake
+of brevity, we will use the terms ``detection'' and ``object detection''
+interchangeably.
+
+In the weak shear regime, the lensing mapping is a simple shear transformation
+that preserves surface brightness \citep{SchneiderBook92}. For such a simple
+mapping, object detection need not be shear dependent. For example, an object
+detection algorithm that simply identifies connected regions above a threshold
+as a single object will not in principle be shear dependent. However, in real
+observations the image resolution is degraded by a point-spread-function (PSF)
+due to the atmosphere, telescope optics or detector. In this case the overlap
+of objects does depend on shear because the PSF convolution occurs after the
+shear mapping.  In this case the simple threshold object detection method
+mentioned above will manifest a shear-dependent object detection bias. This
+effect is demonstrated in figure \ref{fig:toy}.  Note this effect is present
+even in the absence of pixel noise.
 
 \begin{figure*}
   \includegraphics[width=\textwidth]{figures/toy.png}
@@ -160,27 +172,36 @@ Common object detection schemes in use today, such at those in Source Extractor
 are based on thresholding, similar to the simple approach described above but
 differing in complexity and efficiency. Thus we would expect object detections
 produced by those codes to also manifest shear dependence. An open question,
-which we will not address in this work, is whether or not one can derive an object
-detection algorithm which is independent of the shear applied to the image
-in the presence of PSF and detector distortions. Such an algorithm would
-in principle eliminate the shear-dependent object detection biases explored in this
-work.
+which we will not address in this work, is whether or not one can derive an
+object detection algorithm which is independent of the shear applied to the
+image in the presence of PSF and a detector with finite spatial resolution.
+Such an algorithm would in principle eliminate the shear-dependent object
+detection biases explored in this work.
 
-Current implementations of \mcal\ \citep[e.g.,][]{HuffMcal2017,SheldonMcal2017},
-when used with the common object detection schemes discussed above, are expected to
-exhibit shear-dependent object detection biases. These implementations of \mcal\ work
-by applying artificial shears to small postage stamp images for objects found in
-a {\em preexisting, independent} object detection step. This object detection step has the
-shear-dependent object detection bias in it already, and thus any shear applied when
-running \mcal\ does not properly measure the full shape response to shear. Note
-that corrections for selection effects were derived in \cite{SheldonMcal2017},
-but those do not work near the object detection threshold since objects needed for the
-corrections may not have been found at all. As we will demonstrate, object detection
-effects can be incorporated naturally by shearing larger images, rather than
-small postage stamps, and re-running the object detection algorithm on each of the
-sheared images. In this process, shear measurement errors, selection effects,
-object detection, and any possible blending effects are all accounted for.
-We call this technique \mdet.
+Current implementations of \mcal\
+\citep[e.g.,][]{HuffMcal2017,SheldonMcal2017}, when used with the common object
+detection schemes discussed above, are expected to exhibit shear-dependent
+object detection biases. These implementations of \mcal\ work by applying
+artificial shears to small postage stamp images for objects found in an {\em
+independent} object detection step run before the application of \mcal, and
+calculating the response of an ellipticity measurement to the applied shear
+shear. This independent object detection will already manifest a
+shear-dependent object detection bias, and thus any shear applied when running
+\mcal\ does not properly measure the full response to shear.
+
+This shear-dependent object detection bias is a type of selection effect.
+Corrections for selection effects were already derived in
+\cite{SheldonMcal2017},  but that formalism cannot be applied to this scenario
+because it is based on an existing set of object detections.  Similarly, that
+formalism cannot work near the object detection threshold, even for isolated
+objects, because the object detections needed for the corrections will, by definition,
+not be present in the catalog.
+
+As we will demonstrate, object detection effects can be incorporated naturally
+by shearing larger images, rather than small postage stamps, and re-running the
+object detection algorithm on each of the sheared images. In this process,
+shear measurement errors, selection effects, object detection, and any possible
+blending effects are all accounted for.  We call this technique \mdet.
 
 In this work, we focus on elucidating the source of shear-dependent object detection
 biases and the performance of the core \mdet\ algorithm. We demonstrate that
@@ -188,14 +209,16 @@ close blends, which are detected as only one object roughly half of the time,
 exhibit the strongest biases. Further, we provide evidence that object
 deblending techniques that are based on the observed set of objects cannot
 correct for the biases. Next, we demonstrate that \mdet\ can produce unbiased
-shear estimates in simulations with realistic, LSST-like levels of object
+shear estimates in simulations with realistic, LSST-like \ess{cite} levels of object
 blending. After that, we estimate the impact of the main physical assumption
 made by \mdet, namely that all objects in a small region of the sky are at the
 same redshift and experience the same shear. Finally, we begin to address some
 of the technical challenges of implementing \mdet\ on real imaging data by
 demonstrating that the technique, when applied to multi-epoch imaging surveys,
-can naturally average out enough of the PSF variation.
+can naturally average out enough of the potential biases associated with
+spatial PSF variation.
 
+\ess{move to separate section}
 Future work will need to continue to address a number of technical challenges associated
 with implementing \mdet\ on real data. First, beyond PSF variaton, larger images
 can have non-trivial world coordinate system (WCS) variation. Usually these observational
