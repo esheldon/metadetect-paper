@@ -291,24 +291,24 @@ constant shear.
 \subsection{Multi-object Fitting Deblending}
 
 Multi-object Fitting (MOF) deblending is a technique employed by the Dark
-Energy Survey for accounting for blended objects when performing image
+Energy Survey to account for blending of objects when performing image
 measurements \citep{DESY1cat}. It is representative of a set of techniques that
 rely on fitting models to a set of preexisting detections. The model fit is
 then used directly to form a flux measurement or indirectly by using it to
-approximately remove the light of the neighboring objects in the image
-before further processing. Typically, the models are a linear combination
-of a bulge-like and disk-like component.
+approximately remove the light of the neighboring objects in the image before
+further processing.
 
-In this work, we use a MOF algorithm
-that relies on \ngmix. It is an improved version of the MOF fitter from the
-DES Y1 analysis which is both more stable and faster. It uses a linear combination
-of a De Vaucouleurs' \citep{devauc1948} profile and exponential profile. The
-profiles are constrained to be cocentric, coeliptical, and to have a fixed
-fixed size ratio. The relative amplitude of the two profiles, the fraction of the
-total flux in the De Vaucouleurs' profile, is a free parameter and is allowed
-to vary outside of the range [0, 1]. Finally, to process a large number of
-objects, we follow \citet{DESY1cat} and break them up into interacting groups.
-These groups of objects are then simultaneously fit using a least-squares loss
+In this work, we use an \ngmix\ based MOF
+algorithm\footnote{\url{https://github.com/esheldon/mof/}}. It is an improved
+version of the MOF fitter from the DES Y1 analysis which is both more stable
+and faster. It uses a linear combination of a De Vaucouleurs'
+\citep{devauc1948} profile and exponential profile. The profiles are
+constrained to be cocentric, coelliptical, and to have a fixed one-to-one size
+ratio.  The relative amplitude of the two profiles, the fraction of the total
+flux in the De Vaucouleurs' profile, is a free parameter and is allowed to vary
+outside of the range [0, 1]. Finally, to process a large number of objects, we
+follow \citet{DESY1cat} and break them up into interacting groups.  These
+groups of objects are then simultaneously fit using a least-squares loss
 function.
 
 \subsection{Galaxy Pair Simulations}
