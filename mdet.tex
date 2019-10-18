@@ -664,9 +664,9 @@ detection and shape measurement on each sheared image. We make no attempt to
 match objects detected on each of the different sheared images. In fact, doing
 so results in shear biases because using only matched objects impart a shear
 dependent selection into the matched catalogs. This fact has implications for
-using \mdet\ in the analysis of surveys where reference or ``gold''
-samples of galaxies are typically constructed. See more discussion in the
-conclusions below.
+using \mdet\ in the analysis of surveys where reference or ``gold'' samples of
+galaxies are typically constructed. See more discussion in the conclusions
+below.
 
 \subsection{Results for Simulated Galaxy Pairs}
 \label{sec:mdetpairs}
@@ -683,36 +683,42 @@ In both cases the bias is greatly reduced, with significant bias seen only at
 the special separation of 1.5 arcsec, where the two objects are detected as one
 object in half of the cases. This demonstrates that the bias we see is not
 primarily due to the process of deblending itself, but rather shear-dependent
-detection effects. The remaining biases at 1.5 arcsec tend to be different
-sign for the deblended and non-deblended cases, which shows there is a
-qualitative difference in how the two measurements respond to the shear. As we
-will show below, we find no significant bias for more realistic DES and
-LSST-like images where the typical separation of galaxies is not at a special
-location of maximum detection ambiguity.
+detection effects. The remaining biases at 1.5 arcsec tend to be different sign
+for the deblended and non-deblended cases, which shows there is a qualitative
+difference in how the two measurements respond to the shear. As we will show
+below, we find no significant net bias for more realistic DES and LSST-like
+images where the typical separation of galaxies is not at a special location of
+maximum detection ambiguity.
 
 \subsection{Results for Simulations with Representative Galaxy Density and Noise}
 \label{sec:res:constpsf}
 
 We show results for DES-like and LSST-like surveys in Table~\ref{tab:shearmeas}.
-We have assumed a constant PSF and constant shear for these simulations. We find
+We have used a constant PSF and constant shear for these simulations. We find
 that in all cases our \mdet\ shear measurements are unbiased up to
 second-order shear effects. This conclusion holds despite the extensive blending
-of the object images and the large source detection effects we decoumented
+of the object images and the large source detection effects we documented
 above. They also meet or exceed the requirements for analyzing an LSST-like survey
 \citep[e.g.,][]{huterer2006}.
 
-Finally, we address a key physical assumption made by \mdet, namely that of constant
-shear. In a constant shear image, the space between objects is sheared in the
-same way the objects are. This shearing of the full scene matches the \mdet\
-shearing steps exactly and thus allows us to calibrate the mean shear in the
-image to high precision. A realistic image with a mix of objects under different
-shears at different redshifts can be thought of as a sum of series of constant
-shear images with the full scene sheared independently for each image in the sum.
-This image would not exactly match the \mdet\ process and thus we might expect
-some residual bias in the shear calibration.
+\subsubsection{Testing the Physical Assumptions Behind \mdet}
+
+Finally, we address a key physical assumption made by \mdet, namely that the
+full scene is transformed by a constant shear. In such an image, the space
+between objects is sheared in the same way the objects are. This shearing of
+the full scene matches the \mdet\ shearing steps exactly and thus allows us to
+calibrate the mean shear in the image to high precision. A realistic image with
+a mix of objects under different shears at different redshifts can be thought
+of as a sum of a series of constant shear images with the full scene sheared
+independently for each image in the sum.  This image would not exactly match
+the \mdet\ process and thus we might expect some residual bias in the shear
+calibration.  Note non-constant shear, in the sense that that objects
+themselves may have different shear, is not in itself a fundamental limitation,
+because it is the mean shear that is recovered by the formalism.
+\ess{make sure we agree on this wording}
 
 In order to obtain an estimate and bound on this effect, we make a simple
-modification to our simulations. When building them, instead of shearing the
+modification to our simulations. When building them, rather than shearing the
 full scene to impart the true shear to the image, we shear each object
 individually and then add it to the image. This modification leaves the space
 between objects maximally unsheared. Results for these simulations are in the
