@@ -730,14 +730,15 @@ for LSST-like surveys than DES-like surveys.
 \section{Moving Beyond Simple Simulations: Handling PSF Variation}
 \label{sec:psfvar}
 
-In order to apply \mdet\ to a real, multi-band, multi-epoch survey like the
-DES or LSST, we will need to be able to handle realistic levels of PSF variation,
+In order to apply \mdet\ to a real, multi-band, multi-epoch survey like the DES
+or LSST, we will need to be able to handle realistic levels of PSF variation,
 missing data, and non-trivial WCS transformations. We will address these issues
-more fully in future work currently in preparation. However, here we will address
-the issue of PSF variation, which is technically more challenging since \mdet\
-requires us to deconvolve the PSF over relatively large regions of sky. Here, we
-will show that the image coadding process used in a realistic multiepoch survey
-naturally reduces the PSF variation enough to render this effect negligible.
+more fully in future work, currently in preparation. However, here we will
+address the issue of PSF variation, which is technically the most challenging
+because \mdet\ requires deconvolution by the PSF over relatively large regions
+of sky. Here, we will show that the image coadding process used in a realistic
+multi-epoch survey naturally reduces the PSF variation enough to render any
+associated biases negligible.
 
 For these simulations, we use the same DES-like and LSST-like simulations as above,
 but create the PSF model by stacking some number of variable PSF models. \mdet\ is then
