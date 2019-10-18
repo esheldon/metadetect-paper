@@ -396,14 +396,16 @@ look at detection biases in DES- and LSST-like simulations with realistic
 galaxy densities and pixel noise. We find in all cases that object detection
 imparts a non-negligible shear measurement bias. As we will show in \S
 \ref{sec:mdetpairs}, we can correct this bias by including detection in the
-\mcal\ process, even if no explicit deblending is performed.
+\mcal\ process, even if no explicit deblending (division of light between
+objects) is performed.
 
 \subsection{Bias in Simulations of Galaxy Pairs}
 
 We tested \mcal\ with MOF deblending using the galaxy pair simulation presented
 in \S \ref{sec:sims:pairs}. Detection was performed using \sx, with settings
 matching those used for DES year 5 survey reductions \ess{ref}.  We got similar
-results using a simple local peak finder for detection.
+results using a simple local peak finder for detection. We saw similar levels
+of bias with and without performing deblending using MOF.
 
 The multiplicative bias $m$ is shown in figure \ref{fig:pairbias} as a function
 of the pair distance. For a large separation of 4 arcsec, two objects are
@@ -601,7 +603,7 @@ procedure closely matches that currently done with DES data.
 
 In order to unpack the source of the bias in this case, we compare two different
 \mcal\ shear measurements. The first \mcal\ shear measurement is done on a
-catalog of the true source positions using a 1.2 arcsecond Gaussian weighted
+catalog of the true source positions using a fixed 1.2 arcsecond Gaussian weighted
 moment shape measurement. The second employs \mcal\ with the same shape
 measurement, but using \sx\ detections instead of the true object positions. We
 find that while the first \mcal\ shear measurement is unbiased
@@ -611,16 +613,17 @@ computationally slow because they involve measurements on all sources, even ones
 which are undetectable. Thus we were unable to decrease the errors on the
 multiplicative bias below $\sim0.1\%$. However, for simulations with round,
 exponential, high signal-to-noise objects only, we have found that \mcal\ with
-the true source positions and a weighted moment is unbiased at high precision
-($0.00033 +/- 0.00009$) in the presence of blending.} Note that this shape
+the true source positions and a weighted moment has bias
+($0.00033 +/- 0.00009$) in the presence of blending, consistent with
+the bias expected due breakdown of the weak lensing approximation.} Note that this shape
 measurement makes no corrections for object blending, but in the case where we
 use the true object positions, it is still unbiased. Thus we have demonstrated
 that given a set of true source locations, \mcal\ is not sensitive to
 blending.\footnote{In practice, we have found that when using \mcal\ with true
 detections and more complicated shape measurements, biases can reappear. Thus
-whether or not a \mcal\ shape measurement is sensitive to blending depends
-explicitly on the shape measurement technique used with the \mcal\ image
-manipulations.}
+whether or not a \mcal\ shape measurement is biased due to blending depends
+sensitively on the technique used to measure shapes on the sheared
+\mcal\ images.}
 
 This set of tests also demonstrates explicitly that source detection can cause
 significant shear measurement biases even for techniques which are robust to
