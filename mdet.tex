@@ -338,8 +338,8 @@ and 50 knots were placed, such that the fraction light in the knots ranged
 between 0.4\% and 20\%. Finally, the total flux and noise were set such that the
 signal-to-noise ratio ranged uniformly between 25 and 35.
 
-We place two of these randomly generated galaxies in an image, with separation
-ranging from 1.0 and 4.0 arcsec. The pair is placed such that the the line
+We placed two of these randomly generated galaxies in an image, with separation
+ranging from 1.0 and 4.0 arcsec. The pair was placed such that the line
 between the pair had a uniform random orientation relative to the coordinate
 axes. Each object was given an additional random dither within a pixel. The
 galaxies were treated as transparent, such that the value in a pixel was equal
@@ -359,17 +359,20 @@ shown in figure \ref{fig:pairs}
 \subsection{Simulations with Representative Galaxy Density and Noise}
 \label{sec:sims:realgals}
 
-We use the \texttt{WeakLensingDeblending}\footnote{\url{https://github.com/LSSTDESC/WeakLensingDeblending}}
-package in order to generate simulations with realistic galaxy densities and pixel noise for both the
-DES and LSST surveys. We generated images in the r-, i-, and z-bands with an
-effective depth that is roughly equivalent to full 5 and 10 year coadd image
-for the DES and LSST respectively. We have neglected the effects of PSF
-variation and use a constant PSF per-band with the typical
-(expected) seeing for each survey ($\sim\!1$ arcsec and $\sim\!0.8$ arcsec resepctively).
-For the DES image simulations, we have
-fixed the exposure times for a single-epoch image to 90 seconds, so that
-the full-depth coadd images have exposure times of 900 seconds. Example images
-for each survey are shown in Figure~\ref{fig:simimages}.
+We used the
+\texttt{WeakLensingDeblending}\footnote{\url{https://github.com/LSSTDESC/WeakLensingDeblending}}
+package in order to generate simulations with realistic galaxy densities and
+pixel noise for both the DES and LSST surveys. We generated images in the r-,
+i-, and z-bands with an effective depth that is roughly equivalent to full 5
+and 10 year coadd image for the DES and LSST respectively. For our primary
+tests, we neglected the effects of PSF variation and used a constant PSF
+per-band with the typical (expected) seeing for each survey ($\sim\!1$ arcsec
+and $\sim\!0.8$ arcsec resepctively). We tested variable PSFs separately, as
+discussed in \S \ref{sec:psfvar}.  For the DES image simulations, we have fixed
+the exposure times for a single-epoch image to 90 seconds, so that the
+full-depth coadd images have exposure times of 900 seconds. \ess{discuss lsst
+depths as well?}.  Example images for
+each survey are shown in Figure~\ref{fig:simimages}.
 
 \begin{figure*}
     \includegraphics[width=0.9\columnwidth]{figures/des_gri.jpg}
@@ -716,6 +719,7 @@ the density of blended objects in the survey, with larger residual biases
 for LSST-like surveys than DES-like surveys.
 
 \section{Moving Beyond Simple Simulations: Handling PSF Variation}
+\label{sec:psfvar}
 
 In order to apply \mdet\ to a real, multi-band, multi-epoch survey like the
 DES or LSST, we will need to be able to handle realistic levels of PSF variation,
