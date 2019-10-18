@@ -370,9 +370,9 @@ per-band with the typical (expected) seeing for each survey ($\sim\!1$ arcsec
 and $\sim\!0.8$ arcsec resepctively). We tested variable PSFs separately, as
 discussed in \S \ref{sec:psfvar}.  For the DES image simulations, we have fixed
 the exposure times for a single-epoch image to 90 seconds, so that the
-full-depth coadd images have exposure times of 900 seconds. \ess{discuss lsst
-depths as well?}.  Example images for
-each survey are shown in Figure~\ref{fig:simimages}.
+full-depth coadd images have exposure times of 900 seconds. The depths of the LSST images
+are set to match those assumed by the \texttt{WeakLensingDeblending} package for the 10 year
+survey. Example images for each survey are shown in Figure~\ref{fig:simimages}.
 
 \begin{figure*}
     \includegraphics[width=0.9\columnwidth]{figures/des_gri.jpg}
@@ -721,7 +721,7 @@ case, of order $\sim-0.3\%$. Further, we expect these biases to depend on
 the density of blended objects in the survey, with larger residual biases
 for LSST-like surveys than DES-like surveys.
 
-\section{Moving Beyond Simple Simulations: Handling PSF Variation}
+\section{Handling PSF Variation}
 \label{sec:psfvar}
 
 In order to apply \mdet\ to a real, multi-band, multi-epoch survey like the
@@ -733,16 +733,21 @@ requires us to deconvolve the PSF over relatively large regions of sky. Here, we
 will show that the image coadding process used in a realistic multiepoch survey
 naturally reduces the PSF variation enough to render this effect negligible.
 
-For these simulations, we use the same DES-like and LSST-like simulations as above,
-but create the PSF model by stacking some number of variable PSF models. \mdet\ is then
+For these simulations, we use a simple population of galaxies that have exponential
+profiles with a half light radius of 0.5 arcsec and a PSF with a Gaussian profile with
+a full-width-at-half-maximum of 0.9 arcsec. All of the objects are round and are rendered
+at a signal-to-noise of over 20. These simulations have the advantage of having very low shape
+noise and so are ideal for tests that need to reach high-precision quickly.. We create the
+PSF model for the simulation by stacking some number of variable PSF models. \mdet\ is then
 performed using the stacked PSF model at the center of the image. In order
 to place an upper bound on this effect, we have created a variable PSF model that
 has significantly more variation than we expect in real data. See Appendix~\ref{app:pspsf}
 for details. With only stacking one of the PSF models from Appendix~\ref{app:pspsf},
-we find an multiplicative bias of $XYZ$. However, once we stack five of these models,
-which is a minimum amount of coadding expected for both the DES and LSST, we find
-an multiplicative bias of only $XYZ$. Thus we expect that in a realistic survey
-scenario, PSF variation is not a fundamental limitation for \mdet.
+we find an multiplicative bias of $-0.0065 +/- 0.00044$. However, once we stack thirty
+of these models, which is a minimum amount of coadding expected for both the DES and LSST, we find
+an multiplicative bias of only $-0.00035 +/- 0.00037$. While this test is not conclusive,
+we expect that in a realistic survey scenario, PSF variation will not be a fundamental
+limitation for \mdet.
 
 
 \section{Summary}
@@ -787,7 +792,8 @@ The solutions to these issues will be the limiting factor in \mdet.
     the variation in the $1$-component of the PSF shape. The bottom-right panel
     shows the variation in the $2$-component of the PSF shape. The variation in
     this model is $\gtrsim10\times$ larger than the typical PSF variation for
-    either DECam or expected LSST observations.
+    either DECam or expected LSST observations. The pixel scale is 0.263 arcsec
+    so that each panel is approximately 1 arcmin on a side.
     \label{fig:pspsf}}
 \end{figure*}
 
@@ -826,15 +832,16 @@ for providing upper limits on the effects of PSF variation.
 
 Using this model, we seed equal amounts of E- and B-mode power on a grid of
 $128\times128$ cells using random phases. Each cell of the grid is one
-arcsec in size. We normalize the overall shape variance to $0.05^2$. We then use
-the $g1$ and $g2$ components of this model to set the shape of the PSF at each
-location. Note that we also bound the total ellipticity to at most 0.5.
+arcsec in size. We normalize the overall shape variance to $0.10^2$. We then use
+the $g1$ and $g2$ components of this model to set the variation of th shape of
+the PSF. We draw the mean shape for each image from a Gaussian distribution of
+variance $0.10^2$. Note that we also bound the total ellipticity to at most 0.5.
 We model the PSF profile as a Moffat with shape parameter $\beta=2.5$.
 The size of the Moffat profile is set to be proportional to $\mu^{-3/4}$,
 where $\mu$ is the magnification computed from the power spectra realization. The
 proportionality constant is drawn randomly from a log-normal model with
-scatter 0.1 arcmin and a central value set so the final PSF size. This mimics
-the typical seeing conditions of a given survey.
+scatter 0.1 arcmin and a central value set so the final PSF size mimics a DES-like
+survey.
 
 We show an example PSF for a DES-like survey in Figure~\ref{fig:pspsf}.  Over a
 1 square arcminute patch, our approximate models generate PSF shape and size
@@ -844,14 +851,10 @@ LSST \citep{jee2011} over similar scales. Figure~\ref{fig:psxi} shows the $\xi_{
 functions averaged over 100 realizations of our models. For comparison, we
 expect at most shear correlation function amplitudes of $\sim10^{-4}$ for LSST
 \citep{jee2011} and for DESCam 90 second exposures. The DECam models were generated
-using the methods of \citep{jee2011} but for DECam-like environmental conditions. For
+using the methods of \citet{jee2011} but for DECam-like environmental conditions. For
 the optical contributions to the PSF, we use a set of randomly drawn
 aberrations (similar to GREAT3 \citep{great3}), but with values more typical of
-DECam
-observations\footnote{\url{https://github.com/GalSim-developers/GalSim/blob/releases/2.1/examples/great3/cgc.yaml}}.
-Finally, we note that simulations of \mdet\ with this PSF model show
-$\approx-0.8\%$ multiplicative biases for a DES-like survey at full depth but
-without simulating the reduction of PSF variation due to stacking.
+DECam observations\footnote{\url{https://github.com/GalSim-developers/GalSim/blob/releases/2.1/examples/great3/cgc.yaml}}.
 
 
 \bsp
