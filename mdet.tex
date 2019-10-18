@@ -243,8 +243,9 @@ In this section, we describe our object simulation and measurement techniques.
 In all cases, we use the \galsim\ \citep{GALSIM2015} software package to
 generate images, perform convolutions etc. We use the \texttt{SEP} \citep{sep}
 Python wrapper of the Source Extractor software package \citep{Bertin96} for
-source detection as needed. Finally, we make extensive use of \ngmix\ for object
-measurement and the \mcal\ implementation.
+source detection as needed. Finally, we make extensive use of \ngmix
+\footnote{\url{https://github.com/esheldon/ngmix/}} for object measurement and
+the \mcal\ implementation.
 
 \subsection{\textsc{Metacalibration}}
 
@@ -260,12 +261,12 @@ order, we can write the response of an image measurement to an applied shear as
                            \boldsymbol{R} \boldsymbol\gamma +
                            O(\boldsymbol\gamma^2)
 \end{eqnarray}
-where $\boldsymbol{e}$ is the image measurement (e.g., object detection and shape
+where $\boldsymbol{e}$ is the image measurement (e.g., a shape
 measurement), $\boldsymbol\gamma$ is the applied shear, and $\boldsymbol{R}$ is
 the response (matrix) of the image measurement at zero applied shear,
 $R_{ij}=\partial e_i /\partial \gamma_j$.
 
-\mcal\ estimates this response via an numerical, finite-difference derivative
+\mcal\ estimates this response via a numerical, finite-difference derivative
 \begin{displaymath}
 R_{ij} \approx \frac{e_i^{+} - e_i^{-}}{2\Delta\gamma_j}\ .
 \end{displaymath}
@@ -278,12 +279,14 @@ estimated responses per-object are quite noisy, they are typically averaged
 over many images/objects in order to estimate the response of a set of
 images/objects to a shear.
 
-In the notation above, we have denoted the object shape measurement as $\boldsymbol{e}$,
-which implies both detection of objects {\it and} the shape measurements. In fact,
-\mcal\ can measure the response of almost any image manipulation, including the
-detection of objects as described in this work. From this perspective, \mdet\
-is measuring the full response of an image (of possibly multiple objects) to
-a constant shear.
+In the notation above, we have denoted the object shape measurement as
+$\boldsymbol{e}$, but implicit is the fact that the objects must have been
+detected.  We will expand on this notation to explicitly include object
+detection in section \ref{sec:mitigate}.  In fact, \mcal\ can measure the
+response of almost any image manipulation. From this perspective, \mdet\ is
+measuring the full response of an image (of possibly multiple objects) to a
+constant shear.
+
 
 \subsection{Multi-object Fitting Deblending}
 
@@ -631,6 +634,7 @@ we can correct for both of these effects, and any others, simultaneously.
 
 
 \section{Mitigating Shear-dependent Detection Biases with \textsc{METACALIBRATION}}
+\label{sec:mitigate}
 
 In the previous section, we demonstrated that source detection is a significant
 source of bias in shear measurements with \mcal. Here we test a straight-forward
