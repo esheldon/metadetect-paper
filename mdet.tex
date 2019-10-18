@@ -646,7 +646,7 @@ In the previous section, we demonstrated that source detection is a significant
 source of bias in shear measurements with \mcal. Here we test a straight-forward
 fix for this bias, namely including source detection in the \mcal\ process. We
 have implemented this fix as follows. We take relatively large images (typically
-1 arcminute on a side) and apply \mcal\ directly to the full image using the
+$\sim$ 2 arcminute on a side) and apply \mcal\ directly to the full image using the
 PSF at the center of the image. For each of the five \mcal\ images, we apply
 \sx\ to detect sources. We then measure shears in postage stamps around each
 detection in each image using an non-PSF corrected, Gaussian-weighted moment.
@@ -659,12 +659,12 @@ the patch by computing the average shear response for the image
 where the equation for the response above is for a single shear component. We term this
 process \mdet.
 
-Note that the averages above are over the {\it catalogs} from running source detection
-and shape measurement on each sheared image. We make no attempt to match objects between the different
-sheared images. In fact, doing so would potentially bring back in the shear
-detection biases since using only matched objects would impart a shear dependent
-selection into the matched catalogs. This last fact has implications for
-analyses using \mdet\ in the analysis of surveys where reference or "gold"
+Note that the averages above are over the {\it catalogs} from running source
+detection and shape measurement on each sheared image. We make no attempt to
+match objects detected on each of the different sheared images. In fact, doing
+so results in shear biases because using only matched objects impart a shear
+dependent selection into the matched catalogs. This fact has implications for
+using \mdet\ in the analysis of surveys where reference or ``gold''
 samples of galaxies are typically constructed. See more discussion in the
 conclusions below.
 
