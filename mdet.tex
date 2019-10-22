@@ -177,7 +177,7 @@ differing in complexity and efficiency. Thus we would expect object detections
 produced by those codes to also manifest shear dependence. An open question,
 which we will not address in this work, is whether or not one can derive an
 object detection algorithm which is independent of the shear applied to the
-image in the presence of PSF and a detector with finite spatial resolution.
+image in the presence of a PSF and a detector with finite spatial resolution.
 Such an algorithm would in principle eliminate the shear-dependent object
 detection biases explored in this work.
 
@@ -185,10 +185,10 @@ Current implementations of \mcal\
 \citep[e.g.,][]{HuffMcal2017,SheldonMcal2017}, when used with the common object
 detection schemes discussed above, are expected to exhibit shear-dependent
 object detection biases. These implementations of \mcal\ work by applying
-artificial shears to small postage stamp images for objects found in an {\em
-independent} object detection step run before the application of \mcal, and
-calculating the response of an ellipticity measurement to the applied shear
-shear. This independent object detection will already manifest a
+artificial shears to small postage stamp images for objects found during an
+{\em independent} object detection step, run before the application of \mcal,
+followed by a calculation of the response of an ellipticity measurement to the
+applied shear shear. This independent object detection will already manifest a
 shear-dependent object detection bias, and thus any shear applied when running
 \mcal\ does not properly measure the full response to shear.
 
@@ -206,20 +206,21 @@ object detection algorithm on each of the sheared images. In this process,
 shear measurement errors, selection effects, object detection, and any possible
 blending effects are all accounted for.  We call this technique \mdet.
 
-In this work, we focus on elucidating the source of shear-dependent object detection
-biases and the performance of the core \mdet\ algorithm. We demonstrate that
-close blends, which are detected as only one object roughly half of the time,
-exhibit the strongest biases. Further, we provide evidence that object
-deblending techniques that are based on the observed set of objects cannot
-correct for the biases. Next, we demonstrate that \mdet\ can produce unbiased
-shear estimates in simulations with realistic, LSST-like \citep[e.g.,][]{chang2013} levels of object
-blending. After that, we estimate the impact of the main physical assumption
-made by \mdet, namely that all objects in a small region of the sky are at the
-same redshift and experience the same shear. Finally, we begin to address some
-of the technical challenges of implementing \mdet\ on real imaging data by
-demonstrating that the technique, when applied to multi-epoch imaging surveys,
-can naturally average out enough of the potential biases associated with
-spatial point-spread function (PSF) variation.
+In this work, we focus on elucidating the source of shear-dependent object
+detection biases and the performance of the core \mdet\ algorithm. We
+demonstrate that the largest biases occur for pairs of galaxies separated by a
+distance such that only one object is detected in about half of the cases.
+Further, we provide evidence that object deblending techniques that are based
+objects detected in the image cannot correct for the biases. Next, we
+demonstrate that \mdet\ can produce unbiased shear estimates in simulations
+with realistic, LSST-like \citep[e.g.,][]{chang2013} levels of object blending.
+After that, we estimate the impact of the main physical assumption made by
+\mdet, namely that all objects in a small region of the sky experience the same
+shear. Finally, we begin to address some of the technical challenges of
+implementing \mdet\ on real imaging data by demonstrating that the technique,
+when applied to multi-epoch imaging surveys, can naturally average out enough
+of the potential biases associated with spatial point-spread function (PSF)
+variation.
 
 The paper is laid out as follows. In Section~\ref{sec:sims}, we describe our
 simulation and analysis techniques. In Section~\ref{sec:detbiases}, we study
@@ -255,32 +256,35 @@ order, we can write the response of an image measurement to an applied shear as
                            \boldsymbol{R} \boldsymbol\gamma +
                            O(\boldsymbol\gamma^2)
 \end{eqnarray}
-where $\boldsymbol{e}$ is the image measurement (e.g., a shape
+where $\boldsymbol{e}$ is the image measurement (e.g., an ellipticity
 measurement), $\boldsymbol\gamma$ is the applied shear, and $\boldsymbol{R}$ is
 the response (matrix) of the image measurement at zero applied shear,
 $R_{ij}=\partial e_i /\partial \gamma_j$.
 
 \mcal\ estimates this response via a numerical, finite-difference derivative
 \begin{displaymath}
-R_{ij} \approx \frac{e_i^{+} - e_i^{-}}{2\Delta\gamma_j}\ .
+R_{ij} \approx \frac{e_i^{+} - e_i^{-}}{\Delta\gamma_j}\ .
 \end{displaymath}
 where $R_{ij}$ is the estimated response of the object to shear
-and $\Delta\gamma_j$ is a small shear, usually of order 0.01. The quantity
-$e_i^{+/-}$ is the $i$-th shape component measured on an image sheared with
+and $\Delta\gamma_j = 2 \gamma_j$ is the difference between two applied
+shears, $\pm \gamma_j$, with $\gamma_j$ a small shear, usually of order 0.01. The quantity
+$e_i^{+/-}$ is the $i$-th ellipticity component measured on an image sheared with
 $\pm\Delta\gamma_j$. In detail, one must appropriately handle the PSF and
 other observational effects when computing $R_{ij}$. Note that as the
-estimated responses per-object are quite noisy, they are typically averaged
+estimated responses per-object are quite noisy, they must be averaged
 over many images/objects in order to estimate the response of a set of
 images/objects to a shear.
 
-In the notation above, we have denoted the object shape measurement as
+In the notation above, we have denoted the object ellipticity measurement as
 $\boldsymbol{e}$, but implicit is the fact that the objects must have been
 detected.  We will expand on this notation to explicitly include object
-detection in section \ref{sec:mitigate}.  In fact, \mcal\ can measure the
-response of almost any image manipulation. From this perspective, \mdet\ is
-measuring the full response of an image (of possibly multiple objects) to a
-constant shear.
+detection in section \ref{sec:mitigate}.
 
+We will focus on detection biases in this work, but there are a number of steps
+in the image processing that are shear dependent: detection, ellipticity
+measurement, flux measurement, etc.  In this sense, the \mdet\ method will
+measure the response of all image manipulations and measurements to an applied,
+constant shear.
 
 \subsection{Multi-object Fitting Deblending}
 
@@ -308,10 +312,10 @@ function.
 \subsection{Galaxy Pair Simulations}
 \label{sec:sims:pairs}
 
-In order to isolate the effects of detection easily, we employ a simulation setup
-consisting of two simulated galaxies with a variable separation between them. By
-varying the separation of the objects, we can turn on and off detection effects
-in a controlled way.
+In order to isolate the effects of detection easily, we first employ a
+simulation setup consisting of two simulated galaxies with a variable
+separation between them. By varying the separation of the objects, we can
+carefully tune the effects effects of blending.
 
 The galaxies are each a combination of a bulge component, modeled as a De
 Vaucouleurs' profile \citep{devauc1948} and disk component modeled as an
@@ -535,7 +539,7 @@ detection off, we can eliminate these detection biases.
   \caption{
     Multiplicative biases in weak lensing simulations for various shear
     measurement techniques. In all cases, the simulations use realistic
-    galaxy shapes, galaxy sizes and noise for the given survey. For measurements using standard \mcal\ with
+    galaxy ellipticities, galaxy sizes and noise for the given survey. For measurements using standard \mcal\ with
     MOF deblending, a cut of $T/T_{PSF} > 0.5$ was also applied. Measurements with
     \mdet\ and moments used a size cut of $T/T_{PSF} > 1.2$. In the case of \mdet\ with moments,
     no deblending corrections are applied and the moments are a simple weighted moment
@@ -598,7 +602,7 @@ procedure closely matches that currently done with DES data.
 In order to unpack the source of the bias in this case, we compare two different
 \mcal\ shear measurements. The first \mcal\ shear measurement is done on a
 catalog of the true source positions using a fixed 1.2 arcsecond Gaussian weighted
-moment shape measurement. The second employs \mcal\ with the same shape
+moment ellipticity measurement. The second employs \mcal\ with the same ellipticity
 measurement, but using \sx\ detections instead of the true object positions. We
 find that while the first \mcal\ shear measurement is unbiased
 ($-0.0011\pm0.0012$), the second exhibits a bias of
@@ -609,14 +613,15 @@ multiplicative bias below $\sim0.1\%$. However, for simulations with round,
 exponential, high signal-to-noise objects only, we have found that \mcal\ with
 the true source positions and a weighted moment has bias
 ($0.00033 +/- 0.00009$) in the presence of blending, consistent with
-the bias expected due breakdown of the weak lensing approximation.} Note that this shape
+the bias expected due breakdown of the weak lensing approximation.} Note that this ellipticity
 measurement makes no corrections for object blending, but in the case where we
 use the true object positions, it is still unbiased. Thus we have demonstrated
 that given a set of true source locations, \mcal\ is not sensitive to
 blending.\footnote{In practice, we have found that when using \mcal\ with true
-detections and more complicated shape measurements, biases can reappear. Thus
-whether or not a \mcal\ shape measurement is biased due to blending depends
-sensitively on the technique used to measure shapes on the sheared
+detections and more complicated ellipticity measurements, for example using
+a non-linear model fit, biases can reappear. Thus
+whether or not a \mcal\ ellipticity measurement is biased due to blending depends
+sensitively on the technique used to measure ellipticities on the sheared
 \mcal\ images.}
 
 This set of tests also demonstrates explicitly that source detection can cause
@@ -654,12 +659,12 @@ where the equation for the response above is for a single shear component. We te
 process \mdet.
 
 Note that the averages above are over the {\it catalogs} from running source
-detection and shape measurement on each sheared image. We make no attempt to
-match objects detected on each of the different sheared images. In fact, doing
-so results in shear biases because using only matched objects impart a shear
-dependent selection into the matched catalogs. This fact has implications for
-using \mdet\ in the analysis of surveys where reference or ``gold'' samples of
-galaxies are typically constructed. See more discussion in the conclusions
+detection and ellipticity measurement on each sheared image. We make no attempt
+to match objects detected on each of the different sheared images. In fact,
+doing so results in shear biases because using only matched objects impart a
+shear dependent selection into the matched catalogs. This fact has implications
+for using \mdet\ in the analysis of surveys where reference or ``gold'' samples
+of galaxies are typically constructed. See more discussion in the conclusions
 below.
 
 \subsection{Results for Simulated Galaxy Pairs}
@@ -737,7 +742,7 @@ For these simulations, we use a simple population of galaxies that have
 exponential profiles with a half light radius of 0.5 arcsec and a PSF with a
 Gaussian profile with a full-width-at-half-maximum of 0.9 arcsec. All of the
 objects are round and are rendered at a signal-to-noise of over 20. These
-simulations have the advantage of having very low shape noise and so are ideal
+simulations have the advantage of having very low ellipticity noise and so are ideal
 for tests that need to reach high-precision quickly.. We create the PSF model
 for the simulation by stacking some number of variable PSF models. \mdet\ is
 then performed using the stacked PSF model at the center of the image. In order
@@ -794,9 +799,9 @@ imaging survey data.
   \caption{
     Variable PSF model statistics for a DECam-like exposure. The top-left
     panel shows the variation in the FWHM in arcseconds. The top-right panel
-    shows a visualization of the PSF shape variation. The bottom-left panel shows
-    the variation in the $1$-component of the PSF shape. The bottom-right panel
-    shows the variation in the $2$-component of the PSF shape. The variation in
+    shows a visualization of the PSF ellipticity variation. The bottom-left panel shows
+    the variation in the $1$-component of the PSF ellipticity. The bottom-right panel
+    shows the variation in the $2$-component of the PSF ellipticity. The variation in
     this model is $\gtrsim10\times$ larger than the typical PSF variation for
     either DECam or expected LSST observations. The pixel scale is 0.263 arcsec
     so that each panel is approximately 1 arcmin on a side.
@@ -838,9 +843,9 @@ for providing upper limits on the effects of PSF variation.
 
 Using this model, we seed equal amounts of E- and B-mode power on a grid of
 $128\times128$ cells using random phases. Each cell of the grid is one
-arcsec in size. We normalize the overall shape variance to $0.10^2$. We then use
-the $g1$ and $g2$ components of this model to set the variation of th shape of
-the PSF. We draw the mean shape for each image from a Gaussian distribution of
+arcsec in size. We normalize the overall ellipticity variance to $0.10^2$. We then use
+the $g1$ and $g2$ components of this model to set the variation of the ellipticity of
+the PSF. We draw the mean ellipticity for each image from a Gaussian distribution of
 variance $0.10^2$. Note that we also bound the total ellipticity to at most 0.5.
 We model the PSF profile as a Moffat with shape parameter $\beta=2.5$.
 The size of the Moffat profile is set to be proportional to $\mu^{-3/4}$,
@@ -850,7 +855,7 @@ scatter 0.1 arcmin and a central value set so the final PSF size mimics a DES-li
 survey.
 
 We show an example PSF for a DES-like survey in Figure~\ref{fig:pspsf}.  Over a
-1 square arcminute patch, our approximate models generate PSF shape and size
+1 square arcminute patch, our approximate models generate PSF ellipticity and size
 variation that are $\gtrsim10\times$ that seen in real 90 second exposures
 with DECam \citep{DESY1shear}, or the expected variation in a 15 second exposure with
 LSST \citep{jee2011} over similar scales. Figure~\ref{fig:psxi} shows the $\xi_{\pm}$ shear correlation
