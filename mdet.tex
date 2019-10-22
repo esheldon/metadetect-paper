@@ -281,10 +281,10 @@ detected.  We will expand on this notation to explicitly include object
 detection in section \ref{sec:mitigate}.
 
 We will focus on detection biases in this work, but there are a number of steps
-in the image processing that are shear dependent: detection, ellipticity
-measurement, flux measurement, etc.  In this sense, the \mdet\ method will
-measure the response of all image manipulations and measurements to an applied,
-constant shear.
+in the image processing that are shear dependent: detection, centroiding,
+ellipticity measurement, flux measurement, etc.  In this sense, the \mdet\
+method will measure the response of all image manipulations and measurements to
+an applied, constant shear.
 
 \subsection{Multi-object Fitting Deblending}
 
@@ -359,16 +359,17 @@ shown in figure \ref{fig:pairs}
 
 We used the
 \texttt{WeakLensingDeblending}\footnote{\url{https://github.com/LSSTDESC/WeakLensingDeblending}}
-package in order to generate simulations with realistic galaxy densities and
+package to generate image simulations with realistic galaxy densities and
 pixel noise for both the DES and LSST surveys. We generated images in the r-,
 i-, and z-bands with an effective depth that is roughly equivalent to full 5
 and 10 year coadd image for the DES and LSST respectively. For our primary
 tests, we neglected the effects of PSF variation and used a constant PSF
-per-band with the typical (expected) seeing for each survey ($\sim\!1$ arcmin
-and $\sim\!0.8$ arcmin resepctively). We tested variable PSFs separately, as
+per-band with the typical (expected) seeing for each survey ($\sim\!1$ arcsec
+and $\sim\!0.8$ arcsec resepctively). We tested variable PSFs separately, as
 discussed in \S \ref{sec:psfvar}.  For the DES image simulations, we have fixed
 the exposure times for a single-epoch image to 90 seconds, so that the
-full-depth coadd images have exposure times of 900 seconds. The depths of the LSST images
+full-depth coadd images from 10 epochs have exposure times of 900 seconds in each
+filter. The depths of the LSST images
 are set to match those assumed by the \texttt{WeakLensingDeblending} package for the 10 year
 survey. Example images for each survey are shown in Figure~\ref{fig:simimages}.
 
@@ -613,7 +614,7 @@ multiplicative bias below $\sim0.1\%$. However, for simulations with round,
 exponential, high signal-to-noise objects only, we have found that \mcal\ with
 the true source positions and a weighted moment has bias
 ($0.00033 +/- 0.00009$) in the presence of blending, consistent with
-the bias expected due breakdown of the weak lensing approximation.} Note that this ellipticity
+the bias expected due to the breakdown of the weak lensing approximation.} Note that this ellipticity
 measurement makes no corrections for object blending, but in the case where we
 use the true object positions, it is still unbiased. Thus we have demonstrated
 that given a set of true source locations, \mcal\ is not sensitive to
@@ -629,13 +630,18 @@ significant shear measurement biases even for techniques which are robust to
 blending. The source detection biases probably originate from multiple causes.
 One of those causes is undoubtedly related to merging or splitting objects in a
 way which depends on the underlying shear, as illustrated with a toy example in
-Figure~\ref{fig:toy} and the galaxy pair tests above. However, we have found
-that even for extremely high signal-to-noise exponential objects placed on a
-grid, using \mcal\ with the Gaussian weighted moments around object centers
-determined by \sx\ still results in small biases, $\sim\!-0.2\%$. Thus at least
-some of the biases have to do with the effect of the underlying shear on object
-centering. Importantly, once we include object detection in the \mcal\ process,
-we can correct for such effects simultaneously.
+Figure~\ref{fig:toy} and the galaxy pair tests above.
+
+We have found that even for extremely high signal-to-noise exponential objects
+placed on a grid, using \mcal\ with the Gaussian weighted moments around object
+centers determined by \sx\ still results in small biases, $\sim\!-0.2\%$. Thus
+at least some of the biases have to do with the effect of the underlying shear
+on object centering.  As demonstrated in \cite{SheldonMcal2017}, this
+centroiding bias is corrected as part of the ordinary \mcal\ shear response
+when center is re-fit on sheared images and detection is unambiguous.  But, as
+we will demonstrate below, once we include object detection in the \mcal\
+process, we can simultaneously correct for such measurement effects and
+shear-dependent detection effects.
 
 
 \section{Mitigating Shear-dependent Detection Biases with \textsc{METACALIBRATION}}
@@ -653,7 +659,7 @@ These five catalogs are then combined into a single estimate for the shear in
 the patch by computing the average shear response for the image
 \begin{eqnarray}
 \langle \boldsymbol\gamma \rangle &\approx& \langle \boldsymbol{R}\rangle^{-1}\langle\boldsymbol{e}\rangle\\
-\langle R_{ij}\rangle &=& \frac{\langle e_i^{+}\rangle - \langle e_i^{-}\rangle}{2\Delta\gamma_j}
+\langle R_{ij}\rangle &=& \frac{\langle e_i^{+}\rangle - \langle e_i^{-}\rangle}{\Delta\gamma_j}
 \end{eqnarray}
 where the equation for the response above is for a single shear component. We term this
 process \mdet.
@@ -661,8 +667,8 @@ process \mdet.
 Note that the averages above are over the {\it catalogs} from running source
 detection and ellipticity measurement on each sheared image. We make no attempt
 to match objects detected on each of the different sheared images. In fact,
-doing so results in shear biases because using only matched objects impart a
-shear dependent selection into the matched catalogs. This fact has implications
+doing so results in shear biases because using only matched objects imparts a
+shear dependent selection onto the matched catalogs. This fact has implications
 for using \mdet\ in the analysis of surveys where reference or ``gold'' samples
 of galaxies are typically constructed. See more discussion in the conclusions
 below.
@@ -711,7 +717,7 @@ a mix of objects under different shears at different redshifts can be thought
 of as a sum of a series of constant shear images with the full scene sheared
 independently for each image in the sum.  This image would not exactly match
 the \mdet\ process and thus we might expect some residual bias in the shear
-calibration.  Note that non-constant shear, in the sense that that objects
+calibration.  Note that non-constant shear, in the sense that objects
 themselves may have varying shears, is not in itself a fundamental limitation,
 because it is the mean shear that is recovered by the formalism.
 
@@ -719,11 +725,15 @@ In order to obtain an estimate and bound on this effect, we make a simple
 modification to our simulations. When building them, rather than shearing the
 full scene to impart the true shear to the image, we shear each object
 individually and then add it to the image. This modification leaves the space
-between objects maximally unsheared. Results for these simulations are in the
-bottom rows of Table~\ref{tab:shearmeas}. We find small residual biases in this
-case, of order $\sim-0.3\%$. Further, we expect these biases to depend on
-the density of blended objects in the survey, with larger residual biases
-for LSST-like surveys than DES-like surveys.
+between objects unsheared, maximally different than what happens during the
+\mcal\ image shearing process. Results for these simulations are in the bottom
+rows of Table~\ref{tab:shearmeas}. We find small residual biases in this case,
+of order $\sim-0.3\%$.
+
+We expect these biases to depend on the density of blended objects in the
+survey, with larger residual biases for LSST-like surveys than DES-like
+surveys.  Understanding the expected level of this bias in real surveys will
+require further study, and is beyond the scope of this work.
 
 \section{Handling PSF Variation}
 \label{sec:psfvar}
@@ -742,16 +752,16 @@ For these simulations, we use a simple population of galaxies that have
 exponential profiles with a half light radius of 0.5 arcsec and a PSF with a
 Gaussian profile with a full-width-at-half-maximum of 0.9 arcsec. All of the
 objects are round and are rendered at a signal-to-noise of over 20. These
-simulations have the advantage of having very low ellipticity noise and so are ideal
-for tests that need to reach high-precision quickly.. We create the PSF model
-for the simulation by stacking some number of variable PSF models. \mdet\ is
-then performed using the stacked PSF model at the center of the image. In order
-to place an upper bound on this effect, we have created a variable PSF model
-that has significantly more variation than we expect in real data. See
-Appendix~\ref{app:pspsf} for details.  Using a single PSF realization from
-Appendix~\ref{app:pspsf}, without stacking, we find an multiplicative bias of
-$-0.0065 +/- 0.00044$.  However, when stacking thirty of these models, which is
-the expected number of epochs for three bands in the final DES data set, we
+simulations have the advantage of having very low ellipticity noise and so are
+ideal for tests that need to reach high-precision quickly. We create the PSF
+model for the simulation by coadding a number of images with random, variable PSFs.
+\mdet\ is then performed using the stacked PSF model at the center of
+the image. In order to place an upper bound on this effect, we have created a
+variable PSF model that has significantly more variation than we expect in real
+data. See Appendix~\ref{app:pspsf} for details.  Using a single PSF realization
+from Appendix~\ref{app:pspsf}, without stacking, we find a multiplicative bias
+of $-0.0065 +/- 0.00044$.  However, when stacking thirty of these models, which
+is the expected number of epochs for three bands in the final DES data set, we
 find a multiplicative bias of only $-0.00035 +/- 0.00037$.  For LSST many more
 epochs will be available for coadding.   While this test is not conclusive, we
 expect that in a realistic survey scenario, PSF variation will not be a
@@ -772,20 +782,24 @@ detection of objects in the \mcal\ process, we can eliminate these biases at
 high precision even for an LSST-like survey. This technique, which we call
 \mdet, appears to be extremely promising for future surveys.
 
-Future work will need to continue to address a number of technical challenges associated
-with implementing \mdet\ on real data. First, beyond PSF variaton, larger images
-can have non-trivial world coordinate system (WCS) variation. Usually these observational
-details are approximately constant over small post-stamps and so can be dealt
-with easily. Second, larger regions of images can have non-trivial masking
-patterns due to stellar diffraction spikes, cosmic rays, etc. In the
+Future work will need to continue to address a number of technical challenges
+associated with implementing \mdet\ on real data. Beyond PSF variaton, larger
+images can have non-trivial world coordinate system (WCS) variation.  Usually
+these observational details are approximately constant over small post-stamps
+and so can be dealt with easily, but this may not be so for the larger regions
+which will be coadded for \mdet. Larger regions of images can have non-trivial
+masking patterns due to stellar diffraction spikes, cosmic rays, etc. In the
 implementation presented in this work, we use fast Fourier transforms (FFTs) to
-handle convolutions, so that this data needs to be interpolated in some way.
-Finally, \mdet\ catalogs will need to be incorporated into the full set of
+handle convolutions, which do no permit missing data, so the masked regions
+must be interpolated in some way.  In order to reconstruct accurate psf models
+for the coadd, the original images can have no edges within the coadd region,
+necessitating some loss of precision \citep{ArmstrongCoadd}.  Finally, the five
+separate \mdet\ catalogs must each be incorporated into the full set of
 downstream analysis tasks (e.g., photometric redshift estimation, the
 construction of summary statistics, etc.) in order to be used for cosmological
 constraints. The degree to which we can handle all of these technical
-challenges will ultimately determine the accuracy of \mdet\ when used to analyze
-imaging survey data.
+challenges will ultimately determine the accuracy of \mdet\ when used to
+analyze imaging survey data.
 
 \bibliographystyle{mnras}
 \bibliography{references}
