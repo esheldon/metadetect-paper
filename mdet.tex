@@ -765,15 +765,19 @@ exponential profiles with a half light radius of 0.5 arcsec and a PSF with a
 Gaussian profile with a full-width-at-half-maximum of 0.9 arcsec. All of the
 objects are round and are rendered at a signal-to-noise of over 20. These
 simulations have the advantage of having very low ellipticity noise and so are
-ideal for tests that need to reach high-precision quickly. We create the PSF
-model for the simulation by coadding a number of images with random, variable PSFs.
-\mdet\ is then performed using the stacked PSF model at the center of
-the image. In order to place an upper bound on this effect, we have created a
-variable PSF model that has significantly more variation than we expect in real
-data. See Appendix~\ref{app:pspsf} for details.  Using a single PSF realization
-from Appendix~\ref{app:pspsf}, without stacking, we find a multiplicative bias
-of $-0.0065 +/- 0.00044$.  However, when stacking thirty of these models, which
-is the expected number of epochs for three bands in the final DES data set, we
+ideal for tests that need to reach high-precision quickly. We create the images
+for the simulation by coadding a number of images with random, variable PSFs.
+\mdet\ is then performed using the coadd of PSF models from the input images,
+with the PSF from each input image generated at the location of the center of
+the final coadd.  This model is correct only at that one location, so we
+expect a bias in the recovered shear.
+
+In order to place an upper bound on this effect, we have created a variable PSF
+model that has significantly more variation than we expect in real data. See
+Appendix~\ref{app:pspsf} for details.  Using a single PSF realization from
+Appendix~\ref{app:pspsf}, without stacking, we find a multiplicative bias of
+$-0.0065 +/- 0.00044$.  However, when stacking thirty of these models, which is
+the expected number of epochs for three bands in the final DES data set, we
 find a multiplicative bias of only $-0.00035 +/- 0.00037$.  For LSST many more
 epochs will be available for coadding.   While this test is not conclusive, we
 expect that in a realistic survey scenario, PSF variation will not be a
