@@ -783,18 +783,18 @@ epochs will be available for coadding.   While this test is not conclusive, we
 expect that in a realistic survey scenario, PSF variation will not be a
 fundamental limitation for \mdet.
 
-\section{Implications for Survey Analysis} \label{sec:wavg}
+\section{Implications for the Analysis of Imaging Surveys} \label{sec:wavg}
 
 The fact that five separate catalogs must be used without any attempt at
 matching them (see \S \ref{sec:mitigate}), has implications for using \mdet\ in
 the analysis of surveys.  Typically a single reference or ``gold'' sample of
 objects is constructed and used for all subsequent calculations, such as
-finding a redshift distribution.  With \mdet, multiple such catalogs, one for
-each artificial shear, must be constructed in order to understand the response
-of a summary statistics to shear.
+calculating redshift distributions.  With \mdet, multiple such catalogs, one
+for each artificial shear, must be constructed in order to understand the
+response of summary statistics to shear.
 
-When calculating averages for related quantities, such as a redshift
-distribution, the shear response provides the appropriate weight on an
+When calculating sums and averages for other, non-shear quantities, such as a
+redshift distribution, the shear response provides the appropriate weight on an
 object-by-object basis \citep{SheldonMcal2017}.  But individual responses
 cannot be calculated with \mdet, because this would require matching the
 catalogs produced from the different artifically sheared images, which would
@@ -810,35 +810,34 @@ overall redshift distribution.
 \section{Summary}\label{sec:conc}
 
 In this work, we have explored how \mcal\ weak lensing measurements perform in
-realistic scenarios where a large fraction of the objects overlap and the
-detection of objects can be ambiguous. These conditions will characterize all
-future weak lensing surveys, especially those executed beneath the atmosphere,
-so accurate performance in this regime is critical to attaining maximal
-scientific knowledge from the surveys. We find that \mcal\ used with MOF-like
-object deblending techniques has severe, many percent biases that get worse
-with the degree of object blending. We then demonstrated that by including the
+scenarios where a large fraction of the objects overlap and the detection of
+objects can be ambiguous. These conditions will characterize all future weak
+lensing surveys, especially those executed beneath the atmosphere, so accurate
+performance in this regime is critical. We find that \mcal\ used with MOF-like
+object deblending techniques has severe, many percent biases that get worse as
+the degree of blending increases. We then demonstrated that by including the
 detection of objects in the \mcal\ process, we can eliminate these biases at
 high precision even for an LSST-like survey. This technique, which we call
 \mdet, appears to be extremely promising for future surveys.
 
-Future work will need to continue to address a number of technical challenges
-associated with implementing \mdet\ on real data. Beyond PSF variaton, larger
-images can have non-trivial world coordinate system (WCS) variation.  Usually
-these observational details are approximately constant over small post-stamps
-and so can be dealt with easily, but this may not be so for the larger regions
-which will be coadded for \mdet. Larger regions of images can have non-trivial
+Future work must address a number of technical challenges associated with
+implementing \mdet\ on real data. Beyond PSF variaton, larger images can have
+non-trivial world coordinate system (WCS) variation.  Usually these
+observational details are approximately constant over small post-stamps and so
+can be dealt with easily, but this may not be so for the larger regions which
+will be coadded for \mdet. Larger regions of images can have non-trivial
 masking patterns due to stellar diffraction spikes, cosmic rays, etc. In the
 implementation presented in this work, we use fast Fourier transforms (FFTs) to
-handle convolutions, which do no permit missing data, so the masked regions
-must be interpolated in some way.  In order to reconstruct accurate psf models
-for the coadd, the original images can have no edges within the coadd region,
-necessitating some loss of precision \citep{ArmstrongCoadd}.  Finally, the five
-separate \mdet\ catalogs must each be incorporated into the full set of
-downstream analysis tasks (e.g., photometric redshift estimation, the
-construction of summary statistics, etc.) in order to be used for cosmological
-constraints. The degree to which we can handle all of these technical
-challenges will ultimately determine the accuracy of \mdet\ when used to
-analyze imaging survey data.
+handle convolutions. The FFT does not permit missing data, so the masked
+regions must be interpolated in some way.  In order to reconstruct accurate psf
+models for the coadd, the original images can have no edges within the coadd
+region, necessitating careful bookkeeping and some loss of precision
+\citep{ArmstrongCoadd}.  Finally, the five separate \mdet\ catalogs must each
+be incorporated into the full set of downstream analysis tasks (e.g.,
+photometric redshift estimation, the construction of summary statistics, etc.)
+in order to be used for cosmological constraints. The degree to which we can
+handle all of these technical challenges will ultimately determine the accuracy
+of \mdet\ when used to analyze imaging survey data.
 
 \bibliographystyle{mnras}
 \bibliography{references}
