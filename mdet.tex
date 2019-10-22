@@ -133,13 +133,13 @@ At this stage it is worthwhile to define exactly what we mean by object
 detection.  For isolated objects, object detection is closely related to the
 detection of regions of an image with pixel value above some threshold; this is
 perhaps the traditional meaning of the word detection. But when objects overlap
-on the sky, whether due to physical association or chance projection, there is
-an additional desire to determine how many objects there are in each region
-above threshold.  This process has sometimes been called ``deblending'', but we
-reserve that term to specifically mean the process of assigning a fraction of
-the light in each pixel to each detected objects.  In this work, for the sake
-of brevity, we will use the terms ``detection'' and ``object detection''
-interchangeably.
+on the sky, whether due to physical association or chance projection, there may
+be an additional desire to determine how many objects there are in each region
+above threshold. We associate this process with object detection.  We reserve
+the term ``de-blending'' to specifically mean the process of assigning a
+fraction of the light in each pixel to each detected object.  In this work, for
+the sake of brevity, we will use the terms ``detection'' and ``object
+detection'' interchangeably.
 
 In the weak shear regime, the lensing mapping is a simple shear transformation
 that preserves surface brightness \citep{SchneiderBook92}. For such a simple
