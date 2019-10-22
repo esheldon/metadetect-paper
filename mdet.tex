@@ -665,13 +665,16 @@ where the equation for the response above is for a single shear component. We te
 process \mdet.
 
 Note that the averages above are over the {\it catalogs} from running source
-detection and ellipticity measurement on each sheared image. We make no attempt
-to match objects detected on each of the different sheared images. In fact,
-doing so results in shear biases because using only matched objects imparts a
-shear dependent selection onto the matched catalogs. This fact has implications
-for using \mdet\ in the analysis of surveys where reference or ``gold'' samples
-of galaxies are typically constructed. See more discussion in the conclusions
-below.
+detection and ellipticity measurement on each sheared image. This is in effect
+the ``total derivative'' response, shown in \cite{SheldonMcal2017} \S 3,
+without any attempt to split the response into the shear response and selection
+response using the chain rule.  Individual shear responses, as used in both
+\cite{SheldonMcal2017} and \cite{HuffMcal2017}, are not calculated.  Doing so
+would require matching the lists of detections found on the different sheared
+images, so that finite differences for each object could be formed.  This act
+of matching would introduce the very shear-dependent object detection biases we
+wish to calibrate.  We will discuss the implications of this fact for analyses
+that depend on \mcal\ in \S \ref{sec:wavg}.
 
 \subsection{Results for Simulated Galaxy Pairs}
 \label{sec:mdetpairs}
@@ -766,6 +769,29 @@ find a multiplicative bias of only $-0.00035 +/- 0.00037$.  For LSST many more
 epochs will be available for coadding.   While this test is not conclusive, we
 expect that in a realistic survey scenario, PSF variation will not be a
 fundamental limitation for \mdet.
+
+\section{Implications for Survey Analysis} \label{sec:wavg}
+
+The fact that five separate catalogs must be used without any attempt at
+matching them (see \S \ref{sec:mitigate}), has implications for using \mdet\ in
+the analysis of surveys.  Typically a single reference or ``gold'' sample of
+objects is constructed and used for all subsequent calculations, such as
+finding a redshift distribution.  With \mdet, multiple such catalogs, one for
+each artificial shear, must be constructed in order to understand the response
+of a summary statistics to shear.
+
+When calculating averages for related quantities, such as a redshift
+distribution, the shear response provides the appropriate weight on an
+object-by-object basis \citep{SheldonMcal2017}.  But individual responses
+cannot be calculated with \mdet, because this would require matching the
+catalogs produced from the different artifically sheared images, which would
+introduce shear-dependent selection effects.  With \mdet, in order to get an
+appropriate weight, the appropriate mean response can be calculated.  For
+example, when constructing a redshift distribution one could define fine
+redshift bins and calculate the mean response in those bins, using the separate
+sheared versions of the catalogs. This mean weight as a function of redshift
+could then be interpolated to provide weights for objects when constructing the
+overall redshift distribution.
 
 
 \section{Summary}\label{sec:conc}
