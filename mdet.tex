@@ -115,25 +115,23 @@ Recently introduced methods for the estimation of weak gravitational lensing
 shear promise to provide calibration at the 0.1\% level, adequate for the
 requirements of future weak lensing surveys \citep[e.g.,][]{huterer2006}.  At
 the time of writing, two methods have demonstrated sufficient accuracy without
-reliance on calibration from simulations, and include a rigorous mathematical
-formalism to deal with selection effects:  the \bfd\ method \citep{BernBFD2016}
-and the \mcal\ method \citep{HuffMcal2017,SheldonMcal2017}. Direct calibration
-with simulations is another route being explored by the community as well
-\citep[see, e.g.,][]{HSCY1shear,KIDS450shear}. Previous tests of \bfd\ and
-\mcal, while stringent, did not include an important aspect of the real
-universe: the images of objects overlap on the sky \citep[for discussion of
-blending effects see, e.g.,][]{DawsonBlending2016}. In this work, we test \mcal\
-in the presence of blending. While \mcal\ can in principle calibrate any shear
-measurement biases, even those associated with blending, we find that there is
-an additional bias associated with shear-dependent object detection. This bias
-is especially large for ambiguous detections on highly blended images and thus
-poses an additional challenge for future lensing surveys. We then introduce an
-extension to \mcal\ that naturally accounts for this shear-dependent object
-detection bias.
+reliance on calibration from simulations, including rigorous mathematical
+formalisms to deal with selection effects:  the \bfd\ method
+\citep{BernBFD2016} and the \mcal\ method \citep{HuffMcal2017,SheldonMcal2017}.
+Previous tests of \bfd\ and \mcal, while stringent, did not include an
+important aspect of the real universe: the images of objects overlap on the sky
+\citep[for discussion of blending effects see, e.g.,][]{DawsonBlending2016}. In
+this work, we test \mcal\ in the presence of blending. While \mcal\ can in
+principle calibrate any shear measurement biases, even those associated with
+blending, we find that there is an additional bias associated with
+shear-dependent object detection. This bias is especially large for ambiguous
+detections on highly blended images and thus poses an additional challenge for
+future lensing surveys. We then introduce an extension to \mcal\ that naturally
+accounts for this shear-dependent object detection bias.
 
 At this stage it is worthwhile to define exactly what we mean by object
 detection.  For isolated objects, object detection is closely related to the
-detection of regions of an image with pixel value above some threshold; this is
+detection of regions of an image with pixel values above some threshold; this is
 perhaps the traditional meaning of the word detection. But when objects overlap
 on the sky, whether due to physical association or chance projection, there may
 be an additional desire to determine how many objects there are in each region
@@ -226,6 +224,17 @@ begin to address some of the technical challenges of implementing \mdet\ on
 real imaging data by demonstrating that the technique, when applied to
 multi-epoch imaging surveys, can naturally average out enough of the potential
 biases associated with spatial point-spread function (PSF) variation.
+
+Calibration with simulations is an alternative route being explored by the
+community \citep[see, e.g.,][]{HSCY1shear,KIDS450shear}.  The idea is to use an
+uncalibrated ellipticity measurement, which can have large shear biases
+($\sim10$\%) and large, unknown selection effects.  The final shear
+meausrements are then calibrated, including selection effects, using a
+simulation that matches the data as closely as possible.  Ultimately \mdet\ may
+have some remaining biases that must be calibrated with simulations.  Our goal
+is to make these biases as small as possible, sub-percent as opposed to 10
+percent, which greatly reduces the sensitivity of the final calibration to
+small inaccuracies in the simulation.
 
 The paper is laid out as follows. In Section~\ref{sec:sims}, we describe our
 simulation and analysis techniques. In Section~\ref{sec:detbiases}, we study
