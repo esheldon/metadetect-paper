@@ -96,7 +96,7 @@ Niall MacCrann$^{3,4}$, Michael Jarvis$^5$
     detection in the \mcal\ process, a technique we call \mdet. Finally, we
     discuss the physical limits of \mdet's accuracy and address one of the
     primary barriers to applying \mdet\ to realistic data, the variation of the
-    point-spread function across the image. We find that while PSF variation
+    point-spread function (PSF) across the image. We find that while PSF variation
     can be accounted for, \mdet's key assumption, that the entire image is
     sheared, as opposed to only the objects in the image, can result in few
     tenths of percent biases in a worse case scenario. However, more work will
@@ -113,22 +113,23 @@ Niall MacCrann$^{3,4}$, Michael Jarvis$^5$
 
 Recently introduced methods for the estimation of weak gravitational lensing
 shear promise to provide calibration at the 0.1\% level, adequate for the
-requirements of future weak lensing surveys.  At the time of writing, two
-methods have demonstrated sufficient accuracy without reliance on calibration
-from simulations, and include a rigorous mathematical formalism to deal with
-selection effects:  the \bfd\ method \citep{BernBFD2016} and the \mcal\ method
-\citep{HuffMcal2017,SheldonMcal2017}.  Previous tests of these methods, while
-stringent, did not include an important aspect of the real universe: the images
-of objects overlap on the sky. In this work we test \mcal\ in the presence of
-blending, and demonstrate that there is a bias associated with shear-dependent
-object detection. We introduce an extension to the method that naturally
-accounts for this shear-dependent object detection bias.
-
-A method such as \mcal\ can in principle calibrate any shear measurement
-biases, even those associated with blending \citep[for discussion of blending
-effects see, e.g.,][]{DawsonBlending2016}. As we will demonstrate, more
-problematic for shear calibration is the dependence of the object detection on
-shear.
+requirements of future weak lensing surveys \citep[e.g.,][]{huterer2006}.  At
+the time of writing, two methods have demonstrated sufficient accuracy without
+reliance on calibration from simulations, and include a rigorous mathematical
+formalism to deal with selection effects:  the \bfd\ method \citep{BernBFD2016}
+and the \mcal\ method \citep{HuffMcal2017,SheldonMcal2017}. Direct calibration
+with simulations is another route being explored by the community as well
+\citep[see, e.g.,][]{HSCY1shear,KIDS450shear}. Previous tests of \bfd\ and
+\mcal, while stringent, did not include an important aspect of the real
+universe: the images of objects overlap on the sky \citep[for discussion of
+blending effects see, e.g.,][]{DawsonBlending2016}. In this work, we test \mcal\
+in the presence of blending. While \mcal\ can in principle calibrate any shear
+measurement biases, even those associated with blending, we find that there is
+an additional bias associated with shear-dependent object detection. This bias
+is especially large for ambiguous detections on highly blended images and thus
+poses an additional challenge for future lensing surveys. We then introduce an
+extension to \mcal\ that naturally accounts for this shear-dependent object
+detection bias.
 
 At this stage it is worthwhile to define exactly what we mean by object
 detection.  For isolated objects, object detection is closely related to the
@@ -208,7 +209,7 @@ As we will demonstrate, object detection effects can be incorporated naturally
 by shearing larger images, rather than small postage stamps, and re-running the
 object detection algorithm on each of the sheared images. In this process,
 shear measurement errors, selection effects, object detection, and any possible
-blending effects are all accounted for.  We call this technique \mdet.
+blending effects are all accounted for simultaneously. We call this technique \mdet.
 
 In this work, we focus on elucidating the source of shear-dependent object
 detection biases and the performance of the core \mdet\ algorithm. We
@@ -603,7 +604,7 @@ and \sx\ detections results in catastrophic biases, $\sim-5\%$, for a DES-like
 survey. Simulations of LSST-like surveys demonstrate even larger biases.See
 Table~\ref{tab:shearmeas} for details. Note also that this procedure closely
 matches that currently done with DES data.  We see similar biases when no
-de-blending is performed.   
+de-blending is performed.
 
 In order to unpack the source of the bias in this case, we compare two
 different \mcal\ shear measurements. The first \mcal\ shear measurement is done
