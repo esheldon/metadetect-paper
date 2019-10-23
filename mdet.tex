@@ -203,11 +203,12 @@ cannot work near the object detection threshold, even for isolated objects,
 because the object detections needed for the corrections will, by definition,
 not be present in the catalog.
 
-As we will demonstrate, object detection effects can be incorporated naturally
-by shearing larger images, rather than small postage stamps, and re-running the
-object detection algorithm on each of the sheared images. In this process,
-shear measurement errors, selection effects, object detection, and any possible
-blending effects are all accounted for simultaneously. We call this technique \mdet.
+As we will demonstrate, object detection effects can be naturally incorporated
+into \mcal\ by shearing larger images, rather than small postage stamps, and
+re-running the object detection algorithm on each of the sheared images. In
+this process, shear measurement errors, selection effects, object detection,
+and any possible blending effects are all accounted for simultaneously. We call
+this technique \mdet.
 
 In this work, we focus on elucidating the source of shear-dependent object
 detection biases and the performance of the core \mdet\ algorithm. We
@@ -227,14 +228,14 @@ biases associated with spatial point-spread function (PSF) variation.
 
 Calibration with simulations is an alternative route being explored by the
 community \citep[see, e.g.,][]{HSCY1shear,KIDS450shear}.  The idea is to use an
-uncalibrated ellipticity measurement, which can have large shear biases
-($\sim10$\%) and large, unknown selection effects.  The final shear
-meausrements are then calibrated, including selection effects, using a
-simulation that matches the data as closely as possible.  Ultimately \mdet\ may
-have some remaining biases that must be calibrated with simulations.  Our goal
-is to make these biases as small as possible, sub-percent as opposed to 10
-percent, which greatly reduces the sensitivity of the final calibration to
-small inaccuracies in the simulation.
+uncalibrated ellipticity measurement, which can have large shear biases (of
+order 10\%) and large, unknown selection effects.  The final shear meausrements
+are then calibrated, including selection effects, using a simulation that
+matches the data as closely as possible.  Ultimately \mdet\ may have some
+remaining biases that must be calibrated with simulations.  Our goal in
+developing this algorithm is to make these biases as small as possible,
+sub-percent as opposed to 10 percent, which we expect will greatly reduce the
+sensitivity of the final calibration to small inaccuracies in the simulation.
 
 The paper is laid out as follows. In Section~\ref{sec:sims}, we describe our
 simulation and analysis techniques. In Section~\ref{sec:detbiases}, we study
