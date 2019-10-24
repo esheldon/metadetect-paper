@@ -212,9 +212,8 @@ not be present in the catalog.
 As we will demonstrate, object detection effects can be naturally incorporated
 into \mcal\ by shearing larger images, rather than small postage stamps, and
 re-running the object detection algorithm on each of the sheared images. In
-this process, shear measurement errors, selection effects, object detection,
-and any possible blending effects are all accounted for simultaneously. We call
-this technique \mdet.
+this process, shear measurement errors, selection effects and object detection
+are all accounted for simultaneously. We call this technique \mdet.
 
 In this work, we focus on elucidating the source of shear-dependent object
 detection biases and the performance of the core \mdet\ algorithm. We
@@ -280,7 +279,8 @@ order, we can write the response of an image measurement to an applied shear as
 where $\boldsymbol{e}$ is the image measurement (e.g., an ellipticity
 measurement), $\boldsymbol\gamma$ is the applied shear, and $\boldsymbol{R}$ is
 the response (matrix) of the image measurement at zero applied shear,
-$R_{ij}=\partial e_i /\partial \gamma_j$.
+$R_{ij}=\partial e_i /\partial \gamma_j$, with $i$ and $j$ taking all
+combinations of the two shear components.
 
 \mcal\ estimates this response via a numerical, finite-difference derivative
 \begin{displaymath}
