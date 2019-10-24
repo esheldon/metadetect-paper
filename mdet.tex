@@ -821,20 +821,23 @@ the analysis of surveys.  Typically a single reference or ``gold'' sample of
 objects is constructed and used for all subsequent calculations, such as
 calculating redshift distributions.  With \mdet, multiple such catalogs, one
 for each artificial shear, must be constructed in order to understand the
-response of summary statistics to shear.
+response of summary statistics to shear.  Specifically, the process of
+selecting objects, such as removing objects with low signal-to-noise ratio or
+sorting objects into redshift bins, must be repeated using the measurements made on
+sheared images in order to include selection effects \citep{SheldonMcal2017}.
 
 When calculating sums and averages for other, non-shear quantities, such as a
-redshift distribution, the shear response provides the appropriate weight on an
-object-by-object basis \citep{SheldonMcal2017}.  But individual responses
-cannot be calculated with \mdet, because this would require matching the
-catalogs produced from the different artifically sheared images, which would
-introduce shear-dependent selection effects.  With \mdet, in order to get an
-appropriate weight, the appropriate mean response can be calculated.  For
-example, when constructing a redshift distribution one could define fine
-redshift bins and calculate the mean response in those bins, using the separate
-sheared versions of the catalogs. This mean weight as a function of redshift
-could then be interpolated to provide weights for objects when constructing the
-overall redshift distribution.
+redshift distribution, the appropriate object-by-object weight is the shear
+response \citep{SheldonMcal2017}.  But individual responses cannot be
+calculated with \mdet, because this would require matching the catalogs
+produced from the different artifically sheared images, which would introduce
+shear-dependent selection effects.  It may be possible to derive an appropriate
+using ensemble statistics.  For example, one could define fine redshift bins
+(different from the bins used for tomography) and calculate the mean response
+in those bins using the separate sheared versions of the catalogs. This could
+then be interpolated to provide weights for objects when constructing the
+redshift distribution in tomographic bins.  We will study this issue in more
+detail in a future work.
 
 
 \section{Summary}\label{sec:conc}
