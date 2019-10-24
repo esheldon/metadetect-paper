@@ -394,7 +394,8 @@ the exposure times for a single-epoch image to 90 seconds, so that the
 full-depth coadd images from 10 epochs have exposure times of 900 seconds in each
 filter. The depths of the LSST images
 are set to match those assumed by the \texttt{WeakLensingDeblending} package for the 10 year
-survey. Example images for each survey are shown in Figure~\ref{fig:simimages}.
+survey. In all simulations a shear of $\gamma_1 = 0.02$ was used.
+Example images for each survey are shown in Figure~\ref{fig:simimages}.
 
 \begin{figure*}
     \includegraphics[width=0.9\columnwidth]{figures/des_gri.jpg}
@@ -732,7 +733,8 @@ maximum detection ambiguity.
 We show results for DES-like and LSST-like surveys in Table~\ref{tab:shearmeas}.
 We have used a constant PSF and constant shear for these simulations. We find
 that in all cases our \mdet\ shear measurements are unbiased up to
-second-order shear effects. This conclusion holds despite the extensive blending
+second-order shear effects \citep[we expect a bias of a few parts in 10000 for shears
+of 0.02, see][]{SheldonMcal2017}. This conclusion holds despite the extensive blending
 of the object images and the large source detection effects we documented
 above. They also meet or exceed the requirements for analyzing an LSST-like survey
 \citep[e.g.,][]{huterer2006}.
