@@ -141,14 +141,18 @@ fraction of the light in each pixel to each detected object.  In this work, for
 the sake of brevity, we will use the terms ``detection'' and ``object
 detection'' interchangeably.
 
-In the weak shear regime, the lensing mapping is a simple shear transformation
-that preserves surface brightness \citep{SchneiderBook92}. For such a mapping,
-object detection need not be shear dependent. For example, an object detection
-algorithm that simply identifies connected regions above a threshold as a
-single object will not in principle be shear dependent. However, in real
-observations the image resolution is degraded by a point-spread-function (PSF)
-due to the atmosphere, telescope optics or detector. In this case the overlap
-of objects does depend on shear because the PSF convolution occurs after the
+In the weak shear regime, the lensing mapping is one-to-one and preserves
+surface brightness \citep{SchneiderBook92}. For such a mapping, object
+detection need not be shear dependent. For example, an object detection
+algorithm that simply identifies connected regions in an image with pixel
+values above a threshold will not in principle be shear dependent.  This is
+because the topology of the contours, or the number of closed contours, at a
+given surface brightness will not change under a shear, due to the preservation
+of surface brightness and the one-to-one nature of the mapping.  However, in
+real observations the image resolution is degraded by a point-spread-function
+(PSF) due to the atmosphere, telescope optics and detector. In this case the
+overlap of objects, and also the topology of contours of a given surface
+brightness, does depend on shear because the PSF convolution occurs after the
 shear mapping.  In this case the simple threshold object detection method
 mentioned above will manifest a shear-dependent object detection bias. This
 effect is demonstrated in figure \ref{fig:toy}.  Note this effect is present
@@ -160,16 +164,18 @@ even in the absence of pixel noise.
   \caption{ Toy example of shear-dependent object detection in the presence of
     a PSF.  In panel (a) two objects are present, convolved by a PSF with no
     shear.  Contours represent constant brightness.  In panel (b) the objects
-    are sheared by $\gamma = (0.0, 0.1)$ {\em after} the PSF convolution.
-    Contours are the same as panel (a).  In this case the inner contours for
-    the two objects overlap before and after application of the shear.  This is
-    a general property of the shear transformation in the weak regime. In panel
-    (c) the shear is applied {\em before} the PSF convolution, which mimics
-    real sky images. In this case the inner contours do not overlap after
-    shearing, and two objects may be detected rather than one.  For case (c) an
-    object detection algorithm that identified connected regions above a
-    threshold as a single object would manifest a shear-dependent object
-    detection bias.  \label{fig:toy} }
+    are sheared by $\gamma = (0.0, 0.1)$ {\em after} the PSF convolution.  The
+    contour levels are the same as panel (a).  In this case the inner contours
+    for the two objects overlap before and after application of the shear. This
+    is a general property of the shear transformation in the weak regime:
+    surface brightness is preserved under shear, and because the mapping is
+    one-to-one, the topology is also preserved. In panel (c) the shear is
+    applied {\em before} the PSF convolution, which mimics real sky images. In
+    this case the inner contours do not overlap after shearing, and two objects
+    may be detected rather than one.  For case (c) an object detection
+    algorithm that identified connected regions above a threshold as a single
+    object would manifest a shear-dependent object detection bias.
+    \label{fig:toy} }
 
 \end{figure*}
 
