@@ -778,9 +778,17 @@ missing data, and non-trivial WCS transformations. We will address these issues
 more fully in future work, currently in preparation. However, here we will
 address the issue of PSF variation, which is technically the most challenging
 because \mdet\ requires deconvolution by the PSF over relatively large regions
-of sky. Here, we will show that the image coadding process used in a realistic
-multi-epoch survey naturally reduces the PSF variation enough to render any
-associated biases negligible.
+of sky.
+
+The deconvolution of a spatially varying PSF formally requires a spatially
+varying kernel, the implementation of which would be computationally
+intractable.  We instead adopt efficient FFTs for deconvolution, which requires
+a constant kernel.  For this kernel, we choose to use the PSF associated with
+the center of the final coadd image, which is thus systematically wrong at
+other locations and will necessarily produce a bias in the recovered shear.
+However, we will show that the image coadding process used in a realistic
+multi-epoch survey results in a more uniform PSF in the final coadd, and
+sufficiently reduces associated biases.
 
 For these simulations, we use a simple population of galaxies that have
 exponential profiles with a half light radius of 0.5 arcsec and a PSF with a
