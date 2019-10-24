@@ -13,8 +13,8 @@
 \usepackage{natbib,graphicx,amsmath,subfigure,color,xcolor,hyperref}
 \usepackage{verbatim}
 
-%\usepackage{lineno}
-%\linenumbers
+\usepackage{lineno}
+\linenumbers
 
 \topmargin-1cm
 
@@ -263,6 +263,7 @@ source detection as needed. Finally, we make extensive use of \ngmix
 the \mcal\ implementation.
 
 \subsection{\textsc{Metacalibration}}
+\label{sec:mcal}
 
 \mcal\ is a general technique that computes the linear response of image
 measurements to an applied shear using only the observed image. Up to linear
@@ -286,15 +287,16 @@ combinations of the two shear components.
 \begin{displaymath}
 R_{ij} \approx \frac{e_i^{+} - e_i^{-}}{\Delta\gamma_j}\ .
 \end{displaymath}
-where $R_{ij}$ is the estimated response of the object to shear
-and $\Delta\gamma_j = 2 \gamma_j$ is the difference between two applied
-shears, $\pm \gamma_j$, with $\gamma_j$ a small shear, usually of order 0.01. The quantity
-$e_i^{+/-}$ is the $i$-th ellipticity component measured on an image sheared with
-$\pm\Delta\gamma_j$. In detail, one must appropriately handle the PSF and
-other observational effects when computing $R_{ij}$. Note that as the
-estimated responses per-object are quite noisy, they must be averaged
-over many images/objects in order to estimate the response of a set of
-images/objects to a shear.
+where $R_{ij}$ is the estimated response of the object to shear and
+$\Delta\gamma_j = 2 \gamma_j$ is the difference between two applied shears,
+$\pm \gamma_j$, with $\gamma_j$ a small shear, usually of order 0.01. The
+quantity $e_i^{+/-}$ is the $i$-th ellipticity component measured on an image
+sheared with $\pm\Delta\gamma_j$.  The $e_i^{+/-}$ used in the finite
+differences measured on artificially sheared images \citep{SheldonMcal2017},
+the creation of which requires careful handling of the PSF and other
+observational effects.  Note that as the estimated responses per-object are
+quite noisy, they must be averaged over many images/objects in order to
+estimate the response of a set of images/objects to a shear.
 
 In the notation above, we have denoted the object ellipticity measurement as
 $\boldsymbol{e}$, but implicit is the fact that the objects must have been
@@ -678,11 +680,11 @@ straight-forward fix for this bias, namely including source detection in the
 \mcal\ process. We have implemented this fix as follows. We take relatively
 large images (typically $\sim$ 2 arcminute on a side) and apply \mcal\ directly
 to the full image using the PSF at the center of the image for deconvolutions.
-For each of the five \mcal\ images, we apply \sx\ to detect sources. We then
-measure shears in postage stamps around each detection in each image using an
-non-PSF corrected, Gaussian-weighted moment.  These five catalogs are then
-combined into a single estimate for the shear in the patch by computing the
-average shear response for the image
+For each of the five artificially sheared images (see \S \ref{sec:mcal}), we
+apply \sx\ to detect sources. We then measure shears in postage stamps around
+each detection in each image using an non-PSF corrected, Gaussian-weighted
+moment.  These five catalogs are then combined into a single estimate for the
+shear in the patch by computing the average shear response for the image
 \begin{eqnarray}
 \langle \boldsymbol\gamma \rangle &\approx& \langle \boldsymbol{R}\rangle^{-1}\langle\boldsymbol{e}\rangle\\
 \langle R_{ij}\rangle &=& \frac{\langle e_i^{+}\rangle - \langle e_i^{-}\rangle}{\Delta\gamma_j}
