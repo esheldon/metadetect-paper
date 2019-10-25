@@ -410,9 +410,38 @@ Example images for each survey are shown in Figure~\ref{fig:simimages}.
 \end{figure*}
 
 
-\section{Measuring Multiplicative Biases}
+\subsection{Measuring Shear Recovering Biases}
 
-\mrb{used noise cancellation technique; explain $m$}
+We report our results in terms of the standard parameterization of shear
+measurement biases \citep[see, e.g.,][]{heymans2006}
+
+\begin{equation}
+g \equiv c + (1 + m)\gamma
+\end{equation}
+where $g$ is the recovered shear, $c$ is the additive bias, and $m$ is the
+multiplicative bias. Below we report only $m$, but we have found that $c$ is
+consistent with zero in all cases. We further use the technique of
+\citet{pujol2019} to reduce the noise on measurements of $m$ in our simulations.
+This technique works as follows. We make two simulations with identical galaxy
+and noise properties, but with opposite true shears applied. Then for this pair
+of simulations, we get a lower noise estimate of $g$ by computing the difference
+in the mean shear estimates
+
+\begin{equation}
+g_{est} = \frac{g_{+\gamma} - g_{-\gamma}}{2}
+\end{equation}
+where $g_{\pm\gamma}$ are the mean shear estimates from each sim. We estimate
+the shear response $R_{est}$ for $g_{est}$ by computing the average of the
+response from the two simulations. We then  compute our final mean for $m$ by
+averaging $g_{est}$ over all simulations, averaging $R_{est}$ over all
+simulations, and then computing $m$ given the true shear. We estimated the
+errors on the mean $m$ via bootstrap resampling the set of simulation pairs and
+repeating the computation of $m$ for each bootstrap sample. We employed a
+similar procedure for $c$, except that we use the average of the two estimated
+shears so that any additive biases common to both simulations do not cancel. In 
+all  cases we measured $m$ using the 1-component of the shear and $c$ with the
+2-component of the shear, though we have found this choice not to matter in
+explicit testing.
 
 \section{Shear-dependent Detection Biases}\label{sec:detbiases}
 
