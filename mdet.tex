@@ -438,7 +438,7 @@ simulations, and then computing $m$ given the true shear. We estimated the
 errors on the mean $m$ via bootstrap resampling the set of simulation pairs and
 repeating the computation of $m$ for each bootstrap sample. We employed a
 similar procedure for $c$, except that we use the average of the two estimated
-shears so that any additive biases common to both simulations do not cancel. In 
+shears so that any additive biases common to both simulations do not cancel. In
 all  cases we measured $m$ using the 1-component of the shear and $c$ with the
 2-component of the shear, though we have found this choice not to matter in
 explicit testing.
@@ -507,6 +507,104 @@ of DES- and LSST-like surveys and show explicitly that by turning object
 detection off, we can eliminate these detection biases.
 
 % raw outputs
+% DES mcal+MOF
+% s2n: 10
+%     # of sims: 49782
+%     m       : -0.027322 +/- 0.015870
+%     c       : 0.000812 +/- 0.000598
+% s2n: 15
+%     # of sims: 48798
+%     m       : -0.016748 +/- 0.014065
+%     c       : 0.000839 +/- 0.000651
+% s2n: 20
+%     # of sims: 47233
+%     m       : -0.017391 +/- 0.012178
+%     c       : 0.001325 +/- 0.000699
+%
+% LSST mcal+MOF
+% s2n: 10
+%     # of sims: 49889
+%     m       : -0.029022 +/- 0.006451
+%     c       : 0.000141 +/- 0.000257
+% s2n: 15
+%     # of sims: 49889
+%     m       : -0.028663 +/- 0.005566
+%     c [1e-4]: 0.805767 +/- 2.695216
+% s2n: 20
+%     # of sims: 49889
+%     m       : -0.020570 +/- 0.005294
+%     c [1e-4]: -0.600642 +/- 2.932302
+
+\begin{table*}
+  \centering
+  \caption{
+    Multiplicative biases in weak lensing simulations for various shear
+    measurement techniques. In all cases, the simulations use realistic
+    galaxy ellipticities, galaxy sizes and noise for the given survey. For measurements using standard \mcal\ with
+    MOF deblending, a cut of $T/T_{PSF} > 0.5$ was also applied. Measurements with
+    \mdet\ and moments used a size cut of $T/T_{PSF} > 1.2$. In the case of \mdet\ with moments,
+    no deblending corrections are applied and the moments are a simple weighted moment
+    with no PSF correction.}
+  \label{tab:shearmeas}
+
+  \begin{tabular}{|l|l|l|c|c|}
+    \hline
+    Simulation & Method & Full Scene Sheared? & \snr\ Cut & m \\
+    \hline
+
+    \hline
+    \multicolumn{5}{c}{metacal+MOF - full scene sheared}\\
+    \hline
+    DESY5   & metacal+MOF & yes & \snr$ > 10$ & $-0.027 \pm 0.016$  \\
+    DESY5   & metacal+MOF & yes & \snr$ > 15$ & $-0.017 \pm 0.014$  \\
+    DESY5   & metacal+MOF & yes & \snr$ > 20$ & $-0.017 \pm 0.012$  \\
+    \hline
+    LSSTY10  & metacal+MOF & yes & \snr$ > 10$ & $-0.029 \pm 0.006$  \\
+    LSSTY10  & metacal+MOF & yes & \snr$ > 15$ & $-0.029 \pm 0.006$  \\
+    LSSTY10  & metacal+MOF & yes & \snr$ > 20$ & $-0.021 \pm 0.005$  \\
+    \hline
+    LSSTY10 2$\times$ dens. & metacal+MOF & yes & \snr$ > 10$ & $-0.082 \pm 0.005$  \\
+    LSSTY10 2$\times$ dens. & metacal+MOF & yes & \snr$ > 15$ & $-0.067 \pm 0.005$  \\
+    LSSTY10 2$\times$ dens. & metacal+MOF & yes & \snr$ > 20$ & $-0.062 \pm 0.004$  \\
+    \hline
+
+    \hline
+    \multicolumn{5}{c}{metadetect+moments - full scene sheared}\\
+    \hline
+    DESY5   & metadetect+moments & yes & \snr$ > 10$ & $$  \\
+    DESY5   & metadetect+moments & yes & \snr$ > 15$ & $$  \\
+    DESY5   & metadetect+moments & yes & \snr$ > 20$ & $$  \\
+    \hline
+    LSSTY10  & metadetect+moments & yes & \snr$ > 10$ & $$  \\
+    LSSTY10  & metadetect+moments & yes & \snr$ > 15$ & $$  \\
+    LSSTY10  & metadetect+moments & yes & \snr$ > 20$ & $$  \\
+    \hline
+    LSSTY10 2$\times$ dens. & metadetect+moments & yes & \snr$ > 10$ & $+0.00047 \pm 0.00043$  \\
+    LSSTY10 2$\times$ dens. & metadetect+moments & yes & \snr$ > 15$ & $-0.00002 \pm 0.00034$  \\
+    LSSTY10 2$\times$ dens. & metadetect+moments & yes & \snr$ > 20$ & $+0.00019 \pm 0.00028$  \\
+    \hline
+
+    \hline
+    \multicolumn{5}{c}{metadetect+moments - individual objects sheared}\\
+    \hline
+    DESY5   & metadetect+moments & no & \snr$ > 10$ & $$  \\
+    DESY5   & metadetect+moments & no & \snr$ > 15$ & $$  \\
+    DESY5   & metadetect+moments & no & \snr$ > 20$ & $$  \\
+    \hline
+    LSSTY10  & metadetect+moments & no & \snr$ > 10$ & $$  \\
+    LSSTY10  & metadetect+moments & no & \snr$ > 15$ & $$  \\
+    LSSTY10  & metadetect+moments & no & \snr$ > 20$ & $$  \\
+    \hline
+    LSSTY10 2$\times$ dens. & metadetect+moments & no & \snr$ > 10$ & $-0.0047 \pm 0.0006$  \\
+    LSSTY10 2$\times$ dens. & metadetect+moments & no & \snr$ > 15$ & $-0.0035 \pm 0.0004$  \\
+    LSSTY10 2$\times$ dens. & metadetect+moments & no & \snr$ > 20$ & $-0.0029 \pm 0.0004$  \\
+    \hline
+  \end{tabular}
+
+\end{table*}
+
+
+% raw outputs w/ 2x density
 % DES mcal+MOF
 % s2n: 10
 %     # of sims: 49499
@@ -592,61 +690,61 @@ detection off, we can eliminate these detection biases.
 %     c       : -0.000022 +/- 0.000019
 
 
-\begin{table*}
-  \centering
-  \caption{
-    Multiplicative biases in weak lensing simulations for various shear
-    measurement techniques. In all cases, the simulations use realistic
-    galaxy ellipticities, galaxy sizes and noise for the given survey. For measurements using standard \mcal\ with
-    MOF deblending, a cut of $T/T_{PSF} > 0.5$ was also applied. Measurements with
-    \mdet\ and moments used a size cut of $T/T_{PSF} > 1.2$. In the case of \mdet\ with moments,
-    no deblending corrections are applied and the moments are a simple weighted moment
-    with no PSF correction.}
-  \label{tab:shearmeas}
-
-  \begin{tabular}{|l|l|l|c|c|}
-    \hline
-    Simulation & Method & Full Scene Sheared? & \snr\ Cut & m \\
-    \hline
-
-    \hline
-    \multicolumn{5}{c}{metacal+MOF - full scene sheared}\\
-    \hline
-    DESY5   & metacal+MOF & yes & \snr$ > 10$ & $-0.067 \pm 0.010$  \\
-    DESY5   & metacal+MOF & yes & \snr$ > 15$ & $-0.050 \pm 0.009$  \\
-    DESY5   & metacal+MOF & yes & \snr$ > 20$ & $-0.037 \pm 0.008$  \\
-    \hline
-    LSSTY10  & metacal+MOF & yes & \snr$ > 10$ & $-0.082 \pm 0.005$  \\
-    LSSTY10  & metacal+MOF & yes & \snr$ > 15$ & $-0.067 \pm 0.005$  \\
-    LSSTY10  & metacal+MOF & yes & \snr$ > 20$ & $-0.062 \pm 0.004$  \\
-    \hline
-
-    \hline
-    \multicolumn{5}{c}{metadetect+moments - full scene sheared}\\
-    \hline
-    DESY5   & metadetect+moments & yes & \snr$ > 10$ & $+0.00016 \pm 0.00086$  \\
-    DESY5   & metadetect+moments & yes & \snr$ > 15$ & $+0.00041 \pm 0.00079$  \\
-    DESY5   & metadetect+moments & yes & \snr$ > 20$ & $+0.00081 \pm 0.00075$  \\
-    \hline
-    LSSTY10  & metadetect+moments & yes & \snr$ > 10$ & $+0.00047 \pm 0.00043$  \\
-    LSSTY10  & metadetect+moments & yes & \snr$ > 15$ & $-0.00002 \pm 0.00034$  \\
-    LSSTY10  & metadetect+moments & yes & \snr$ > 20$ & $+0.00019 \pm 0.00028$  \\
-    \hline
-
-    \hline
-    \multicolumn{5}{c}{metadetect+moments - individual objects sheared}\\
-    \hline
-    DESY5   & metadetect+moments & no & \snr$ > 10$ & $-0.0036 \pm 0.0012$  \\
-    DESY5   & metadetect+moments & no & \snr$ > 15$ & $-0.0010 \pm 0.0010$  \\
-    DESY5   & metadetect+moments & no & \snr$ > 20$ & $-0.0026 \pm 0.0009$  \\
-    \hline
-    LSSTY10  & metadetect+moments & no & \snr$ > 10$ & $-0.0047 \pm 0.0006$  \\
-    LSSTY10  & metadetect+moments & no & \snr$ > 15$ & $-0.0035 \pm 0.0004$  \\
-    LSSTY10  & metadetect+moments & no & \snr$ > 20$ & $-0.0029 \pm 0.0004$  \\
-    \hline
-  \end{tabular}
-
-\end{table*}
+% \begin{table*}
+%   \centering
+%   \caption{
+%     Multiplicative biases in weak lensing simulations for various shear
+%     measurement techniques. In all cases, the simulations use realistic
+%     galaxy ellipticities, galaxy sizes and noise for the given survey. For measurements using standard \mcal\ with
+%     MOF deblending, a cut of $T/T_{PSF} > 0.5$ was also applied. Measurements with
+%     \mdet\ and moments used a size cut of $T/T_{PSF} > 1.2$. In the case of \mdet\ with moments,
+%     no deblending corrections are applied and the moments are a simple weighted moment
+%     with no PSF correction.}
+%   \label{tab:shearmeas}
+%
+%   \begin{tabular}{|l|l|l|c|c|}
+%     \hline
+%     Simulation & Method & Full Scene Sheared? & \snr\ Cut & m \\
+%     \hline
+%
+%     \hline
+%     \multicolumn{5}{c}{metacal+MOF - full scene sheared}\\
+%     \hline
+%     DESY5   & metacal+MOF & yes & \snr$ > 10$ & $-0.067 \pm 0.010$  \\
+%     DESY5   & metacal+MOF & yes & \snr$ > 15$ & $-0.050 \pm 0.009$  \\
+%     DESY5   & metacal+MOF & yes & \snr$ > 20$ & $-0.037 \pm 0.008$  \\
+%     \hline
+%     LSSTY10  & metacal+MOF & yes & \snr$ > 10$ & $-0.082 \pm 0.005$  \\
+%     LSSTY10  & metacal+MOF & yes & \snr$ > 15$ & $-0.067 \pm 0.005$  \\
+%     LSSTY10  & metacal+MOF & yes & \snr$ > 20$ & $-0.062 \pm 0.004$  \\
+%     \hline
+%
+%     \hline
+%     \multicolumn{5}{c}{metadetect+moments - full scene sheared}\\
+%     \hline
+%     DESY5   & metadetect+moments & yes & \snr$ > 10$ & $+0.00016 \pm 0.00086$  \\
+%     DESY5   & metadetect+moments & yes & \snr$ > 15$ & $+0.00041 \pm 0.00079$  \\
+%     DESY5   & metadetect+moments & yes & \snr$ > 20$ & $+0.00081 \pm 0.00075$  \\
+%     \hline
+%     LSSTY10  & metadetect+moments & yes & \snr$ > 10$ & $+0.00047 \pm 0.00043$  \\
+%     LSSTY10  & metadetect+moments & yes & \snr$ > 15$ & $-0.00002 \pm 0.00034$  \\
+%     LSSTY10  & metadetect+moments & yes & \snr$ > 20$ & $+0.00019 \pm 0.00028$  \\
+%     \hline
+%
+%     \hline
+%     \multicolumn{5}{c}{metadetect+moments - individual objects sheared}\\
+%     \hline
+%     DESY5   & metadetect+moments & no & \snr$ > 10$ & $-0.0036 \pm 0.0012$  \\
+%     DESY5   & metadetect+moments & no & \snr$ > 15$ & $-0.0010 \pm 0.0010$  \\
+%     DESY5   & metadetect+moments & no & \snr$ > 20$ & $-0.0026 \pm 0.0009$  \\
+%     \hline
+%     LSSTY10  & metadetect+moments & no & \snr$ > 10$ & $-0.0047 \pm 0.0006$  \\
+%     LSSTY10  & metadetect+moments & no & \snr$ > 15$ & $-0.0035 \pm 0.0004$  \\
+%     LSSTY10  & metadetect+moments & no & \snr$ > 20$ & $-0.0029 \pm 0.0004$  \\
+%     \hline
+%   \end{tabular}
+%
+% \end{table*}
 
 \subsection{Bias in Simulations with Representative Galaxy Density and Noise}
 
