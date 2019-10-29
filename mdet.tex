@@ -88,7 +88,7 @@ Niall MacCrann$^{3,4}$, Michael Jarvis$^5$
     \mcal\ method with overlapping, or ``blended'' galaxy images.  Using
     standard \mcal\ we find a significant shear calibration bias when objects
     overlap.  This bias is a few percent for galaxy densities relevant for
-    current surveys, and increases to nearly ten percent for future surveys.
+    current surveys and increases with increasing galaxy number density.
     This bias is due to shear-dependent object detection rather than object
     blending itself; if object detection is shear independent, no de-blending
     of images is needed, in principle.  We demonstrate that shear-dependent
@@ -515,32 +515,32 @@ detection off, we can eliminate these detection biases.
 
 % raw outputs
 % DES mcal+MOF
-% s2n: 10
-%     # of sims: 49782
-%     m       : -0.027322 +/- 0.015870
-%     c       : 0.000812 +/- 0.000598
-% s2n: 15
-%     # of sims: 48798
-%     m       : -0.016748 +/- 0.014065
-%     c       : 0.000839 +/- 0.000651
-% s2n: 20
-%     # of sims: 47233
-%     m       : -0.017391 +/- 0.012178
-%     c       : 0.001325 +/- 0.000699
+%                                              s2n: 10
+% # of sims: 497756
+% m       : -0.036147 +/- 0.004863
+% c [1e-4]: -0.624614 +/- 1.764896
+%                                              s2n: 15
+% # of sims: 488295
+% m       : -0.023056 +/- 0.004427
+% c       : -0.000203 +/- 0.000208
+%                                              s2n: 20
+% # of sims: 472679
+% m       : -0.014961 +/- 0.004202
+% c       : -0.000133 +/- 0.000227
 %
 % LSST mcal+MOF
-% s2n: 10
-%     # of sims: 49889
-%     m       : -0.029022 +/- 0.006451
-%     c       : 0.000141 +/- 0.000257
-% s2n: 15
-%     # of sims: 49889
-%     m       : -0.028663 +/- 0.005566
-%     c [1e-4]: 0.805767 +/- 2.695216
-% s2n: 20
-%     # of sims: 49889
-%     m       : -0.020570 +/- 0.005294
-%     c [1e-4]: -0.600642 +/- 2.932302
+%                                              s2n: 10
+% # of sims: 469550
+% m       : -0.034729 +/- 0.002272
+% c [1e-4]: -0.186440 +/- 0.848381
+%                                              s2n: 15
+% # of sims: 469549
+% m       : -0.030558 +/- 0.001999
+% c [1e-4]: -0.442153 +/- 0.904867
+%                                              s2n: 20
+% # of sims: 469548
+% m       : -0.025855 +/- 0.001802
+% c [1e-4]: -0.354317 +/- 0.965168
 %
 % ==> run_galwldeblend_DES_shearscene/condor_shear_meas.txt <==
 %                                                  s2n: 10
@@ -618,13 +618,13 @@ detection off, we can eliminate these detection biases.
     \hline
     \multicolumn{5}{c}{metacal+MOF - full scene sheared}\\
     \hline
-    DESY5   & metacal+MOF & yes & \snr$ > 10$ & $-0.027 \pm 0.016$  \\
-    DESY5   & metacal+MOF & yes & \snr$ > 15$ & $-0.017 \pm 0.014$  \\
-    DESY5   & metacal+MOF & yes & \snr$ > 20$ & $-0.017 \pm 0.012$  \\
+    DESY5   & metacal+MOF & yes & \snr$ > 10$ & $-0.036 \pm 0.005$  \\
+    DESY5   & metacal+MOF & yes & \snr$ > 15$ & $-0.023 \pm 0.004$  \\
+    DESY5   & metacal+MOF & yes & \snr$ > 20$ & $-0.015 \pm 0.004$  \\
     \hline
-    LSSTY10  & metacal+MOF & yes & \snr$ > 10$ & $-0.029 \pm 0.006$  \\
-    LSSTY10  & metacal+MOF & yes & \snr$ > 15$ & $-0.029 \pm 0.006$  \\
-    LSSTY10  & metacal+MOF & yes & \snr$ > 20$ & $-0.021 \pm 0.005$  \\
+    LSSTY10  & metacal+MOF & yes & \snr$ > 10$ & $-0.035 \pm 0.002$  \\
+    LSSTY10  & metacal+MOF & yes & \snr$ > 15$ & $-0.031 \pm 0.002$  \\
+    LSSTY10  & metacal+MOF & yes & \snr$ > 20$ & $-0.026 \pm 0.002$  \\
     \hline
     LSSTY10 2$\times$ dens. & metacal+MOF & yes & \snr$ > 10$ & $-0.082 \pm 0.005$  \\
     LSSTY10 2$\times$ dens. & metacal+MOF & yes & \snr$ > 15$ & $-0.067 \pm 0.005$  \\
