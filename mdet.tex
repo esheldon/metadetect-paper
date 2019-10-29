@@ -392,10 +392,17 @@ and $\sim\!0.8$ arcsec resepctively). We tested variable PSFs separately, as
 discussed in \S \ref{sec:psfvar}.  For the DES image simulations, we have fixed
 the exposure times for a single-epoch image to 90 seconds, so that the
 full-depth coadd images from 10 epochs have exposure times of 900 seconds in each
-filter. The depths of the LSST images
-are set to match those assumed by the \texttt{WeakLensingDeblending} package for the 10 year
-survey. In all simulations a shear of $\gamma_1 = 0.02$ was used.
-Example images for each survey are shown in Figure~\ref{fig:simimages}.
+filter. The depths of the LSST images are set to match those assumed by the
+\texttt{WeakLensingDeblending} package for the 10 year survey. In all
+simulations a shear of $\gamma_1 = 0.02$ was used. Finally, we have multiplied
+the density of input sources by a factor of 0.45 and a factor of 0.4 for the
+DES-like and LSST-like simulations in order to produce a realistic number
+density of detected sources. We also show results with the unmodified input
+catalog for the LSST-like simulations. The detected source densities in all
+three simulations are approximately 35 per square arcmin for DES, 75 per square
+arcmin for LSST, and 140 per square arcmin with the unmodified source catalog
+for the LSST-like simulations. Example images for each survey are shown in
+Figure~\ref{fig:simimages}.
 
 \begin{figure*}
     \includegraphics[width=0.9\columnwidth]{figures/des_gri.jpg}
@@ -534,19 +541,6 @@ detection off, we can eliminate these detection biases.
 %     # of sims: 49889
 %     m       : -0.020570 +/- 0.005294
 %     c [1e-4]: -0.600642 +/- 2.932302
-% ==> run_galwldeblend_DES/condor_shear_meas.txt <==
-%                                                  s2n: 10
-%     # of sims: 9783710
-%     m [1e-3]: -5.715347 +/- 1.748868
-%     c [1e-4]: -0.522634 +/- 0.551230
-%                                                  s2n: 15
-%     # of sims: 9357908
-%     m [1e-3]: -5.357375 +/- 1.491168
-%     c [1e-4]: -0.094480 +/- 0.605145
-%                                                  s2n: 20
-%     # of sims: 8841799
-%     m [1e-3]: -6.044981 +/- 1.284780
-%     c [1e-4]: -0.386520 +/- 0.671325
 %
 % ==> run_galwldeblend_DES_shearscene/condor_shear_meas.txt <==
 %                                                  s2n: 10
@@ -562,20 +556,6 @@ detection off, we can eliminate these detection biases.
 %     m [1e-3]: -0.535672 +/- 1.043018
 %     c [1e-4]: -0.042065 +/- 0.684405
 %
-% ==> run_galwldeblend_LSST/condor_shear_meas.txt <==
-%                                                  s2n: 10
-%     # of sims: 10000000
-%     m [1e-3]: -1.489893 +/- 0.733162
-%     c [1e-4]: -0.302429 +/- 0.249726
-%                                                  s2n: 15
-%     # of sims: 9999992
-%     m [1e-3]: -1.327159 +/- 0.641900
-%     c [1e-4]: -0.020227 +/- 0.265990
-%                                                  s2n: 20
-%     # of sims: 9999898
-%     m [1e-3]: 0.102487 +/- 0.531214
-%     c [1e-4]: -0.291314 +/- 0.266207
-%
 % ==> run_galwldeblend_LSST_shearscene/condor_shear_meas.txt <==
 %                                                  s2n: 10
 %     # of sims: 10000000
@@ -589,6 +569,34 @@ detection off, we can eliminate these detection biases.
 %     # of sims: 9999869
 %     m [1e-3]: 0.416105 +/- 0.394588
 %     c [1e-4]: -0.176120 +/- 0.270438
+%
+% ==> run_galwldeblend_DES/condor_shear_meas.txt <==
+%                                                  s2n: 10
+%     # of sims: 9783710
+%     m [1e-3]: -5.715347 +/- 1.748868
+%     c [1e-4]: -0.522634 +/- 0.551230
+%                                                  s2n: 15
+%     # of sims: 9357908
+%     m [1e-3]: -5.357375 +/- 1.491168
+%     c [1e-4]: -0.094480 +/- 0.605145
+%                                                  s2n: 20
+%     # of sims: 8841799
+%     m [1e-3]: -6.044981 +/- 1.284780
+%     c [1e-4]: -0.386520 +/- 0.671325
+%
+% ==> run_galwldeblend_LSST/condor_shear_meas.txt <==
+%                                                  s2n: 10
+%     # of sims: 10000000
+%     m [1e-3]: -1.489893 +/- 0.733162
+%     c [1e-4]: -0.302429 +/- 0.249726
+%                                                  s2n: 15
+%     # of sims: 9999992
+%     m [1e-3]: -1.327159 +/- 0.641900
+%     c [1e-4]: -0.020227 +/- 0.265990
+%                                                  s2n: 20
+%     # of sims: 9999898
+%     m [1e-3]: 0.102487 +/- 0.531214
+%     c [1e-4]: -0.291314 +/- 0.266207
 
 \begin{table*}
   \centering
@@ -626,13 +634,13 @@ detection off, we can eliminate these detection biases.
     \hline
     \multicolumn{5}{c}{metadetect+moments - full scene sheared}\\
     \hline
-    DESY5   & metadetect+moments & yes & \snr$ > 10$ & $$  \\
-    DESY5   & metadetect+moments & yes & \snr$ > 15$ & $$  \\
-    DESY5   & metadetect+moments & yes & \snr$ > 20$ & $$  \\
+    DESY5   & metadetect+moments & yes & \snr$ > 10$ & $+0.0005 \pm 0.0014$  \\
+    DESY5   & metadetect+moments & yes & \snr$ > 15$ & $-0.0011 \pm 0.0011$  \\
+    DESY5   & metadetect+moments & yes & \snr$ > 20$ & $-0.0005 \pm 0.0010$  \\
     \hline
-    LSSTY10  & metadetect+moments & yes & \snr$ > 10$ & $$  \\
-    LSSTY10  & metadetect+moments & yes & \snr$ > 15$ & $$  \\
-    LSSTY10  & metadetect+moments & yes & \snr$ > 20$ & $$  \\
+    LSSTY10  & metadetect+moments & yes & \snr$ > 10$ & $+0.00084 \pm 0.00061$  \\
+    LSSTY10  & metadetect+moments & yes & \snr$ > 15$ & $-0.00001 \pm 0.00047$  \\
+    LSSTY10  & metadetect+moments & yes & \snr$ > 20$ & $+0.00042 \pm 0.00039$  \\
     \hline
     LSSTY10 2$\times$ dens. & metadetect+moments & yes & \snr$ > 10$ & $+0.00047 \pm 0.00043$  \\
     LSSTY10 2$\times$ dens. & metadetect+moments & yes & \snr$ > 15$ & $-0.00002 \pm 0.00034$  \\
@@ -642,13 +650,13 @@ detection off, we can eliminate these detection biases.
     \hline
     \multicolumn{5}{c}{metadetect+moments - individual objects sheared}\\
     \hline
-    DESY5   & metadetect+moments & no & \snr$ > 10$ & $$  \\
-    DESY5   & metadetect+moments & no & \snr$ > 15$ & $$  \\
-    DESY5   & metadetect+moments & no & \snr$ > 20$ & $$  \\
+    DESY5   & metadetect+moments & no & \snr$ > 10$ & $-0.0057 \pm 0.0017$  \\
+    DESY5   & metadetect+moments & no & \snr$ > 15$ & $-0.0054 \pm 0.0015$  \\
+    DESY5   & metadetect+moments & no & \snr$ > 20$ & $-0.0060 \pm 0.0013$  \\
     \hline
-    LSSTY10  & metadetect+moments & no & \snr$ > 10$ & $$  \\
-    LSSTY10  & metadetect+moments & no & \snr$ > 15$ & $$  \\
-    LSSTY10  & metadetect+moments & no & \snr$ > 20$ & $$  \\
+    LSSTY10  & metadetect+moments & no & \snr$ > 10$ & $-0.0015 \pm 0.0007$  \\
+    LSSTY10  & metadetect+moments & no & \snr$ > 15$ & $-0.0013 \pm 0.0006$  \\
+    LSSTY10  & metadetect+moments & no & \snr$ > 20$ & $+0.0001 \pm 0.0005$  \\
     \hline
     LSSTY10 2$\times$ dens. & metadetect+moments & no & \snr$ > 10$ & $-0.0047 \pm 0.0006$  \\
     LSSTY10 2$\times$ dens. & metadetect+moments & no & \snr$ > 15$ & $-0.0035 \pm 0.0004$  \\
@@ -805,8 +813,8 @@ detection off, we can eliminate these detection biases.
 
 We now explore the effects of detection in simulations that are representative
 of real survey images. As a baseline, we note that \mcal\ with MOF deblending
-and \sx\ detections results in catastrophic biases, $\sim-5\%$, for a DES-like
-survey. Simulations of LSST-like surveys demonstrate even larger biases.See
+and \sx\ detections results in catastrophic biases, $\sim-3\%$, for a DES-like
+survey. Simulations of LSST-like surveys demonstrate somewhat larger biases.See
 Table~\ref{tab:shearmeas} for details. Note also that this procedure closely
 matches that currently done for DES year 5 processing.  We see similar biases
 when no de-blending is performed.
@@ -923,7 +931,9 @@ second-order shear effects \citep[we expect a bias of a few parts in 10000 for s
 of 0.02, see][]{SheldonMcal2017}. This conclusion holds despite the extensive blending
 of the object images and the large source detection effects we documented
 above. They also meet or exceed the requirements for analyzing an LSST-like survey
-\citep[e.g.,][]{huterer2006}.
+\citep[e.g.,][]{huterer2006}. Finally, note that we have also show results for an
+LSST-like survey where the number density of objects is approximately twice that
+expected from the actual survey. Even in this case, we see no significant shear biases.
 
 \subsubsection{Testing the Physical Assumptions Behind \mdet}
 
@@ -952,7 +962,7 @@ this case, of order $\sim-0.3\%$.
 
 We expect these biases to depend on the density of blended objects in the
 survey, with larger residual biases for LSST-like surveys than DES-like
-surveys.  Understanding the expected level of this bias in real surveys will
+surveys. Understanding the expected level of this bias in real surveys will
 require further study, and is beyond the scope of this work.
 
 \section{Handling PSF Variation}
