@@ -814,10 +814,15 @@ detection off, we can eliminate these detection biases.
 We now explore the effects of detection in simulations that are representative
 of real survey images. As a baseline, we note that \mcal\ with MOF deblending
 and \sx\ detections results in catastrophic biases, $\sim-3\%$, for a DES-like
-survey. Simulations of LSST-like surveys demonstrate somewhat larger biases.See
-Table~\ref{tab:shearmeas} for details. Note also that this procedure closely
-matches that currently done for DES year 5 processing.  We see similar biases
-when no de-blending is performed.
+survey. Simulations of LSST-like surveys demonstrate somewhat larger biases.
+See Table~\ref{tab:shearmeas} for details.  The bias numbers here are fairly
+noisy, but it is interesting to note that the bias for LSST year 10 is not very
+much larger than DES year 5, despite the fact that the density is about twice
+as high.  This may partly be due to the better resolution of the LSST images:
+the effective area of the PSF a factor of two smaller DES PSF.  The images of
+galaxies at fixed density will overlap less in LSST images than they do in DES
+images.  Note also that this procedure closely matches that currently done for
+DES year 5 processing.  We see similar biases when no de-blending is performed.
 
 In order to unpack the source of the bias in this case, we compare two
 different \mcal\ shear measurements. The first \mcal\ shear measurement is done
