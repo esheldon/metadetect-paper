@@ -316,7 +316,7 @@ an applied, constant shear.
 Multi-object Fitting (MOF) deblending is a technique employed by the Dark
 Energy Survey to account for blending of objects when performing image
 measurements \citep{DESY1cat}. It is representative of a set of techniques that
-rely on fitting models to images for a list of preexisting detections. The
+involve fitting models to images for a list of preexisting detections. The
 model fit is then used directly to form a flux measurement or indirectly by
 using it to approximately remove the light of the neighboring objects in the
 image before further processing.
@@ -330,19 +330,19 @@ constrained to be cocentric, coelliptical, and to have a fixed one-to-one size
 ratio.  The relative amplitude of the two profiles, the fraction of the total
 flux in the De Vaucouleurs' profile, is a free parameter and is allowed to vary
 outside of the range [0, 1]. Finally, to process a large number of objects, we
-follow \citet{DESY1cat} and break them up into interacting groups.  These
+follow \citet{DESY1cat} and break them up into associated groups.  These
 groups of objects are then simultaneously fit using a least-squares loss
 function.
 
 \subsection{Galaxy Pair Simulations}
 \label{sec:sims:pairs}
 
-In order to isolate the effects of detection easily, we first employ a
-simulation setup consisting of two simulated galaxies with a variable
-separation between them. By varying the separation of the objects, we can
-carefully tune the effects of blending.
+In order to isolate the effects of detection easily, we employed a simulation
+setup consisting of two simulated galaxies with a variable separation between
+them. By varying the separation of the objects, we could carefully tune the
+effects of blending.
 
-The galaxies are each a combination of a bulge component, modeled as a De
+The galaxies were each a combination of a bulge component, modeled as a De
 Vaucouleurs' profile \citep{devauc1948} and disk component modeled as an
 exponential. The fraction of light in the bulge was random and ranged uniformly
 between 0.0 and 1.0. The disk ellipticity was drawn from the distribution
@@ -358,16 +358,18 @@ a random direction. The light of the disk was divided between a smooth component
 and a set of simulated ``knots of star formation'', represented by point sources
 placed randomly with the same exponential distribution as the disk.  Between 1
 and 50 knots were placed, such that the fraction light in the knots ranged
-between 0.4\% and 20\%. Finally, the total flux and noise were set such that the
-signal-to-noise ratio ranged uniformly between 25 and 35.
+between 0.4\% and 20\%. The total flux and noise were set such that the
+signal-to-noise ratio ranged uniformly between 25 and 35.  The models were
+convolved by a PSF modeled as a Moffat profile with $\beta=2.5$ and
+full with at half maximum 0.9 arcseconds, and rendered into an image with
+pixel scale 0.263 arcseconds.
 
 We placed two of these randomly generated galaxies in an image, with separation
 ranging from 1.0 and 4.0 arcsec. The pair was placed such that the line
 between the pair had a uniform random orientation relative to the coordinate
 axes. Each object was given an additional random dither within a pixel. The
 galaxies were treated as transparent, such that the value in a pixel was equal
-to the total sum from both galaxies plus noise. The pixel scale was set to 0.263
-arcseconds, appropriate for a ground-based, DES-like survey. Example images are
+to the total sum from both galaxies plus noise. Example images are
 shown in figure \ref{fig:pairs}
 
 \begin{figure*}
