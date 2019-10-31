@@ -385,28 +385,39 @@ shown in figure \ref{fig:pairs}
 \label{sec:sims:realgals}
 
 We used the
-\texttt{WeakLensingDeblending}\footnote{\url{https://github.com/LSSTDESC/WeakLensingDeblending}}
-package to generate image simulations with realistic galaxy densities and
-pixel noise for both the DES and LSST surveys. We generated images in the r-,
-i-, and z-bands with an effective depth that is roughly equivalent to full 5
-and 10 year coadd image for the DES and LSST respectively. For our primary
-tests, we neglected the effects of PSF variation and used a constant PSF
-per-band with the typical (expected) seeing for each survey ($\sim\!1$ arcsec
-and $\sim\!0.8$ arcsec resepctively). We tested variable PSFs separately, as
-discussed in \S \ref{sec:psfvar}.  For the DES image simulations, we have fixed
-the exposure times for a single-epoch image to 90 seconds, so that the
-full-depth coadd images from 10 epochs have exposure times of 900 seconds in each
-filter. The depths of the LSST images are set to match those assumed by the
-\texttt{WeakLensingDeblending} package for the 10 year survey. In all
-simulations a shear of $\gamma_1 = 0.02$ was used. Finally, we have multiplied
-the density of input sources by a factor of 0.45 and a factor of 0.4 for the
-DES-like and LSST-like simulations in order to produce a realistic number
-density of detected sources. We also show results with the unmodified input
-catalog for the LSST-like simulations. The detected source densities in all
-three simulations are approximately 35 per square arcmin for DES, 75 per square
-arcmin for LSST, and 140 per square arcmin with the unmodified source catalog
-for the LSST-like simulations. Example images for each survey are shown in
-Figure~\ref{fig:simimages}.
+\texttt{WeakLensingDeblending}\footnote{\url{https://github.com/LSSTDESC/WeakLensingDeblending}.
+Note this package uses Galsim for all object models and rendering.} package to
+generate image simulations with realistic galaxy densities and pixel noise for
+both the DES and LSST surveys.
+
+We generated images in the r-, i-, and z-bands with an effective depth that is
+roughly equivalent to full 5 and 10 year coadd image for the DES and LSST
+respectively. For our primary tests, we neglected the effects of PSF variation
+and used a constant PSF per-band with the typical (expected) seeing for each
+survey ($\sim\!1$ arcsec and $\sim\!0.8$ arcsec resepctively). We tested
+variable PSFs separately, as discussed in \S \ref{sec:psfvar}.  For the DES
+image simulations, we have fixed the exposure times be the equivalent 
+of ten 90 second exposures. The depths of the LSST images are set to
+match those assumed by the \texttt{WeakLensingDeblending} package for the 10
+year survey. In all simulations a shear of $\gamma_1 = 0.02$ was used.
+
+We made two additional modifications to the simulations produced by this
+package.  The galaxy models and PSFS were generated using WeakLensingDeblending
+package, using its internal survey settings and object catalogs.  But rather
+than using the package to render into an image, we did this step separately so
+that we could control whether the full scene was sheared, including the space
+between objects, or just the objects were sheared (the only mode supported by
+WeakLensingDeblending).
+
+We also multiplied the density of input sources by a factor of 0.45 and a
+factor of 0.4 for the DES-like and LSST-like simulations, respectively, in
+order to produce a realistic number density of detected sources. We also
+performed tests with the unmodified input catalog for the LSST-like
+simulations, in order to test with an extreme density. The detected source
+densities in these three simulations were approximately 35 per square arcmin
+for DES year 5, 75 per square arcmin for LSST year 10, and 140 per square
+arcmin with the unmodified source catalog for the LSST-like simulations.
+Example images for each survey are shown in Figure~\ref{fig:simimages}.
 
 \begin{figure*}
     \includegraphics[width=0.9\columnwidth]{figures/des_gri.jpg}
