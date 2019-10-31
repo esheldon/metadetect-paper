@@ -321,8 +321,8 @@ image before further processing.
 
 In this work, we use an \ngmix\ based MOF
 algorithm\footnote{\url{https://github.com/esheldon/mof/}}. It is an improved
-version of the MOF fitter from the DES Y1 analysis which is both more stable
-and faster. It uses a linear combination of a De Vaucouleurs'
+version of the MOF fitter used in \cite{DESY1cat} which is
+both more stable and faster. It uses a linear combination of a De Vaucouleurs'
 \citep{devauc1948} profile and exponential profile. The profiles are
 constrained to be cocentric, coelliptical, and to have a fixed one-to-one size
 ratio.  The relative amplitude of the two profiles, the fraction of the total
@@ -501,7 +501,7 @@ bias is detected.
     arcsec separations.  When detection is included in the \mcal\ process the
     biases are greatly reduced.  The bias is reduced even in the case where no
     deblending was performed and no PSF correction or detailed object modeling
-    were performed.  This indicates the large majority bias is due to
+    were performed.  This indicates that a majority of the bias is due to
     shear-dependent detection, not light blending or details of the object
     modeling.
     \label{fig:pairbias}}
@@ -820,9 +820,9 @@ Table~\ref{tab:shearmeas} for details\footnote{The bias numbers here are fairly
 noisy, but it is interesting to note that the bias for LSST year 10 is not very
 much larger than DES year 5, despite the fact that the galaxy density is about
 twice as high.  This may partly be due to the better resolution of the LSST
-images: the effective area of the PSF is nearly a factor of two smaller than
-the area of the DES PSF.  Thus the images of small galaxies, at fixed density,
-will overlap less in LSST images than they do in DES images}.
+images: the effective area of the PSF is 60\% smaller than the area of the DES
+PSF.  Thus the images of small galaxies, at fixed density, will overlap less in
+LSST images than they do in DES images}.
 
 In order to unpack the source of the bias in this case, we compare two
 different \mcal\ shear measurements. The first \mcal\ shear measurement is done
@@ -896,13 +896,14 @@ Note that the averages above are over the {\it catalogs} from running source
 detection and ellipticity measurement on differently sheared images. This is in
 effect the ``total derivative'' response, shown in section 3 of
 \cite{SheldonMcal2017}, without any attempt to split the response into the
-shear response and selection response using the chain rule.  Individual shear
-responses, as used in both \cite{SheldonMcal2017} and \cite{HuffMcal2017}, are
-not calculated.  Doing so would require matching the lists of detections found
-on the different sheared images, so that finite differences for each object
-could be formed.  This act of matching would introduce the very shear-dependent
-object detection biases we wish to calibrate.  We will discuss the implications
-of this fact for the analysis of imaging surveys in \S \ref{sec:wavg}.
+shear response and selection response using the chain rule.  Shear responses
+for individual detected objects, as used in both \cite{SheldonMcal2017} and
+\cite{HuffMcal2017}, are not calculated.  Doing so would require matching the
+lists of detections found on the different sheared images, so that finite
+differences for each object could be formed.  This act of matching would
+introduce the very shear-dependent object detection biases we wish to
+calibrate.  We will discuss the implications of this fact for the analysis of
+imaging surveys in \S \ref{sec:wavg}.
 
 \subsection{Results for Simulated Galaxy Pairs}
 \label{sec:mdetpairs}
@@ -936,25 +937,29 @@ second-order shear effects \citep[we expect a bias of a few parts in 10000 for s
 of 0.02, see][]{SheldonMcal2017}. This conclusion holds despite the extensive blending
 of the object images and the large source detection effects we documented
 above. They also meet or exceed the requirements for analyzing an LSST-like survey
-\citep[e.g.,][]{huterer2006}. Finally, note that we have also show results for an
+\citep[e.g.,][]{huterer2006}. Finally, note that we have also shown results for an
 LSST-like survey where the number density of objects is approximately twice that
-expected from the actual survey. Even in this case, we see no significant shear biases.
+expected from the actual survey.  Even at these higher densities we find
+no increase in the shear bias.
 
 \subsubsection{Testing the Physical Assumptions Behind \mdet}
 
-Here we address a key physical assumption made by \mdet, namely that the full
-scene is transformed by a constant shear. In such an image, the space between
-objects is sheared in the same way the objects are. This shearing of the full
-scene matches the \mdet\ shearing steps exactly and thus allows us to calibrate
-the mean shear in the image to high precision. A realistic image with a mix of
-objects under different shears at different redshifts can be thought of as a
-sum of a series of constant shear images with the full scene sheared
-independently for each image in the sum.  This image would not exactly match
-the \mdet\ process and thus we might expect some residual bias in the shear
-calibration.  Note that non-constant shear, in the sense that objects from
-widely separated parts of the sky will have different shears, is not in itself
-a source of bias, because it is the mean shear or other statistic that is
-recovered by the formalism \citep{SheldonMcal2017}.
+Here we address a key physical assumption made by \mdet, namely that each small
+region of sky that is processed (say 2 arcminutes on a side) has been been
+transformed by a constant shear.  In such an image, the full scene is sheared,
+including the space between objects, not just the shapes of the objects. This
+shearing of the full scene matches the \mdet\ shearing steps exactly, and thus
+allows us to calibrate the mean shear from a set of such images to high
+precision, as shown in \S \ref{sec:res:constpsf}.
+A real image will typically have a mix of objects under different shears at different
+redshifts, and can be thought of as a sum of a series of constant, but differently
+sheared images.  This image would not exactly match the \mdet\ assumption that
+the entire scene has experienced a single constant shear, and thus we might
+expect some residual bias in the shear calibration\footnote{Note that
+non-constant shear in the sense that objects from widely separated parts of the
+sky will have different shears, is not in itself a source of bias, because it
+is the mean shear or other statistic that is recovered by the formalism
+\citep{SheldonMcal2017}}.
 
 In order to obtain an estimate and bound on this effect, we make a simple
 modification to our simulations. When building them, rather than shearing the
