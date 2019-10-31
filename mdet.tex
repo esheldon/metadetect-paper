@@ -960,35 +960,38 @@ no increase in the shear bias.
 \subsubsection{Testing the Physical Assumptions Behind \mdet}
 
 Here we address a key physical assumption made by \mdet, namely that each small
-region of sky that is processed (say 2 arcminutes on a side) has been been
+region of sky that is processed (say 2 arcminutes on a side) has been
 transformed by a constant shear.  In such an image, the full scene is sheared,
 including the space between objects, not just the shapes of the objects. This
 shearing of the full scene matches the \mdet\ shearing steps exactly, and thus
 allows us to calibrate the mean shear from a set of such images to high
-precision, as shown in \S \ref{sec:res:constpsf}.
-A real image will typically have a mix of objects under different shears at different
-redshifts, and can be thought of as a sum of a series of constant, but differently
-sheared images.  This image would not exactly match the \mdet\ assumption that
-the entire scene has experienced a single constant shear, and thus we might
-expect some residual bias in the shear calibration\footnote{Note that
-non-constant shear in the sense that objects from widely separated parts of the
-sky will have different shears, is not in itself a source of bias, because it
-is the mean shear or other statistic that is recovered by the formalism
-\citep{SheldonMcal2017}}.
+precision, as shown in \S \ref{sec:res:constpsf}.  However, real data will
+typically contain images of objects sheared by different amounts at different
+redshifts, and can be thought of as a sum of a series of constant, but
+differently sheared images.  This image would not exactly match the \mdet\
+assumption that the entire scene has experienced a single constant shear, and
+thus we might expect some residual bias in the shear calibration\footnote{Note
+that non-constant shear in the sense that objects from widely separated parts
+of the sky will have different shears, is not in itself a source of bias,
+because it is the mean shear or other statistic that is recovered by the
+formalism \citep{SheldonMcal2017}}.
 
-In order to obtain an estimate and bound on this effect, we make a simple
-modification to our simulations. When building them, rather than shearing the
-full scene to impart the true shear to the image, we shear each object
-individually and then add it to the image. This modification leaves the space
-between objects unsheared, which is maximally different from what happens
-during the \mcal\ image shearing process. Results for these simulations are in
-the bottom rows of Table~\ref{tab:shearmeas}. We find small residual biases in
-this case, of order $\sim-0.3\%$.
+In order to obtain an upper bound on this effect, we make a simple modification to our
+simulations. When building them, rather than shearing the full scene to impart
+the true shear to the image, we shear each object individually and then add it
+to the image, without any change in the object positions. This modification
+leaves the space between objects unsheared, which is maximally different from
+what happens during the \mcal\ image shearing process. Results for these
+simulations are in the bottom rows of Table~\ref{tab:shearmeas}. We find small
+residual biases in this case, of order $\sim-0.3\%$.
 
-We expect these biases to depend on the density of blended objects in the
-survey, with larger residual biases for LSST-like surveys than DES-like
-surveys. Understanding the expected level of this bias in real surveys will
-require further study, and is beyond the scope of this work.
+This is a rough upper bound on the effect, so further study is required.  We
+expect this type of bias to depend on the density, properties, and redshifts of
+the blended objects in the survey, as well as the details of the imaging
+conditions, mainly the PSF.  We would expect larger biases for more dense and
+deeper surveys, and for surveys with larger PSFs.  Predicting the expected
+level of this bias in real surveys such as DES and LSST is
+essential, but beyond the scope of this work.
 
 \section{Handling PSF Variation}
 \label{sec:psfvar}
