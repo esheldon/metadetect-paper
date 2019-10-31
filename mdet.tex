@@ -153,10 +153,10 @@ real observations the image resolution is degraded by a point-spread-function
 (PSF) due to the atmosphere, telescope optics and detector. In this case the
 overlap of objects, and also the topology of contours of a given surface
 brightness, does depend on shear because the PSF convolution occurs after the
-shear mapping.  In this case the simple threshold object detection method
-mentioned above will manifest a shear-dependent object detection bias. This
-effect is demonstrated in figure \ref{fig:toy}.  Note this effect is present
-even in the absence of pixel noise.
+shear mapping.  Thus the simple threshold object detection method mentioned
+above will manifest a shear-dependent object detection bias. This effect is
+demonstrated in figure \ref{fig:toy}.  Note this effect is present even in the
+absence of pixel noise.
 
 \begin{figure*}
   \includegraphics[width=\textwidth]{figures/toy.png}
@@ -194,20 +194,21 @@ Published implementations of \mcal\
 \citep[e.g.,][]{HuffMcal2017,SheldonMcal2017}, when used with the common object
 detection schemes discussed above, are expected to exhibit shear-dependent
 object detection biases. These implementations of \mcal\ work by applying
-artificial shears to small postage stamp images for objects found during an
-{\em independent} object detection step, run before the application of \mcal,
-followed by a calculation of the response of an ellipticity measurement to the
-applied shear. This independent object detection will already manifest a
-shear-dependent object detection bias, and thus any shear applied when running
-\mcal\ does not properly measure the full response to shear.
+artificial shears to small ``postage stamp'' images, extracted from a larger
+image, for objects found during an {\em independent} object detection step, run
+before the application of \mcal, followed by a calculation of the response of
+an ellipticity measurement to the applied shear. This independent object
+detection will already manifest a shear-dependent object detection bias, and
+thus any shear applied when running \mcal\ does not properly measure the full
+response to shear.
 
 This shear-dependent object detection bias is a type of selection effect.
-Corrections for selection effects for a static catalog were already derived in
+Corrections for selection effects in a static catalog were already derived in
 \cite{SheldonMcal2017}, but that formalism implicitly assumes that the base
 catalog itself is unaffected by selection effects.  Similarly, that formalism
-cannot work near the object detection threshold, even for isolated objects,
-because the object detections needed for the corrections will, by definition,
-not be present in the catalog.
+cannot work for objects near the object detection threshold, even for isolated
+objects, because the object detections needed for the corrections will, by
+definition, not be present in the catalog.
 
 As we will demonstrate, object detection effects can be naturally incorporated
 into \mcal\ by shearing larger images, rather than small postage stamps, and
@@ -277,17 +278,18 @@ order, we can write the response of an image measurement to an applied shear as
                            \boldsymbol{R} \boldsymbol\gamma +
                            O(\boldsymbol\gamma^2)
 \end{eqnarray}
-where $\boldsymbol{e}$ is the image measurement (e.g., an ellipticity
-measurement), $\boldsymbol\gamma$ is the applied shear, and $\boldsymbol{R}$ is
-the response (matrix) of the image measurement at zero applied shear,
-$R_{ij}=\partial e_i /\partial \gamma_j$, with $i$ and $j$ taking all
-combinations of the two shear components.
+where $\boldsymbol{e}$ is the image measurement.  $\boldsymbol\gamma$ is the
+applied shear, and $\boldsymbol{R}$ is the response (matrix) of the image
+measurement at zero applied shear, $R_{ij}=\partial e_i /\partial \gamma_j$,
+with $i$ and $j$ taking all combinations of the two shear components.  The
+$\boldsymbol{e}$ can be, for example,  an ellipticity measurement, and in what
+follows we will use the term ellipticity without loss of generality.
 
 \mcal\ estimates this response via a numerical, finite-difference derivative
 \begin{displaymath}
 R_{ij} \approx \frac{e_i^{+} - e_i^{-}}{\Delta\gamma_j}\ .
 \end{displaymath}
-where $R_{ij}$ is the estimated response of the object to shear and
+where $R_{ij}$ is the estimated response of the measurement to shear and
 $\Delta\gamma_j = 2 \gamma_j$ is the difference between two applied shears,
 $\pm \gamma_j$, with $\gamma_j$ a small shear, usually of order 0.01. The
 quantity $e_i^{+/-}$ is the $i$-th ellipticity component measured on an image
@@ -300,8 +302,8 @@ estimate the response of a set of images/objects to a shear.
 
 In the notation above, we have denoted the object ellipticity measurement as
 $\boldsymbol{e}$, but implicit is the fact that the objects must have been
-detected.  We will expand on this notation to explicitly include object
-detection in section \ref{sec:mitigate}.
+detected.  We will expand on this to include object detection in section
+\ref{sec:mitigate}.
 
 We will focus on detection biases in this work, but there are a number of steps
 in the image processing that are shear dependent: detection, centroiding,
