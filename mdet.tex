@@ -826,27 +826,26 @@ detection off, we can eliminate these detection biases.
 
 \subsection{Bias in Simulations with Representative Galaxy Density and Noise}
 
-We now explore the effects of detection in simulations that are representative
-of real survey images. As a baseline, we note that \mcal\ with MOF deblending
-and \sx\ detections results in catastrophic biases, $\sim-3\%$, for a DES-like
-survey. Simulations of LSST-like surveys demonstrate somewhat larger biases,
-and a simulation with double the LSST galaxy density shows a very large bias.
-We see similar biases when no deblending is performed.  See
-Table~\ref{tab:shearmeas} for details\footnote{The bias numbers here are fairly
-noisy, but it is interesting to note that the bias for LSST year 10 is not very
-much larger than DES year 5, despite the fact that the galaxy density is about
-twice as high.  This may partly be due to the better resolution of the LSST
-images: the effective area of the PSF is 60\% smaller than the area of the DES
-PSF.  Thus the images of small galaxies, at fixed density, will overlap less in
-LSST images than they do in DES images}.
+The results for simulations with representative galaxy density and noise are
+shown in Table~\ref{tab:shearmeas}.  \mcal\ with MOF deblending and \sx\
+detections results in large biases, $\sim-3\%$, for a full five year
+DES-like survey. Simulations of LSST-like surveys demonstrate somewhat larger
+biases, and a simulation with double the LSST galaxy density shows a very large
+bias\footnote{The bias numbers here are fairly noisy, but it is interesting to
+note that the bias for LSST year 10 is not very much larger than DES year 5,
+despite the fact that the galaxy density is about twice as high.  This may
+partly be due to the better resolution of the LSST images: the effective area
+of the PSF is 60\% smaller than the area of the DES PSF.  Thus the images of
+small galaxies, at fixed density, will overlap less in LSST images than they do
+in DES images}.  Note, we see similar biases when no deblending is performed.
 
-In order to unpack the source of the bias in this case, we compare two
-different \mcal\ shear measurements. The first \mcal\ shear measurement is done
-on a catalog of the true source positions using a fixed 1.2 arcsecond Gaussian
-weighted moment ellipticity measurement. The second employs \mcal\ with the
-same ellipticity measurement, but using \sx\ detections instead of the true
-object positions. We find that while the first \mcal\ shear measurement is
-unbiased ($-0.0011\pm0.0012$), the second exhibits a bias of
+In order to unpack the source of the bias in this case, we compared two
+different \mcal\ shear measurements. The first was performed on a catalog of the true
+source positions using a fixed 1.2 arcsecond Gaussian weighted moment
+ellipticity measurement. The second employed \mcal\ with the same ellipticity
+measurement, but using \sx\ detections rather than the true object positions. We
+found that while the first \mcal\ shear measurement is unbiased
+($-0.0011\pm0.0012$), the second exhibits a bias of
 $-0.058\pm0.001$.\footnote{The simulations with the true source positions are
 computationally slow because they involve measurements on all sources, even
 ones which are undetectable. Thus we were unable to decrease the errors on the
@@ -860,46 +859,32 @@ use the true object positions, it is still unbiased. Thus we have demonstrated
 that given a set of true source locations, \mcal\ is not sensitive to
 blending.\footnote{In practice, we have found that when using \mcal\ with true
 detections and more complex ellipticity measurements, for example using a
-non-linear model fit, biases can enter at the few tenths of a percent level. Thus
-whether \mcal\ is unbiased when using true detections 
-does depend on the technique used to measure ellipticities on the
-sheared \mcal\ images.}
+non-linear model fit, biases can enter at the few tenths of a percent level.
+Thus whether \mcal\ is unbiased when using true detections does depend on the
+technique used to measure ellipticities on the sheared \mcal\ images.}
 
 This set of tests also demonstrates explicitly that source detection can cause
 significant shear measurement biases even for techniques which are robust to
 blending. The source detection biases probably originate from multiple causes.
-One of those causes is undoubtedly related to merging or splitting objects in a
-way which depends on the underlying shear, as illustrated with a toy example in
+One of those causes the merging or splitting of object detectioins in a way
+that is shear dependent, as illustrated with a toy example in
 Figure~\ref{fig:toy} and the galaxy pair tests above.
-
-\begin{comment}
-We have found that even for extremely high signal-to-noise exponential objects
-placed on a grid, using \mcal\ with the Gaussian weighted moments around object
-centers determined by \sx\ still results in small biases, $\sim\!-0.2\%$. Thus
-at least some of the biases have to do with the effect of the underlying shear
-on object centering:  as demonstrated in \cite{SheldonMcal2017}, this
-centroiding bias is corrected as part of the ordinary \mcal\ shear response
-when center is re-fit on sheared images and detection is unambiguous, but no
-such re-determination of the position was allowed in this case.  As we will
-demonstrate below, once we include object detection in the \mcal\ process, we
-can simultaneously correct for such measurement effects and shear-dependent
-detection effects.
-\end{comment}
 
 
 \section{Mitigating Shear-dependent Detection Biases}
 \label{sec:mitigate}
 
 In the previous section, we demonstrated that source detection is a significant
-source of bias in shear measurements with \mcal. Here we test a
-straight-forward fix for this bias, namely including source detection in the
-\mcal\ process. We have implemented this fix as follows. We take relatively
-large images (typically $\sim$ 2 arcminute on a side) and apply \mcal\ directly
+source of bias in shear measurements with \mcal. Here we show we can
+mitigate this bias by including source detection in the
+\mcal\ process. The algorithm was as follows.  We genearted relatively
+large images, $\sim$ 2 arcminute on a side, and applied \mcal\ directly
 to the full image using the PSF at the center of the image for deconvolutions.
 For each of the five artificially sheared images (see \S \ref{sec:mcal}), we
-apply \sx\ to detect sources. We then measure shears in postage stamps around
+detected sources, in this case using \sx\ but we expect other detection algorithms
+could be used. We then measured shears in postage stamps around
 each detection in each image using an non-PSF corrected, Gaussian-weighted
-moment.  These five catalogs are then combined into a single estimate for the
+moment.  These five catalogs were then combined into a single estimate for the
 shear in the patch by computing the average shear response for the image
 \begin{eqnarray}
 \langle \boldsymbol\gamma \rangle &\approx& \langle \boldsymbol{R}\rangle^{-1}\langle\boldsymbol{e}\rangle\\
