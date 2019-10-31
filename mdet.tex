@@ -190,7 +190,7 @@ image in the presence of a PSF and a detector with finite spatial resolution.
 Such an algorithm would in principle eliminate the shear-dependent object
 detection biases explored in this work.
 
-Current implementations of \mcal\
+Published implementations of \mcal\
 \citep[e.g.,][]{HuffMcal2017,SheldonMcal2017}, when used with the common object
 detection schemes discussed above, are expected to exhibit shear-dependent
 object detection biases. These implementations of \mcal\ work by applying
@@ -227,9 +227,9 @@ unbiased shear estimates in simulations with realistic, LSST-like
 the impact of the main physical assumption made by \mdet, namely that all
 objects in a small region of the sky experience the same shear. Finally, we
 begin to address some of the technical challenges of implementing \mdet\ on
-real imaging data by demonstrating that the technique, when applied to
-multi-epoch imaging surveys, can naturally average out enough of the potential
-biases associated with spatial point-spread function (PSF) variation.
+real imaging data by demonstrating that the technique, when applied to a
+typical multi-epoch imaging survey, is unbiased in the presence of a spatially
+varying PSF.
 
 Calibration with simulations is an alternative route being explored by the
 community \citep[see, e.g.,][]{HSCY1shear,KIDS450shear}.  The idea is to use an
