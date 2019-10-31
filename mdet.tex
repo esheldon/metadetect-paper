@@ -1048,35 +1048,37 @@ issue in more detail in a future work.
 
 \section{Summary}\label{sec:conc}
 
-In this work, we have explored how \mcal\ weak lensing measurements perform in
-scenarios where a large fraction of the objects overlap and the detection of
-objects can be ambiguous. These conditions will characterize all future weak
-lensing surveys, especially those executed beneath the atmosphere, so accurate
+In this work, we explored how \mcal\ weak lensing measurements perform in
+scenarios where the images of objects overlap and the detection of objects can
+be ambiguous. These conditions will characterize all future weak lensing
+surveys, especially those executed beneath the atmosphere, so accurate
 performance in this regime is critical. We find that \mcal\ used with MOF-like
 object deblending techniques has severe, many percent biases that get worse as
-the degree of blending increases. We then demonstrated that by including the
-detection of objects in the \mcal\ process, we can eliminate these biases at
-high precision even for an LSST-like survey. This technique, which we call
+the degree of blending increases. We then demonstrated that we can eliminate
+these biases at high precision by including the detection of objects in the
+\mcal\ process, even for an LSST-like survey. This technique, which we call
 \mdet, appears to be extremely promising for future surveys.
 
 Future work must address a number of technical challenges associated with
-implementing \mdet\ on real data. Beyond PSF variaton, larger images can have
-non-trivial world coordinate system (WCS) variation.  Usually these
-observational details are approximately constant over small post-stamps and so
-can be dealt with easily, but this may not be so for the larger regions which
-will be coadded for \mdet. Larger regions of images can have non-trivial
-masking patterns due to stellar diffraction spikes, cosmic rays, etc. In the
-implementation presented in this work, we use fast Fourier transforms (FFTs) to
-handle convolutions. The FFT does not permit missing data, so the masked
-regions must be interpolated in some way.  In order to reconstruct accurate PSF
-models for the coadd, the input images can have no edges within the coadd
-region, necessitating that some be left out and thus some loss of precision
-will be incurred \citep{ArmstrongCoadd}.  Finally, the five separate \mdet\
-catalogs must each be incorporated into the full set of downstream analysis
-tasks (e.g., photometric redshift estimation, the construction of summary
-statistics, etc.) in order to be used for cosmological constraints. The degree
-to which these technical challenges can be overcome will ultimately determine
-the accuracy of \mdet\ when used to analyze imaging survey data.
+implementing \mdet\ on real data.  With \mdet\ we must apply artificial shears
+to relatively large images ($\sim1-2$ arcminutes on a side).  We have shown
+that PSF variation is unlikely to be a problem, but there are additional
+challenges.  These images can have non-trivial world coordinate system (WCS)
+variation, which may have significant spatial variation, and must be dealt with
+accurately to produce a coadd with a nearly flat WCS.  Larger regions of images
+can have non-trivial masking patterns due to stellar diffraction spikes, cosmic
+rays, etc. In the implementation presented in this work, we use fast Fourier
+transforms (FFTs) to handle convolutions. The FFT does not permit missing data,
+so the masked regions must be interpolated in some way.  In order to
+reconstruct accurate PSF models for the coadd, the input images can have no
+edges within the coadd region.  Images with edges must be left out of
+the coadd, resulting in some loss of precision \citep{ArmstrongCoadd}.  Finally, the
+five separate \mdet\ catalogs must each be incorporated into the full set of
+downstream analysis tasks (e.g., photometric redshift estimation, the
+construction of summary statistics, etc.) in order to be used for cosmological
+constraints. The degree to which these technical challenges can be overcome
+will ultimately determine the accuracy of \mdet\ when used to analyze imaging
+survey data.
 
 \bibliographystyle{mnras}
 \bibliography{references}
