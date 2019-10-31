@@ -1014,16 +1014,15 @@ multi-epoch survey results in a more uniform PSF in the final coadd, and
 sufficiently reduces associated biases.
 
 For these simulations, we use a simple population of galaxies that have
-exponential profiles with a half light radius of 0.5 arcsec and a PSF with a
-Gaussian profile and focal plane averaged full-width-at-half-maximum of
-0.9 arcsec. All of the objects are round and are rendered at a signal-to-noise
-of over 20. These simulations have the advantage of having very low ellipticity
-noise and so are ideal for tests that need to reach high-precision quickly. We
-create the images for the simulation by coadding a number of images with
-random, variable PSFs.  \mdet\ is then performed using the coadd of PSF models
-from the input images, with the PSF from each input image generated at the
-location of the center of the final coadd.  This model is correct only at that
-one location, so we expect a bias in the recovered shear.
+exponential profiles with a half light radius of 0.5 arcsec. All of the
+objects are round and are rendered at a signal-to-noise of over 20. These
+simulations have the advantage of having very low ellipticity noise and so are
+ideal for tests that need to reach high-precision quickly. We create the images
+for the simulation by coadding a number of images with random, variable PSFs.
+\mdet\ is then performed using the coadd of PSF models from the input images,
+with the PSF from each input image generated at the location of the center of
+the final coadd.  This model is correct only at that one location, so we expect
+a bias in the recovered shear.
 
 In order to place an upper bound on this effect, we have created a variable PSF
 model that has significantly more variation than we expect in real data. See
@@ -1160,7 +1159,7 @@ The size of the Moffat profile is set to be proportional to $\mu^{-3/4}$,
 where $\mu$ is the magnification computed from the power spectra realization. The
 proportionality constant is drawn randomly from a log-normal model with
 scatter 0.1 arcmin and a central value set so the final PSF size mimics a DES-like
-survey.
+survey, with focal plane averaged FWHM $\sim1.1$ arcsec.
 
 We show an example PSF for a DES-like survey in Figure~\ref{fig:pspsf}.  Over a
 1 square arcminute patch, our approximate models generate PSF ellipticity and size
