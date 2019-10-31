@@ -339,11 +339,11 @@ function.
 
 In order to isolate the effects of detection easily, we employed a simulation
 setup consisting of two simulated galaxies with a variable separation between
-them. By varying the separation of the objects, we could carefully tune the
+them.  We varied the separation of the objects in order to carefully tune the
 effects of blending.
 
-The galaxies were each a combination of a bulge component, modeled as a De
-Vaucouleurs' profile \citep{devauc1948} and disk component modeled as an
+The simulated galaxies were each a combination of a bulge component, modeled as
+a De Vaucouleurs' profile \citep{devauc1948} and disk component modeled as an
 exponential. The fraction of light in the bulge was random and ranged uniformly
 between 0.0 and 1.0. The disk ellipticity was drawn from the distribution
 presented in \cite{ba14}, equation 24, with ellipticity variance set to 0.20,
@@ -354,22 +354,22 @@ $r_{50}^{\mathrm{disk}}$ was set to a uniform random draw between 0.4 and 0.6
 arcsec. The half-light radius of the bulge was a random draw between $0.4
 r_{50}^{\mathrm{disk}}$ and $0.6 r_{50}^{\mathrm{disk}}$. The bulge was shifted
 from the center of the disk within a radius 0.05$r_{50}^{\mathrm{disk}}$ and in
-a random direction. The light of the disk was divided between a smooth component
-and a set of simulated ``knots of star formation'', represented by point sources
-placed randomly with the same exponential distribution as the disk.  Between 1
-and 50 knots were placed, such that the fraction light in the knots ranged
-between 0.4\% and 20\%. The total flux and noise were set such that the
-signal-to-noise ratio ranged uniformly between 25 and 35.  The models were
-convolved by a PSF modeled as a Moffat profile with $\beta=2.5$ and
-full with at half maximum 0.9 arcseconds, and rendered into an image with
-pixel scale 0.263 arcseconds.
+a random direction. The light of the disk was divided between a smooth
+component and a set of simulated ``knots of star formation'', represented by
+point sources placed randomly with the same exponential distribution as the
+disk.  Between 1 and 50 knots were placed, such that the fraction light in the
+knots ranged between 0.4\% and 20\%. The total flux and noise were set such
+that the signal-to-noise ratio ranged uniformly between 25 and 35.  The models
+were convolved by a PSF modeled as a Moffat profile with $\beta=2.5$ and full
+with at half maximum 0.9 arcseconds, and rendered into an image with pixel
+scale 0.263 arcseconds.
 
-We placed two of these randomly generated galaxies in an image, with separation
-ranging from 1.0 and 4.0 arcsec. The pair was placed such that the line
-between the pair had a uniform random orientation relative to the coordinate
-axes. Each object was given an additional random dither within a pixel. The
-galaxies were treated as transparent, such that the value in a pixel was equal
-to the total sum from both galaxies plus noise. Example images are
+We rendered two of these randomly generated galaxies in an image, with
+separation ranging from 1.0 and 4.0 arcsec. The pair was situated such that the
+line between the pair had a uniform random orientation relative to the
+coordinate axes. Each object was given an additional random dither within a
+pixel. The galaxies were treated as transparent, such that the value in a pixel
+was equal to the total sum from both galaxies plus noise. Example images are
 shown in figure \ref{fig:pairs}
 
 \begin{figure*}
@@ -396,18 +396,19 @@ respectively. For our primary tests, we neglected the effects of PSF variation
 and used a constant PSF per-band with the typical (expected) seeing for each
 survey ($\sim\!1$ arcsec and $\sim\!0.8$ arcsec resepctively). We tested
 variable PSFs separately, as discussed in \S \ref{sec:psfvar}.  For the DES
-image simulations, we have fixed the exposure times be the equivalent 
-of ten 90 second exposures. The depths of the LSST images are set to
-match those assumed by the \texttt{WeakLensingDeblending} package for the 10
-year survey. In all simulations a shear of $\gamma_1 = 0.02$ was used.
+image simulations, we modified the settings slightly such that the effective
+exposure time was equivalent to ten 90 second exposures. The depths of the LSST
+images were set to match those assumed by the \texttt{WeakLensingDeblending}
+package for the 10 year survey, although note the modifications below. In all
+simulations a shear of $\gamma_1 = 0.02$ was used.
 
 We made two additional modifications to the simulations produced by this
-package.  The galaxy models and PSFS were generated using WeakLensingDeblending
-package, using its internal survey settings and object catalogs.  But rather
-than using the package to render into an image, we did this step separately so
-that we could control whether the full scene was sheared, including the space
-between objects, or just the objects were sheared (the only mode supported by
-WeakLensingDeblending).
+package.  The galaxy models and PSFs were generated using the
+WeakLensingDeblending package, using its internal survey settings and object
+catalogs.  But rather than using the package to render into an image, we
+rendered them separately so that we could control whether the full scene was
+sheared, including the space between objects, or just the objects were sheared
+(the only mode supported by WeakLensingDeblending).
 
 We also multiplied the density of input sources by a factor of 0.45 and a
 factor of 0.4 for the DES-like and LSST-like simulations, respectively, in
