@@ -983,38 +983,38 @@ LSST is essential, but beyond the scope of this work.
 In order to apply \mdet\ to a real, multi-band, multi-epoch survey like the DES
 or LSST, we must address realistic levels of PSF variation, missing data, and
 non-trivial WCS transformations. We will address missing data and WCS issues in
-a future work, currently in preparation. Here we will address the issue of PSF
+a future work, currently in preparation. Here we address the issue of PSF
 variation, which is technically the most challenging because \mdet\ requires
 deconvolution by the PSF over relatively large regions of sky.
 
 The deconvolution of a spatially varying PSF formally requires a spatially
 varying kernel, the implementation of which would be computationally
-challenging.  We instead adopt efficient FFTs for deconvolution, which requires
-a constant kernel.  For this kernel, we choose to use the PSF associated with
+challenging.  We instead adopted efficient FFTs for deconvolution, which require
+a constant kernel.  For this kernel, we chose to use the PSF associated with
 the center of the final coadd image, which is thus systematically wrong at
 other locations and will necessarily produce a bias in the recovered shear.
 However, we will show that the image coadding process used in a realistic
 multi-epoch survey results in a more uniform PSF in the final coadd, and
 sufficiently reduces associated biases.
 
-For these simulations, we use a simple population of galaxies that have
-exponential profiles with a half light radius of 0.5 arcsec. All of the
-objects are round and are rendered at a signal-to-noise of over 20. These
-simulations have the advantage of having very low ellipticity noise and so are
-ideal for tests that need to reach high-precision quickly. We create the images
-for the simulation by coadding a number of images with random, variable PSFs.
-\mdet\ is then performed using the coadd of PSF models from the input images,
-with the PSF from each input image generated at the location of the center of
-the final coadd.  This model is correct only at that one location, so we expect
+For these simulations, we used a simple population of galaxies that have
+exponential profiles with a half light radius of 0.5 arcsec. All of the objects
+were round and were rendered at a signal-to-noise ratio greater than 20. These
+simulations had very low ellipticity noise and so could reach a high precision
+with a relatively small number of images. We created the images for the
+simulation by coadding a number of images with random, variable PSFs.  \mdet\
+was then performed using the coadd of PSF models from the input images, with
+the PSF from each input image generated at the location of the center of the
+final coadd.  This model was correct only at that one location, so we expected
 a bias in the recovered shear.
 
-In order to place an upper bound on this effect, we have created a variable PSF
-model that has significantly more variation than we expect in real data. See
+In order to place an upper bound on this effect, we created a variable PSF
+model that had significantly more variation than we expect in real data. See
 Appendix~\ref{app:pspsf} for details.  Using a single PSF realization from
-Appendix~\ref{app:pspsf}, without stacking, we find a multiplicative bias of
+Appendix~\ref{app:pspsf}, without stacking, we found a multiplicative bias of
 $-0.0065 +/- 0.00044$.  However, when stacking thirty of these models, which is
 the expected number of epochs for three bands in the final DES data set, we
-find a multiplicative bias of only $-0.00035 +/- 0.00037$.  For LSST many more
+found a multiplicative bias of only $-0.00035 +/- 0.00037$.  For LSST many more
 epochs will be available for coadding.   While this test is not conclusive, we
 expect that in a realistic survey scenario, PSF variation will not be a
 fundamental limitation for \mdet.
