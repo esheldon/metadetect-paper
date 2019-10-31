@@ -997,16 +997,15 @@ essential, but beyond the scope of this work.
 \label{sec:psfvar}
 
 In order to apply \mdet\ to a real, multi-band, multi-epoch survey like the DES
-or LSST, we will need to be able to handle realistic levels of PSF variation,
-missing data, and non-trivial WCS transformations. We will address these issues
-more fully in future work, currently in preparation. However, here we will
-address the issue of PSF variation, which is technically the most challenging
-because \mdet\ requires deconvolution by the PSF over relatively large regions
-of sky.
+or LSST, we must address realistic levels of PSF variation, missing data, and
+non-trivial WCS transformations. We will address missing data and WCS issues in
+a future work, currently in preparation. Here we will address the issue of PSF
+variation, which is technically the most challenging because \mdet\ requires
+deconvolution by the PSF over relatively large regions of sky.
 
 The deconvolution of a spatially varying PSF formally requires a spatially
 varying kernel, the implementation of which would be computationally
-intractable.  We instead adopt efficient FFTs for deconvolution, which requires
+challenging.  We instead adopt efficient FFTs for deconvolution, which requires
 a constant kernel.  For this kernel, we choose to use the PSF associated with
 the center of the final coadd image, which is thus systematically wrong at
 other locations and will necessarily produce a bias in the recovered shear.
@@ -1016,15 +1015,15 @@ sufficiently reduces associated biases.
 
 For these simulations, we use a simple population of galaxies that have
 exponential profiles with a half light radius of 0.5 arcsec and a PSF with a
-Gaussian profile with a full-width-at-half-maximum of 0.9 arcsec. All of the
-objects are round and are rendered at a signal-to-noise of over 20. These
-simulations have the advantage of having very low ellipticity noise and so are
-ideal for tests that need to reach high-precision quickly. We create the images
-for the simulation by coadding a number of images with random, variable PSFs.
-\mdet\ is then performed using the coadd of PSF models from the input images,
-with the PSF from each input image generated at the location of the center of
-the final coadd.  This model is correct only at that one location, so we
-expect a bias in the recovered shear.
+Gaussian profile and focal plane averaged full-width-at-half-maximum of
+0.9 arcsec. All of the objects are round and are rendered at a signal-to-noise
+of over 20. These simulations have the advantage of having very low ellipticity
+noise and so are ideal for tests that need to reach high-precision quickly. We
+create the images for the simulation by coadding a number of images with
+random, variable PSFs.  \mdet\ is then performed using the coadd of PSF models
+from the input images, with the PSF from each input image generated at the
+location of the center of the final coadd.  This model is correct only at that
+one location, so we expect a bias in the recovered shear.
 
 In order to place an upper bound on this effect, we have created a variable PSF
 model that has significantly more variation than we expect in real data. See
