@@ -90,7 +90,7 @@ Niall MacCrann$^{3,4}$, Michael Jarvis$^5$
     overlap.  This bias is a few percent for galaxy densities relevant for
     current surveys and increases with increasing galaxy number density.
     This bias is due to shear-dependent object detection rather than object
-    blending itself; if object detection is shear independent, no de-blending
+    blending itself; if object detection is shear independent, no deblending
     of images is needed, in principle.  We demonstrate that shear-dependent
     object detection biases are accurately removed when including object
     detection in the \mcal\ process, a technique we call \mdet. Finally, we
@@ -136,7 +136,7 @@ perhaps the traditional meaning of the word detection. But when objects overlap
 on the sky, whether due to physical association or chance projection, there may
 be an additional desire to determine how many objects there are in each region
 above threshold. We associate this process with object detection.  We reserve
-the term ``de-blending'' to specifically mean the process of assigning a
+the term ``deblending'' to specifically mean the process of assigning a
 fraction of the light in each pixel to each detected object.  In this work, for
 the sake of brevity, we will use the terms ``detection'' and ``object
 detection'' interchangeably.
@@ -495,8 +495,8 @@ arcsec separation. At 1.5 arcsec separation the detection is most ambiguous,
 with two objects detected in half the cases. For smaller separations the
 objects overlap more and detection becomes less ambiguous, with one object
 detected in more than half of the cases. At separations of 1 arcsec, the two
-objects are detected as one essentially in every case, and again no significant
-bias is detected.
+objects are detected as one by \sx\ in essentially every case, and again no
+significant bias is detected.
 
 \begin{figure}
     \includegraphics[width=\columnwidth]{figures/pairs-mc-bdkpair.pdf}
@@ -524,7 +524,7 @@ bias is detected.
 \end{figure}
 
 The correspondence between detection ambiguity and shear bias is a hint that
-the bias is caused by shear-dependent detection. Next, we perform simulations
+the bias is caused by shear-dependent detection. Next, we test with simulations
 of DES- and LSST-like surveys and show explicitly that by turning object
 detection off, we can eliminate these detection biases.
 
@@ -830,7 +830,7 @@ of real survey images. As a baseline, we note that \mcal\ with MOF deblending
 and \sx\ detections results in catastrophic biases, $\sim-3\%$, for a DES-like
 survey. Simulations of LSST-like surveys demonstrate somewhat larger biases,
 and a simulation with double the LSST galaxy density shows a very large bias.
-We see similar biases when no de-blending is performed.  See
+We see similar biases when no deblending is performed.  See
 Table~\ref{tab:shearmeas} for details\footnote{The bias numbers here are fairly
 noisy, but it is interesting to note that the bias for LSST year 10 is not very
 much larger than DES year 5, despite the fact that the galaxy density is about
@@ -858,10 +858,10 @@ measurement makes no corrections for object blending, but in the case where we
 use the true object positions, it is still unbiased. Thus we have demonstrated
 that given a set of true source locations, \mcal\ is not sensitive to
 blending.\footnote{In practice, we have found that when using \mcal\ with true
-detections and more complicated ellipticity measurements, for example using a
+detections and more complex ellipticity measurements, for example using a
 non-linear model fit, biases can enter at the few tenths of a percent level. Thus
-whether or not a \mcal\ ellipticity measurement is biased due to blending
-depends on the technique used to measure ellipticities on the
+whether \mcal\ is unbiased when using true detections 
+does depend on the technique used to measure ellipticities on the
 sheared \mcal\ images.}
 
 This set of tests also demonstrates explicitly that source detection can cause
@@ -923,13 +923,13 @@ imaging surveys in \S \ref{sec:wavg}.
 \subsection{Results for Simulated Galaxy Pairs}
 \label{sec:mdetpairs}
 
-In figure \ref{fig:pairbias} we show results for the pairs of galaxies, including
-detection in the \mcal\ process. The blue filled circles represent the case
-where deblending is performed using MOF. The green plus signs represent the
-case where no deblending was performed. For the undeblended case we further
-simplified the process: simple weighted moments were taken at the position
-determined by \sx\ using a fixed weight function with full-width at half
-maximum 1.2 arcsec, without any correction for the PSF.
+In figure \ref{fig:pairbias} we show results for the pairs of galaxies,
+including detection in the \mcal\ process. The blue filled circles represent
+the case where deblending is performed using MOF. The green plus signs
+represent the case where no deblending was performed. For the case without
+deblending,  we further simplified the process: simple weighted moments were
+taken at the position determined by \sx\ using a fixed weight function with
+full-width at half maximum 1.2 arcsec, without any correction for the PSF.
 
 In both cases the bias is greatly reduced, with significant bias seen only at
 the special separation of 1.5 arcsec, where the two objects are detected as one
