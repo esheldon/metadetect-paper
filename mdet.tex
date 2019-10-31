@@ -443,19 +443,18 @@ g \equiv c + (1 + m)\gamma
 \end{equation}
 where $g$ is the recovered shear, $c$ is the additive bias, and $m$ is the
 multiplicative bias. Below we report only $m$, but we have found that $c$ is
-consistent with zero in all cases. We further use the technique of
+consistent with zero in all cases. We further used the technique of
 \citet{pujol2019} to reduce the noise on measurements of $m$ in our simulations.
-This technique works as follows. We make two simulations with identical galaxy
+This technique works as follows. We made two simulations with identical galaxy
 and noise properties, but with opposite true shears applied. Then for this pair
-of simulations, we get a lower noise estimate of $g$ by computing the difference
-in the mean shear estimates
-
+of simulations, we can calculate a difference in the recovered shear, which
+partially cancels the noise:
 \begin{equation}
 g_{est} = \frac{g_{+\gamma} - g_{-\gamma}}{2}
 \end{equation}
-where $g_{\pm\gamma}$ are the mean shear estimates from each sim. We estimate
+where $g_{\pm\gamma}$ are the mean shear estimates from each sim. We estimated
 the shear response $R_{est}$ for $g_{est}$ by computing the average of the
-response from the two simulations. We then  compute our final mean for $m$ by
+response from the two simulations.  We then computed the final mean for $m$ by
 averaging $g_{est}$ over all simulations, averaging $R_{est}$ over all
 simulations, and then computing $m$ given the true shear. We estimated the
 errors on the mean $m$ via bootstrap resampling the set of simulation pairs and
