@@ -1063,23 +1063,35 @@ Future work must address a number of technical challenges associated with
 implementing \mdet\ on real data.  With \mdet\ we must apply artificial shears
 to relatively large images ($\sim1-2$ arcminutes on a side).  We have shown
 that PSF variation is unlikely to be a problem, but there are additional
-challenges.  These images can have non-trivial world coordinate system (WCS)
-variation, which may have significant spatial variation, which complicates
-the application of an artificial shear. The easiest way to deal with this
-would be to produce a coadd with nearly constant WCS.  Larger regions of images
-can have non-trivial masking patterns due to stellar diffraction spikes, cosmic
-rays, etc. In the implementation presented in this work, we use fast Fourier
-transforms (FFTs) to handle convolutions. The FFT does not permit missing data,
-so the masked regions must be interpolated in some way.  In order to
-reconstruct accurate PSF models for the coadd, the input images can have no
-edges within the coadd region.  Images with edges must be left out of
-the coadd, resulting in some loss of precision \citep{ArmstrongCoadd}.  Finally, the
-five separate \mdet\ catalogs must each be incorporated into the full set of
-downstream analysis tasks (e.g., photometric redshift estimation, the
-construction of summary statistics, etc.) in order to be used for cosmological
-constraints. The degree to which these technical challenges can be overcome
-will ultimately determine the accuracy of \mdet\ when used to analyze imaging
-survey data.
+challenges.
+
+The images input to the coadd can have significant spatial variations in
+their world coordinate system (WCS) transformations,  which complicates the
+application of an artificial shear. The easiest way to deal with this would be
+to produce a coadd with nearly constant WCS.
+
+Large regions of images can have non-trivial masking patterns due to stellar
+diffraction spikes, cosmic rays, etc. In the implementation presented in this
+work, we use fast Fourier transforms (FFTs) to handle convolutions. The FFT
+does not permit missing data, so the masked regions must be interpolated in
+some way.  Care must be taken that this interpolation does not introduce a
+spurious shear signal.  Compensating masks, rotated at right angles to the real
+masks, must be used in addition to the real mask, as discussed in
+\cite{SheldonMcal2017}.  Also, interpolation correlates the noise in the image,
+so the noise field used for correcting correlated noise effects must also be
+propagated through the same interpolation \cite{SheldonMcal2017}.
+
+In order to reconstruct accurate PSF models for the coadd, the input
+images can have no edges within the coadd region.  Images with edges must be
+left out of the coadd, resulting in some loss of precision
+\citep{ArmstrongCoadd}.
+
+Finally, the five separate \mdet\ catalogs must each
+be incorporated into the full set of downstream analysis tasks (e.g.,
+photometric redshift estimation, the construction of summary statistics, etc.)
+in order to be used for cosmological constraints. The degree to which these
+technical challenges can be overcome will ultimately determine the accuracy of
+\mdet\ when used to analyze imaging survey data.
 
 \bibliographystyle{mnras}
 \bibliography{references}
