@@ -1076,11 +1076,11 @@ work, we use fast Fourier transforms (FFTs) to handle convolutions. The FFT
 does not permit missing data, so the masked regions must be interpolated in
 some way.  Care must be taken that this interpolation does not introduce a
 spurious shear signal.  Compensating masks, rotated at right angles to the real
-masks, must be used in addition to the real mask, as discussed in
-\cite{SheldonMcal2017}.  Interpolation correlates the noise in the image, as
-does the coadding process itself, so the noise field used for correcting
-correlated noise effects must also be propagated through the same coadding
-and interpolation \citep{SheldonMcal2017,ArmstrongCoadd}.
+masks, must be used in addition to the real mask in order to restore symmetry
+to the image \citep{SheldonMcal2017}.  Interpolation correlates the noise in
+the image, as does the coadding process itself, so the noise field used for
+correcting correlated noise effects must also be propagated through the same
+coadding and interpolation \citep{SheldonMcal2017,ArmstrongCoadd}.
 
 In order to reconstruct accurate PSF models for the coadd, the input
 images can have no edges within the coadd region.  Images with edges must be
