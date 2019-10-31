@@ -467,23 +467,24 @@ explicit testing.
 
 \section{Shear-dependent Detection Biases}\label{sec:detbiases}
 
-In this section, we employ a variety of specialized simulation setups to
-elucidate the role of detection biases in \mcal\ shear measurements. We first
-examine shear measurement on pairs of galaxies at various separations. We then
-look at detection biases in DES- and LSST-like simulations with realistic
-galaxy densities and pixel noise. We find in all cases that object detection
-imparts a non-negligible shear measurement bias. As we will show in \S
-\ref{sec:mdetpairs}, we can correct this bias by including detection in the
+In this section, we present results from a variety of specialized simulation
+setups to elucidate the role of detection biases in \mcal\ shear measurements.
+We first examine shear measurement on pairs of galaxies at various separations.
+We then look at detection biases in DES- and LSST-like simulations with
+realistic galaxy densities and pixel noise. We find in all cases that object
+detection imparts a non-negligible shear measurement bias. As we will show in
+\S \ref{sec:mdetpairs}, we can correct this bias by including detection in the
 \mcal\ process, even if no explicit deblending (division of light between
 objects) is performed.
 
 \subsection{Bias in Simulations of Galaxy Pairs}
 
 We tested \mcal\ with MOF deblending using the galaxy pair simulation presented
-in \S \ref{sec:sims:pairs}. Detection was performed using \sx, with settings
-matching those used for DES year 5 survey reductions (DES Collaboration, in prep.).
-We got similar results using a simple local peak finder for detection.
-We saw similar levels of bias with and without performing deblending using MOF.
+in \S \ref{sec:sims:pairs}. We used \sx\ for object detection, with settings
+matching those used for DES year 5 survey reductions (DES Collaboration, in
+prep.).  We got similar results using a simple local peak finder for
+detection\footnote{\url{https://github.com/esheldon/peaks}}.  We also saw
+similar levels of bias with and without performing deblending using MOF.
 
 The multiplicative bias $m$ is shown in figure \ref{fig:pairbias} as a function
 of the pair distance. For a large separation of 4 arcsec, two objects are
