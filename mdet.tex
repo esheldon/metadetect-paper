@@ -1064,8 +1064,9 @@ implementing \mdet\ on real data.  With \mdet\ we must apply artificial shears
 to relatively large images ($\sim1-2$ arcminutes on a side).  We have shown
 that PSF variation is unlikely to be a problem, but there are additional
 challenges.  These images can have non-trivial world coordinate system (WCS)
-variation, which may have significant spatial variation, and must be dealt with
-accurately to produce a coadd with a nearly flat WCS.  Larger regions of images
+variation, which may have significant spatial variation, which complicates
+the application of an artificial shear. The easiest way to deal with this
+would be to produce a coadd with nearly constant WCS.  Larger regions of images
 can have non-trivial masking patterns due to stellar diffraction spikes, cosmic
 rays, etc. In the implementation presented in this work, we use fast Fourier
 transforms (FFTs) to handle convolutions. The FFT does not permit missing data,
