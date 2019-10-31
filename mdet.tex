@@ -1112,21 +1112,19 @@ survey data.
 \end{figure}
 
 
-In this work we use a fast, approximate variable PSF model. This model eases the
+In this work we used a fast, approximate variable PSF model. This model eases the
 computational requirements for the simulations while also retaining the
 essential features of realistic PSF variation. In this appendix, we present
 the model and verify its statistical properties against more realistic PSF models.
 
-We start with the results of \citet{heymans2012}. They fit the \vonkarman model
+We began with the results of \citet{heymans2012}. They fit the \vonkarman model
 of atmospheric turbulence
-
 \begin{displaymath}
   P(\ell) \propto \left(\ell^{2} + \frac{1}{\theta_{0}^2}\right)^{-11/6}
 \end{displaymath}
 to images with high stellar density. Here $\theta_{0}$ is the outer scale of
 turbulence. \citep{heymans2012} find that $\theta_{0}\approx3$ arcmin.
-We further add an additional Gaussian truncation of the power
-
+We further added an additional Gaussian truncation of the power
 \begin{displaymath}
   P_{trunc}(\ell) \propto P(\ell)\exp\left(-\ell^2r^{2}\right)
 \end{displaymath}
@@ -1135,17 +1133,17 @@ PSF variation. Below we show that even with this modification, our models
 still have more power than a realistic model for a survey, making them useful
 for providing upper limits on the effects of PSF variation.
 
-Using this model, we seed equal amounts of E- and B-mode power on a grid of
-$128\times128$ cells using random phases. Each cell of the grid is one
-arcsec in size. We normalize the overall ellipticity variance to $0.10^2$. We then use
-the $g1$ and $g2$ components of this model to set the variation of the ellipticity of
-the PSF. We draw the mean ellipticity for each image from a Gaussian distribution of
+Using this model, we seeded equal amounts of E- and B-mode power on a grid of
+$128\times128$ cells using random phases. Each cell of the grid was one
+arcsec in size. We normalized the overall ellipticity variance to $0.10^2$. We then used
+the $g_1$ and $g_2$ components of this model to set the variation of the ellipticity of
+the PSF. We drew the mean ellipticity for each image from a Gaussian distribution of
 variance $0.10^2$. Note that we also bound the total ellipticity to at most 0.5.
-We model the PSF profile as a Moffat with shape parameter $\beta=2.5$.
-The size of the Moffat profile is set to be proportional to $\mu^{-3/4}$,
+We modeled the PSF profile as a Moffat with shape parameter $\beta=2.5$.
+The size of the Moffat profile was set to be proportional to $\mu^{-3/4}$,
 where $\mu$ is the magnification computed from the power spectra realization. The
-proportionality constant is drawn randomly from a log-normal model with
-scatter 0.1 arcmin and a central value set so the final PSF size mimics a DES-like
+proportionality constant was drawn randomly from a log-normal model with
+scatter 0.1 arcmin and a central value set so the final PSF size mimicked a DES-like
 survey, with focal plane averaged FWHM $\sim1.1$ arcsec.
 
 We show an example PSF for a DES-like survey in Figure~\ref{fig:pspsf}.  Over a
