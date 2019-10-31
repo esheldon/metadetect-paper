@@ -962,22 +962,20 @@ of the sky will have different shears, is not in itself a source of bias,
 because it is the mean shear or other statistic that is recovered by the
 formalism \citep{SheldonMcal2017}}.
 
-In order to obtain an upper bound on this effect, we make a simple modification to our
-simulations. When building them, rather than shearing the full scene to impart
-the true shear to the image, we shear each object individually and then add it
-to the image, without any change in the object positions. This modification
-leaves the space between objects unsheared, which is maximally different from
-what happens during the \mcal\ image shearing process. Results for these
-simulations are in the bottom rows of Table~\ref{tab:shearmeas}. We find small
-residual biases in this case, of order $\sim-0.3\%$.
+In order to obtain an upper bound on this effect, we made a simple modification
+to our simulations. When building them, rather than shearing the full scene to
+impart the true shear to the image, we sheared each object individually and
+then added it to the image, without any change in the object position. This
+modification leaves the space between objects unsheared, which is maximally
+different from what happens during the \mcal\ image shearing process. Results
+for these simulations are in the bottom rows of Table~\ref{tab:shearmeas}. We
+found small residual biases in this case, of order $\sim-0.3\%$.
 
-This is a rough upper bound on the effect, so further study is required.  We
-expect this type of bias to depend on the density, properties, and redshifts of
-the blended objects in the survey, as well as the details of the imaging
-conditions, mainly the PSF.  We would expect larger biases for more dense and
-deeper surveys, and for surveys with larger PSFs.  Predicting the expected
-level of this bias in real surveys such as DES and LSST is
-essential, but beyond the scope of this work.
+We consider this a rough upper bound on the effect, more study is needed to
+address the bias in specific imaging surveys.  We expect larger biases for
+deeper and more dense surveys, and for surveys with larger PSFs.  Predicting
+the expected level of this bias for future experiments such as such as DES and
+LSST is essential, but beyond the scope of this work.
 
 \section{Handling PSF Variation}
 \label{sec:psfvar}
