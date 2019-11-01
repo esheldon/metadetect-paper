@@ -1066,7 +1066,9 @@ work must address a number of technical challenges associated with implementing
 
 First, we must run \mdet\ over relatively large images ($\sim1-2$ arcminutes
 on a side) in order to accurately capture ambiguities in the detection of
-objects, especially for blends where one object is on the edge of the image.
+objects.  Detection is less efficient in smaller images, because the
+larger perimeter to area ratio results in a higher fraction of objects, including
+blends, near the edge.
 Over these large scales, the assumption that the PSF and world
 coordinate system (WCS) transformations are approximately constant will fail,
 complicating the application of an artificial shear. We have shown in this work
