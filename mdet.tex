@@ -179,7 +179,7 @@ absence of pixel noise.
 
 \end{figure*}
 
-Common object detection schemes in use today, such at those in \sx\ 
+Common object detection schemes in use today, such at those in \sx\
 \citep{Bertin96} and the HST/LSST pipelines \citep{BoschHSC2018,BoschLSST2018}
 are based on thresholding, similar to the simple approach described above but
 differing in complexity and efficiency. Thus we would expect object detections
@@ -1031,12 +1031,15 @@ response of summary statistics to shear.  Specifically, the process of
 selecting objects, such as removing objects with low signal-to-noise ratio or
 sorting objects into redshift bins, must be repeated using the measurements made on
 sheared images in order to include selection effects \citep{SheldonMcal2017}.
+As a result of this, one may need to incorporate the measurement of fluxes
+on sheared images in passbands not used for lensing into the \mdet\ analysis
+code.
 
 When calculating sums and averages for other, non-shear quantities, such as a
 redshift distribution, the appropriate object-by-object weight is the shear
 response \citep{SheldonMcal2017}.  But individual responses cannot be
 calculated with \mdet, because this would require matching the catalogs
-produced from the different artifically sheared images, which would introduce
+produced from the different artificially sheared images, which would introduce
 shear-dependent selection effects.  It may be possible to derive an appropriate
 mean weight using ensemble statistics.  For example, one could define fine
 redshift bins (different from the bins used for tomography) and calculate the
@@ -1060,39 +1063,54 @@ these biases at high precision by including the detection of objects in the
 \mdet, appears to be extremely promising for future surveys.
 
 Future work must address a number of technical challenges associated with
-implementing \mdet\ on real data.  With \mdet\ we must apply artificial shears
-to relatively large images ($\sim1-2$ arcminutes on a side).  We have shown
-that PSF variation is unlikely to be a problem, but there are additional
-challenges.
+implementing \mdet\ on real data. These challenges arise from the fact that
+\mdet\ applies artificial shears to relatively large images ($\sim1-2$
+arcminutes on a side) and that \mdet\ catalogs cannot be matched to other
+object catalogs. The size of the image used for \mdet\ is dictated by the
+need to accurately capture the effects of shearing the image on the object
+detection process. If we make this image significantly smaller, we may not
+accurately capture ambiguities in the detection of objects, especially for
+blends where one object is on the edge of the image. Making this image
+significantly larger could complicate other parts of the analysis related to PSF
+deconvolution and wold coordinate system (WCS) handling, as detailed below.
+Finally, \mdet\ catalogs cannot be matched to other catalogs because this
+process would reintroduce object detection biases.
 
-The images input to the coadd can have significant spatial variations in their
-world coordinate system (WCS) transformations,  which complicates the
-application of an artificial shear. The simplest way to deal with this may be
-to produce a coadd with nearly constant WCS.
+Over these large scales, the assumption that the PSF and wold coordinate system
+(WCS) transformations are approximately constant will fail, complicating the
+application of an artificial shear. We have shown in this work that PSF
+variation is unlikely to be a problem when coadding many tens of images.
+However, in order to reconstruct accurate PSF models for the coadd, the
+input images can have no edges within the coadd region. This fact will result
+the loss of some precision \citep{ArmstrongCoadd}. Finally, we should be able
+to handle non-constant WCS transformations by coadding the images into a nearly
+constant WCS.
 
-Large regions of images can have non-trivial masking patterns due to stellar
-diffraction spikes, cosmic rays, etc. In the implementation presented in this
-work, we use fast Fourier transforms (FFTs) to handle convolutions. The FFT
-does not permit missing data, so the masked regions must be interpolated in
-some way.  Care must be taken that this interpolation does not introduce a
-spurious shear signal.  Compensating masks, rotated at right angles to the real
-masks, must be used in addition to the real mask in order to restore symmetry
-to the image \citep{SheldonMcal2017}.  Interpolation correlates the noise in
-the image, as does the coadding process itself, so the noise field used for
-correcting correlated noise effects must also be propagated through the same
-coadding and interpolation \citep{SheldonMcal2017,ArmstrongCoadd}.
+Unfortunately, additional issue arise from masking. Large regions of images can
+have non-trivial masking patterns due to stellar diffraction spikes, cosmic
+rays, etc. In the implementation presented in this work, we use fast Fourier
+transforms (FFTs) to handle convolutions. The FFT does not permit missing data,
+so the masked regions must be interpolated in some way.  Care must be taken that
+this interpolation does not introduce a spurious shear signal.  Compensating
+masks, rotated at right angles to the real masks, must be used in addition to
+the real mask in order to restore symmetry to the image \citep{SheldonMcal2017}.
+Interpolation correlates the noise in the image, as does the coadding process
+itself, so the noise field used for correcting correlated noise effects must
+also be propagated through the same coadding and interpolation
+\citep{SheldonMcal2017,ArmstrongCoadd}.
 
-In order to reconstruct accurate PSF models for the coadd, the input
-images can have no edges within the coadd region.  Images with edges must be
-left out of the coadd, resulting in some loss of precision
-\citep{ArmstrongCoadd}.
+Finally, the five separate \mdet\ catalogs must each be incorporated into the
+full set of downstream analysis tasks (e.g., photometric redshift estimation,
+the construction of summary statistics, etc.) in order to be used for
+cosmological constraints. The procedures for doing this cannot match the
+catalogs to each other or any external catalog. They also must apply the same
+selection criterion to each of the five catalogs in order to properly measure
+the shear response. These restrictions may have important downstream effects on
+the analysis.
 
-Finally, the five separate \mdet\ catalogs must each
-be incorporated into the full set of downstream analysis tasks (e.g.,
-photometric redshift estimation, the construction of summary statistics, etc.)
-in order to be used for cosmological constraints. The degree to which these
-technical challenges can be overcome will ultimately determine the accuracy of
-\mdet\ when used to analyze imaging survey data.
+The degree to which all of these technical challenges can be overcome will
+ultimately determine the accuracy of \mdet\ when used to analyze imaging survey
+data.
 
 \bibliographystyle{mnras}
 \bibliography{references}
