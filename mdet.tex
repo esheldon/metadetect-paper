@@ -962,6 +962,29 @@ of the sky will have different shears, is not in itself a source of bias,
 because it is the mean shear or other statistic that is recovered by the
 formalism \citep{SheldonMcal2017}}.
 
+In figure \ref{fig:toynoscene} we show a toy example, similar to figure
+\ref{fig:toy}, demonstrating the extreme and unrealistic case of two
+objects that are in line-of-sight projection but sheared completely
+independently.  We did not allow the space between objects to be sheared. The
+contours of constant surface brightness differ less after shear than those that
+shown in \ref{fig:toy}.  This is intuitive, because the positions do not move
+relative to one another.  We expect the \mdet\ process of shearing the full
+image, which does move the positions of objects, to over-predict the response
+in this case.  We would also expect that this over-prediction would be worse
+for images with larger PSF.
+
+\begin{figure*}
+  \includegraphics[width=\textwidth]{figures/toy-no-full-scene.png}
+
+    \caption{Same as figure \ref{fig:toy} but the shear is applied
+    to the objects without shearing the space between them. This
+    models the extreme and unrealistic case where two objects are in
+    line-of-sight projection but sheared completely independently.
+    \label{fig:toynoscene} }
+
+\end{figure*}
+
+
 In order to obtain an upper bound on this effect, we made a simple modification
 to our simulations. When building them, rather than shearing the full scene to
 impart the true shear to the image, we sheared each object individually and
