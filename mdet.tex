@@ -139,12 +139,13 @@ detection of regions of an image with pixel values above some threshold; this
 is perhaps the traditional meaning of the word detection. But when objects
 overlap on the sky, whether due to physical association or chance projection,
 there may be an additional desire to determine how many objects there are in
-each region above threshold. This may be desirable, for example, when
-calculating how a set of objects is distributed in redshift.  We associate this
-process with object detection.  We reserve the term ``deblending'' to
-specifically mean the process of assigning a fraction of the light in each
-pixel to each detected object.  In this work, for the sake of brevity, we will
-use the terms ``detection'' and ``object detection'' interchangeably.
+each region above threshold. This may be desirable, for example, when assigning
+a redshift distribution to a set of detections.  We associate this process with
+object detection.  We reserve the term ``deblending'' to specifically mean the
+process of assigning a fraction of the light in each pixel to each detected
+object, which may or may not be a feature of the object detection.  In this
+work, for the sake of brevity, we will use the terms ``detection'' and ``object
+detection'' interchangeably.
 
 In the weak shear regime, the lensing mapping is one-to-one and preserves
 surface brightness \citep{SchneiderBook92}. For such a mapping, object
@@ -189,11 +190,10 @@ Common object detection schemes in use today, such at those in \sx\
 are based on thresholding, similar to the simple approach described above but
 differing in complexity and efficiency. Thus we would expect object detections
 produced by those codes to also manifest shear dependence. An open question,
-which we will not address in this work, is whether or not one can derive an
-object detection algorithm which is independent of the shear applied to the
-image in the presence of a PSF and a detector with finite spatial resolution.
-Such an algorithm would in principle eliminate the shear-dependent object
-detection biases explored in this work.
+which we will not address in this work, is whether it is possible to derive a
+shear-independent object detection algorithm  in the presence of a PSF and a
+detector with finite spatial resolution.  Such an algorithm would in principle
+eliminate the shear-dependent object detection biases explored in this work.
 
 Published implementations of \mcal\
 \citep[e.g.,][]{HuffMcal2017,SheldonMcal2017}, when used with the common object
