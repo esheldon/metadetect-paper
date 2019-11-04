@@ -10,7 +10,7 @@ SHEAR = (0.1, 0.0)
 LEVELS = 2
 ZPERC = [1, 100.0]
 FWHM = 0.47
-CCOLOR = 'blue'
+CCOLOR = 'grey65'
 SHIFT = 0.4
 
 
@@ -132,6 +132,7 @@ def main():
         ccolor=CCOLOR,
         levels=LEVELS,
         zrange=np.percentile(im_pre, ZPERC),
+        invert=True,
         show=False,
     )
 
@@ -141,6 +142,7 @@ def main():
         ccolor=CCOLOR,
         levels=LEVELS,
         zrange=np.percentile(im_pre_sheared, ZPERC),
+        invert=True,
         show=False,
     )
 
@@ -150,17 +152,18 @@ def main():
         ccolor=CCOLOR,
         levels=LEVELS,
         zrange=np.percentile(im_post_sheared, ZPERC),
+        invert=True,
         show=False,
     )
 
     plt_pre.add(
-        biggles.PlotLabel(0.9, 0.9, '(a)', halign='right', color='white')
+        biggles.PlotLabel(0.9, 0.9, '(a)', halign='right', color='black')
     )
     plt_pre_sheared.add(
-        biggles.PlotLabel(0.9, 0.9, '(b)', halign='right', color='white')
+        biggles.PlotLabel(0.9, 0.9, '(b)', halign='right', color='black')
     )
     plt_post_sheared.add(
-        biggles.PlotLabel(0.9, 0.9, '(c)', halign='right', color='white')
+        biggles.PlotLabel(0.9, 0.9, '(c)', halign='right', color='black')
     )
 
     tab = biggles.Table(1, 3, aspect_ratio=1/3)
