@@ -131,7 +131,7 @@ those associated with blending.  However, we will show below that there is a
 particular calibration bias associated the process of detecting objects in the
 presence of blending, and this is not addressed in naive implementations of
 \mcal. This bias is especially large for ambiguous detections on highly blended
-images and thus poses an additional challenge for future lensing surveys. 
+images and thus poses an additional challenge for future lensing surveys.
 
 At this stage it is worthwhile to define exactly what we mean by object
 detection.  For isolated objects, object detection is closely related to the
@@ -594,17 +594,18 @@ detection off, we can eliminate these detection biases.
 %
 % ==> run_galwldeblend_DES/condor_shear_meas.txt <==
 % s2n: 10
-%     # of sims: 169018
-%     m [1e-3]: -4.140912 +/- 0.926520
-%     c [1e-4]: -0.140211 +/- 0.290522
+%     # of sims: 48431641
+%     m [1e-3]: -4.229170 +/- 0.872680
+%     c [1e-4]: 0.233764 +/- 0.236895
 % s2n: 15
-%     # of sims: 169018
-%     m [1e-3]: -5.266391 +/- 0.781841
-%     c [1e-4]: -0.263428 +/- 0.311595
+%     # of sims: 46324536
+%     m [1e-3]: -5.166098 +/- 0.645108
+%     c [1e-4]: -0.003570 +/- 0.263022
 % s2n: 20
-%     # of sims: 169018
-%     m [1e-3]: -5.371570 +/- 0.712035
-%     c [1e-4]: -0.312051 +/- 0.338221
+%     # of sims: 43766867
+%     m [1e-3]: -5.887744 +/- 0.567673
+%     c [1e-4]: -0.149850 +/- 0.286801
+%
 % ==> run_galwldeblend_LSST/condor_shear_meas.txt <==
 %                                                  s2n: 10
 %     # of sims: 10000000
@@ -671,13 +672,17 @@ detection off, we can eliminate these detection biases.
     \hline
     \multicolumn{5}{c}{metadetect+moments - individual objects sheared}\\
     \hline
-    DESY5   & metadetect+moments & no & \snr$ > 10$ & $-0.0041 \pm 0.0009$  \\
-    DESY5   & metadetect+moments & no & \snr$ > 15$ & $-0.0053 \pm 0.0008$  \\
-    DESY5   & metadetect+moments & no & \snr$ > 20$ & $-0.0054 \pm 0.0007$  \\
+    DESY5                 & metadetect+moments & no & \snr$ > 10$ & $-0.0042 \pm 0.0009$  \\
+    DESY5                 & metadetect+moments & no & \snr$ > 15$ & $-0.0052 \pm 0.0006$  \\
+    DESY5                 & metadetect+moments & no & \snr$ > 20$ & $-0.0059 \pm 0.0006$  \\
     \hline
-    LSSTY10  & metadetect+moments & no & \snr$ > 10$ & $-0.0015 \pm 0.0007$  \\
-    LSSTY10  & metadetect+moments & no & \snr$ > 15$ & $-0.0013 \pm 0.0006$  \\
-    LSSTY10  & metadetect+moments & no & \snr$ > 20$ & $+0.0001 \pm 0.0005$  \\
+    DESY5 2$\times$ dens. & metadetect+moments & no & \snr$ > 10$ & $-0.0029 \pm 0.0006$  \\
+    DESY5 2$\times$ dens. & metadetect+moments & no & \snr$ > 15$ & $-0.0017 \pm 0.0005$  \\
+    DESY5 2$\times$ dens. & metadetect+moments & no & \snr$ > 20$ & $-0.0023 \pm 0.0005$  \\
+    \hline
+    LSSTY10                 & metadetect+moments & no & \snr$ > 10$ & $-0.0015 \pm 0.0007$  \\
+    LSSTY10                 & metadetect+moments & no & \snr$ > 15$ & $-0.0013 \pm 0.0006$  \\
+    LSSTY10                 & metadetect+moments & no & \snr$ > 20$ & $+0.0001 \pm 0.0005$  \\
     \hline
     LSSTY10 2$\times$ dens. & metadetect+moments & no & \snr$ > 10$ & $-0.0047 \pm 0.0006$  \\
     LSSTY10 2$\times$ dens. & metadetect+moments & no & \snr$ > 15$ & $-0.0035 \pm 0.0004$  \\
@@ -747,17 +752,17 @@ detection off, we can eliminate these detection biases.
 
 % DES no shear scene
 % s2n: 10
-%     # of sims: 9995117
-%     m       : -0.003574 +/- 0.001228
-%     c       : -0.000043 +/- 0.000037
+%     # of sims: 40134959
+%     m [1e-3]: -2.855179 +/- 0.585444
+%     c [1e-4]: -0.096807 +/- 0.186636
 % s2n: 15
-%     # of sims: 9983339
-%     m       : -0.000999 +/- 0.000997
-%     c       : -0.000057 +/- 0.000040
+%     # of sims: 40087901
+%     m [1e-3]: -1.676965 +/- 0.513632
+%     c [1e-4]: -0.225602 +/- 0.207248
 % s2n: 20
-%     # of sims: 9938170
-%     m       : -0.002601 +/- 0.000948
-%     c       : -0.000017 +/- 0.000044
+%     # of sims: 39905852
+%     m [1e-3]: -2.314589 +/- 0.475903
+%     c [1e-4]: -0.178327 +/- 0.231775
 
 % LSST no shear scene
 % s2n: 10
@@ -818,9 +823,9 @@ detection off, we can eliminate these detection biases.
 %     \hline
 %     \multicolumn{5}{c}{metadetect+moments - individual objects sheared}\\
 %     \hline
-%     DESY5   & metadetect+moments & no & \snr$ > 10$ & $-0.0036 \pm 0.0012$  \\
-%     DESY5   & metadetect+moments & no & \snr$ > 15$ & $-0.0010 \pm 0.0010$  \\
-%     DESY5   & metadetect+moments & no & \snr$ > 20$ & $-0.0026 \pm 0.0009$  \\
+%     DESY5   & metadetect+moments & no & \snr$ > 10$ & $-0.0029 \pm 0.0006$  \\
+%     DESY5   & metadetect+moments & no & \snr$ > 15$ & $-0.0017 \pm 0.0005$  \\
+%     DESY5   & metadetect+moments & no & \snr$ > 20$ & $-0.0023 \pm 0.0005$  \\
 %     \hline
 %     LSSTY10  & metadetect+moments & no & \snr$ > 10$ & $-0.0047 \pm 0.0006$  \\
 %     LSSTY10  & metadetect+moments & no & \snr$ > 15$ & $-0.0035 \pm 0.0004$  \\
@@ -993,20 +998,54 @@ for images with larger PSF.
 \end{figure*}
 
 
+\begin{table}
+  \caption{
+    Multiplicative biases in weak lensing simulations for various source
+    densities and PSF sizes. In all cases, the simulations use a population of
+    round, exponential objects with a half-light-radius of 0.5 arcsec. We used
+    a DES-like pixel scale of 0.263 arcsec, applied \mdet\ with a simple
+    weighted moment with no PSF correction, and then finally used a size cut
+    of $T/T_{PSF} > 1.2$ for the measurements.}
+  \label{tab:nssres}
+  \begin{tabular}{llc}
+    \hline
+    Galaxy Density & PSF FWHM & m \\
+    \hline
+    45 $\mathrm{arcmin}^{-2}$  & 0.9 arcsec & $-0.00087 \pm 0.00016$ \\
+    140 $\mathrm{arcmin}^{-2}$ & 0.9 arcsec & $-0.00247 \pm 0.00015$ \\
+    45 $\mathrm{arcmin}^{-2}$  & 1.1 arcsec & $-0.00136 \pm 0.00022$ \\
+    140 $\mathrm{arcmin}^{-2}$ & 1.1 arcsec & $-0.00443 \pm 0.00021$ \\
+    \hline
+  \end{tabular}
+\end{table}
+
 In order to obtain an upper bound on this effect, we made a simple modification
 to our simulations. When building them, rather than shearing the full scene to
 impart the true shear to the image, we sheared each object individually and
 then added it to the image, without any change in the object position. This
 modification leaves the space between objects unsheared, which is maximally
-different from what happens during the \mcal\ image shearing process. Results
-for these simulations are in the bottom rows of Table~\ref{tab:shearmeas}. We
-found small residual biases in this case, of order $\sim-0.3\%$.
+different from what happens during the \mcal\ image shearing process.
 
-We consider this a rough upper bound on the effect, more study is needed to
-address the bias in specific imaging surveys.  We expect larger biases for
-deeper and more dense surveys, and for surveys with larger PSFs.  Predicting
-the expected level of this bias for future experiments such as such as DES and
-LSST is essential, but beyond the scope of this work.
+In general, we expect larger biases for surveys with more object blending and
+also for surveys with larger PSFs. To test these expectations, we created a set
+of simulations that have a simple population of round, exponential objects with
+a half-light-radius of 0.5 arcsec. We then tested how well \mdet\ can recover
+the shear under varying conditions, namely with either 45 objects per square
+armin or 140 objects per square arcmin, and with either a 0.9 arcsec Gaussian
+PSF or a 1.1 arcsec Gaussian PSF. Our results are reported in
+Table~\ref{tab:nssres} and confirm these expectations. We don't expect these
+numbers to be predictive for realistic scenarios however.
+
+Results for our more realistic survey simulations are in the bottom rows
+of Table~\ref{tab:shearmeas}. We found small residual biases in this case,
+of order $\sim-0.3\%$. While the fact that we find more bias for a DES-like
+survey than an LSST-like survey can be explained by the large PSFs in the
+DES-like survey and the smaller pixel scale in the LSST-like survey, some of
+the DES-like results are puzzling. In particular, the trend with object density
+in the DES-like surveys appears to be opposite our naive expectation. We do
+not fully understand this effect. While predicting the expected level of this
+bias for experiments such as such as DES and LSST is essential, it is beyond
+the scope of this work.
 
 \section{Handling PSF Variation}
 \label{sec:psfvar}

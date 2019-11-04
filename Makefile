@@ -3,7 +3,7 @@ texfile := mdet
 default: pdf
 
 # just run it
-bib: 
+bib:
 	bibtex ${texfile}
 
 pdf:
@@ -20,4 +20,6 @@ clean:
 	${texfile}.bbl \
 	${texfile}.blg \
 	${texfile}.toc \
-	${texfile}.log
+	${texfile}.log \
+	${texfile}.fdb_latexmk \
+	${texfile}.fls
