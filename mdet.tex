@@ -482,7 +482,10 @@ objects) is performed.
 We tested \mcal\ with MOF deblending using the galaxy pair simulation presented
 in \S \ref{sec:sims:pairs}. We used \sx\ for object detection, with settings
 matching those used for DES year 5 survey reductions (DES Collaboration, in
-prep.).  We got similar results using a simple local peak finder for
+prep.)\footnote{We have created a software package to run detection with DES
+year 5 settings, using the sep \sx\ wrapper
+\url{https://github.com/esheldon/sxdes}}.  We got similar results using a
+simple local peak finder for
 detection\footnote{\url{https://github.com/esheldon/peaks}}.  We also saw
 similar levels of bias with and without performing deblending using MOF.
 
@@ -963,7 +966,7 @@ because it is the mean shear or other statistic that is recovered by the
 formalism \citep{SheldonMcal2017}}.
 
 In figure \ref{fig:toynoscene} we show a toy example, similar to figure
-\ref{fig:toy}, demonstrating the extreme and unrealistic case of two
+\ref{fig:toy}, demonstrating the extreme and unphysical case of two
 objects that are in line-of-sight projection but sheared completely
 independently.  We did not allow the space between objects to be sheared. The
 contours of constant surface brightness differ less after shear than those that
@@ -978,8 +981,9 @@ for images with larger PSF.
 
     \caption{Same as figure \ref{fig:toy} but the shear is applied
     to the objects without shearing the space between them. This
-    models the extreme and unrealistic case where two objects are in
+    models the extreme and unphysical case where two objects are in
     line-of-sight projection but sheared completely independently.
+    The contours change less after shearing in this case.
     \label{fig:toynoscene} }
 
 \end{figure*}
