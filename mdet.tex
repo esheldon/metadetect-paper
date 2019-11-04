@@ -272,9 +272,8 @@ the \mcal\ implementation.
 \label{sec:mcal}
 
 \mcal\ is a general technique that computes the linear response of image
-measurements to an applied shear using only the observed image. Up to linear
-order, we can write the response of an image measurement to an applied shear as
-
+measurements to an applied shear using only the observed image.  For a small
+applied shear $\boldsymbol{\gamma}$, we can expand a measurement $\boldsymbol{e}$ as
 \begin{eqnarray}
 \boldsymbol{e} & \approx & \left.\boldsymbol{e}\right|_{\gamma=0} +
                            \left.\frac{\partial \boldsymbol{e}}{\partial\boldsymbol\gamma}\right|_{\gamma=0} \boldsymbol\gamma +
@@ -283,10 +282,9 @@ order, we can write the response of an image measurement to an applied shear as
                            \boldsymbol{R} \boldsymbol\gamma +
                            O(\boldsymbol\gamma^2)
 \end{eqnarray}
-where $\boldsymbol{e}$ is the image measurement.  $\boldsymbol\gamma$ is the
-applied shear, and $\boldsymbol{R}$ is the response (matrix) of the image
-measurement at zero applied shear, $R_{ij}=\partial e_i /\partial \gamma_j$,
-with $i$ and $j$ taking all combinations of the two shear components.  The
+where $\boldsymbol{R}$ is the linear response (matrix) of the image measurement
+at zero applied shear, $R_{ij}=\partial e_i /\partial \gamma_j$, with $i$ and
+$j$ taking all combinations of the two shear components.  The measurement
 $\boldsymbol{e}$ can be, for example,  an ellipticity measurement, and in what
 follows we will use the term ellipticity without loss of generality.
 
