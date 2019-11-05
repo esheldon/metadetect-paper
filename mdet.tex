@@ -150,7 +150,7 @@ formalisms to deal with selection effects:  the \bfd\ method
 \citep{BernBFD2016} and the \mcal\ method \citep{HuffMcal2017,SheldonMcal2017}.
 However, the existing tests of \bfd\ and \mcal, while stringent, did not
 include an important aspect of the real universe: the images of objects overlap
-on the sky and thus the light from different objects is ``blended'' \citep[for
+on the sky and thus the light from separate objects is ``blended'' \citep[for
 discussion of blending effects see, e.g.,][]{DawsonBlending2016}.
 
 %In this work, we show
@@ -162,7 +162,8 @@ those associated with blending.  However, we will show below that there is a
 particular calibration bias associated the process of detecting objects in the
 presence of blending, and this is not addressed in naive implementations of
 \mcal. This bias is especially large for ambiguous detections on highly blended
-images and thus poses an additional challenge for future lensing surveys.
+images and thus poses a challenge for future lensing surveys in which
+blending will be important \citep{DawsonBlending2016}.
 
 At this stage it is worthwhile to define exactly what we mean by object
 detection.  For isolated objects, object detection is closely related to the
@@ -170,8 +171,8 @@ detection of regions of an image with pixel values above some threshold; this
 is perhaps the traditional meaning of the word detection. But when objects
 overlap on the sky, whether due to physical association or chance projection,
 there may be an additional desire to determine how many objects there are in
-each region above threshold. This may be desirable, for example, when assigning
-a redshift distribution to a set of detections.  We associate this process with
+each detected region. This may be desirable, for example, when assigning a
+redshift distribution to a set of detections.  We associate this process with
 object detection.  We reserve the term ``deblending'' to specifically mean the
 process of assigning a fraction of the light in each pixel to each detected
 object, which may or may not be a feature of the object detection.  In this
@@ -181,18 +182,18 @@ detection'' interchangeably.
 In the weak shear regime, the lensing mapping is one-to-one and preserves
 surface brightness \citep{SchneiderBook92}. For such a mapping, object
 detection need not be shear dependent. For example, an object detection
-algorithm that simply identifies connected regions in an image with pixel
-values above a threshold will not in principle be shear dependent.  This is
-because the topology of the contours, or the number of closed contours, at a
-given surface brightness will not change under a shear, due to the preservation
-of surface brightness and the one-to-one nature of the mapping.  However, in
-real observations the image resolution is degraded by a point-spread-function
-(PSF) due to the atmosphere, telescope optics and detector. In this case the
-overlap of objects, and also the topology of contours of a given surface
-brightness, does depend on shear because the PSF convolution occurs after the
-shear mapping.  Thus the simple threshold object detection method mentioned
-above will manifest a shear-dependent object detection bias. This effect is
-demonstrated in figure \ref{fig:toy}.  Note this effect is present even in the
+algorithm that identifies connected regions in an image with pixel values above
+a threshold will not in principle be shear dependent.  This is because the
+topology of the contours, or the number of closed contours, at a given surface
+brightness will not change under a shear, due to the preservation of surface
+brightness and the one-to-one nature of the mapping.  However, in real
+observations the image resolution is degraded by a point-spread-function (PSF)
+due to the atmosphere, telescope optics and detector. In this case the overlap
+of objects, and also the topology of contours of a given surface brightness,
+does depend on shear because the PSF convolution occurs after the shear
+mapping.  This effect is demonstrated in figure \ref{fig:toy}.  Thus the simple
+threshold object detection method described above will manifest a
+shear-dependent object detection bias. Note this effect is present even in the
 absence of pixel noise.
 
 \begin{figure*}
@@ -219,8 +220,12 @@ absence of pixel noise.
 Common object detection schemes in use today, such at those in \sx\
 \citep{Bertin96} and the HST/LSST pipelines \citep{BoschHSC2018,BoschLSST2018}
 are based on thresholding, similar to the simple approach described above but
-differing in complexity and efficiency. Thus we would expect object detections
-produced by those codes to also manifest shear dependence. An open question,
+differing in complexity and efficiency. The effective threshold used to divide
+regions into separate objects in these codes is not a simple threshold above
+noise, but is rather a relative quantity.  This is demonstrated clearly for
+\sx\ in \cite{Bertin96} figure 2.  Thus we would expect object detections
+produced by such a code to also manifest shear dependence. A simple local peak
+finder, run on a smoothed image, has similar properties.  An open question,
 which we will not address in this work, is whether it is possible to derive a
 shear-independent object detection algorithm  in the presence of a PSF and a
 detector with finite spatial resolution.  Such an algorithm would in principle
@@ -235,7 +240,7 @@ image, for objects found during an {\em independent} object detection step, run
 before the application of \mcal, followed by a calculation of the response of
 an ellipticity measurement to the applied shear. This independent object
 detection will already manifest a shear-dependent object detection bias, and
-thus any shear applied when running \mcal\ does not properly measure the full
+thus any shear applied when running \mcal\ does not properly reflect the full
 response to shear.
 
 This shear-dependent object detection bias is a type of selection effect.
@@ -247,11 +252,13 @@ objects, because the object detections needed for the corrections will, by
 definition, not be present in the catalog.
 
 As we will demonstrate, object detection effects can be naturally incorporated
-into \mcal\ by shearing larger images, rather than small postage stamps, and
-re-running the object detection algorithm on each of the sheared images. In
-this process, shear measurement errors, selection effects and object detection
-are all accounted for simultaneously. We call this technique \mdet.
+into \mcal\ by shearing somewhat larger images, rather than small postage
+stamps, and re-running the object detection algorithm on each of the sheared
+images. In this process, ellipticity measurement biases, selection effects and
+object detection are all accounted for simultaneously. We call this technique
+\mdet.
 
+\begin{comment}
 In this work, we focus on elucidating the source of shear-dependent object
 detection biases and the performance of the core \mdet\ algorithm. We
 demonstrate that the largest biases occur for pairs of galaxies separated by a
@@ -267,15 +274,16 @@ begin to address some of the technical challenges of implementing \mdet\ on
 real imaging data by demonstrating that the technique, when applied to a
 typical multi-epoch imaging survey, is unbiased in the presence of a spatially
 varying PSF.
+\end{comment}
 
 Calibration with simulations is an alternative route being explored by the
-community \citep[see, e.g.,][]{HSCY1shear,KIDS450shear}.  The idea is to use an
-uncalibrated ellipticity measurement, which can have large shear biases (of
-order 10\%) and large, unknown selection effects.  The final shear meausrements
-are then calibrated, including selection effects, using a simulation that
-matches the data as closely as possible.  Ultimately \mdet\ may have some
-remaining biases that must be calibrated with simulations.  Our goal in
-developing this algorithm is to make these biases as small as possible,
+community \citep[see, e.g.,][]{KIDS450shear,HSCY1shear}.  The idea is to use an
+uncalibrated ellipticity measurement, which can manifest a large shear bias
+(of order 10\%) and  unknown selection effects.  The final shear
+measurements are then calibrated, including selection effects, using a
+simulation that matches the data as closely as possible.  Ultimately \mdet\ may
+have some remaining biases that must be calibrated with simulations.  Our goal
+in developing this algorithm is to make these biases as small as possible,
 sub-percent as opposed to 10 percent, which we expect will greatly reduce the
 sensitivity of the final calibration to small inaccuracies in the simulation.
 
