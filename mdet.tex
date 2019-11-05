@@ -975,15 +975,24 @@ because it is the mean shear or other statistic that is recovered by the
 formalism \citep{SheldonMcal2017}}.
 
 In figure \ref{fig:toynoscene} we show a toy example, similar to figure
-\ref{fig:toy}, demonstrating the extreme and unphysical case of two
-objects that are in line-of-sight projection but sheared completely
-independently.  We did not allow the space between objects to be sheared. The
-contours of constant surface brightness differ less after shear than those that
-shown in \ref{fig:toy}.  This is intuitive, because the positions do not move
-relative to one another.  We expect the \mdet\ process of shearing the full
-image, which does move the positions of objects, to over-predict the response
-in this case.  We would also expect that this over-prediction would be worse
-for images with larger PSF.
+\ref{fig:toy}, demonstrating the extreme and unphysical case of two objects
+that are in line-of-sight projection but sheared completely independently.  We
+did not allow the space between objects to be sheared. The contours of constant
+surface brightness differ less after shear than those that shown in
+\ref{fig:toy}.  This is intuitive, because the positions do not move relative
+to one another.  The \mdet\ process of shearing the full image, which does move
+the positions of objects, will over-predict the response in this case.
+
+In general, we expect larger biases for surveys with more object blending,
+which scales with object density and PSF size.  To test these expectations, we
+created a set of simple simulations that have a population of round,
+exponential objects with a half-light-radius of 0.5 arcsec. We then tested the
+accuracy \mdet\ shear recovery under varying conditions, namely with either 45
+objects per square armin or 140 objects per square arcmin, and with either a
+0.9 arcsec Gaussian PSF or a 1.1 arcsec Gaussian PSF. Our results are reported
+in Table~\ref{tab:nssres} and confirm these expectations. However, we don't
+expect these results to be representative of realistic scenarios.
+
 
 \begin{figure*}
   \includegraphics[width=\textwidth]{figures/toy-no-full-scene.png}
@@ -1022,22 +1031,13 @@ for images with larger PSF.
   \end{tabular}
 \end{table}
 
-In order to obtain an upper bound on this effect, we made a simple modification
-to our simulations. When building them, rather than shearing the full scene to
-impart the true shear to the image, we sheared each object individually and
-then added it to the image, without any change in the object position. This
-modification leaves the space between objects unsheared, which is maximally
-different from what happens during the \mcal\ image shearing process.
-
-In general, we expect larger biases for surveys with more object blending and
-also for surveys with larger PSFs. To test these expectations, we created a set
-of simulations that have a simple population of round, exponential objects with
-a half-light-radius of 0.5 arcsec. We then tested how well \mdet\ can recover
-the shear under varying conditions, namely with either 45 objects per square
-armin or 140 objects per square arcmin, and with either a 0.9 arcsec Gaussian
-PSF or a 1.1 arcsec Gaussian PSF. Our results are reported in
-Table~\ref{tab:nssres} and confirm these expectations. We don't expect these
-numbers to be predictive for realistic scenarios however.
+In order to obtain an upper bound on this effect for real surveys, we made a
+simple modification to our simulations with realistic galaxy density and noise.
+When building them, rather than shearing the full scene to impart the true
+shear to the image, we sheared each object individually and then added it to
+the image, without any change in the object position. This modification leaves
+the space between objects unsheared, which is maximally different from what
+happens during the \mcal\ image shearing process.
 
 Results for our more realistic survey simulations are in the bottom rows
 of Table~\ref{tab:shearmeas}. We found small residual biases in this case,
