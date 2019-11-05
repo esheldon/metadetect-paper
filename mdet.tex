@@ -100,7 +100,7 @@ Niall MacCrann$^{3,4}$, Michael Jarvis$^5$
     shear is then calculated, with measurements now including the process of
     detection, and this response is used to calibrate the final shear estimate.
     We show that the primary technical challenge for \mdet, deconvolution using
-    a spatially varying point-spread-function, does not result in a significant
+    a spatially varying point-spread-function, does not cause in a significant
     bias for typical imaging surveys.  Finally, we discuss the physical limits
     of \mdet's accuracy.  The key assumption behind \mdet\ is that the entire
     region of sky under consideration, which we are free choose to be small, is
@@ -111,31 +111,6 @@ Niall MacCrann$^{3,4}$, Michael Jarvis$^5$
     is at most a few tenths of a percent for future surveys.  We discuss
     additional technical challenges that must be met in order to implement
     \mdet\ for real surveys.
-    
-    %We find that \mdet's key assumption, that the entire image is
-    %sheared, as opposed to only the objects in the image, can result in few
-    %tenths of percent biases in a worst case scenario.  However, more work will
-    %be required to estimate the expected bias in realistic surveys where
-    %lensing over cosmological distances produces a combination of objects that
-    %are sheared independently of their line-of-sight neighbors and objects that
-    %are sheared together, including the space between them.
-    
-    %Future work will
-    %address these issues and apply \mdet\ to data from current surveys.
-
-    %detection in the \mcal\ process, a technique we call \mdet. Finally, we
-    %discuss the physical limits of \mdet's accuracy and address one of the
-    %primary barriers to applying \mdet\ to realistic data, the variation of the
-    %point-spread function (PSF) across the image. We find that while PSF variation
-    %can be accounted for, \mdet's key assumption, that the entire image is
-    %sheared, as opposed to only the objects in the image, can result in few
-    %tenths of percent biases in a worse case scenario. However, more work will
-    %be required to estimate this effect in realistic surveys where lensing over
-    %cosmological distances produces a combination of objects that are sheared
-    %independently of their line-of-sight neighbors and objects that are sheared
-    %together, including the space between them. Future work will address these
-    %issues and apply \mdet\ to data from current surveys.
-
 
 \end{abstract}
 
@@ -1213,6 +1188,20 @@ the analysis.
 The degree to which all of these technical challenges can be overcome will
 ultimately determine the accuracy of \mdet\ when used to analyze imaging survey
 data.
+
+
+\section*{Acknowledgments}
+
+ES is supported by DOE grant DE-AC02-98CH10886, and MB is supported by DOE
+grant DE-AC02-06CH11357.  We gratefully acknowledge the computing resources
+provided on Bebop, a high-performance computing cluster operated by the
+Laboratory Computing Resource Center at Argonne National Laboratory, and the
+RHIC Atlas Computing Facility, operated by Brookhaven National Laboratory.
+This work also used resources made available on the Phoenix cluster, a joint
+data-intensive computing project between the High Energy Physics Division and
+the Computing, Environment, and Life Sciences (CELS) Directorate at Argonne
+National Laboratory.
+
 
 \bibliographystyle{mnras}
 \bibliography{references}
