@@ -321,16 +321,16 @@ applied shear $\boldsymbol{\gamma}$, we can expand a measurement $\boldsymbol{e}
                            \boldsymbol{R} \boldsymbol\gamma +
                            O(\boldsymbol\gamma^2)
 \end{eqnarray}
-where $\boldsymbol{R}$ is the linear response (matrix) of the image measurement
+where $\boldsymbol{R}$ is the response matrix of the image measurement
 at zero applied shear, $R_{ij}=\partial e_i /\partial \gamma_j$, with $i$ and
 $j$ taking all combinations of the two shear components.  The measurement
 $\boldsymbol{e}$ can be, for example,  an ellipticity measurement, and in what
 follows we will use the term ellipticity without loss of generality.
 
-\mcal\ estimates this response via a numerical, finite-difference derivative
-\begin{displaymath}
+We estimate the response using a numerical, finite-difference derivative
+\begin{equation}
 R_{ij} \approx \frac{e_i^{+} - e_i^{-}}{\Delta\gamma_j}\ .
-\end{displaymath}
+\end{equation}
 where $R_{ij}$ is the estimated response of the measurement to shear and
 $\Delta\gamma_j = 2 \gamma_j$ is the difference between two applied shears,
 $\pm \gamma_j$, with $\gamma_j$ a small shear, usually of order 0.01. The
@@ -341,10 +341,7 @@ the creation of which requires careful handling of the PSF and other
 observational effects.  Note that as the estimated responses per-object are
 quite noisy, they must be averaged over many images/objects in order to
 estimate the response of a set of images/objects to a shear.
-
-In the notation above, we have denoted the object ellipticity measurement as
-$\boldsymbol{e}$, but implicit is the fact that the objects must have been
-detected.  We will expand on this to include object detection in section
+We will expand this method to include object detection in section
 \ref{sec:mitigate}.
 
 We will focus on detection biases in this work, but there are a number of steps
