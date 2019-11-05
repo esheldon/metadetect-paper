@@ -891,12 +891,13 @@ One of those causes is certainly the merging or splitting of object detections
 in a way that is shear dependent, as illustrated with the toy example in
 Figure~\ref{fig:toy} and the galaxy pair tests above.
 
+\newpage
 \section{Mitigating Shear-dependent Detection Biases} \label{sec:mitigate}
 
 In the previous section, we demonstrated that source detection is a significant
 source of bias in shear measurements with \mcal. Here we show we can
 mitigate this bias by including source detection in the
-\mcal\ process. The algorithm was as follows.  We genearted relatively
+\mcal\ process. The algorithm works as follows.  We generated relatively
 large images, $\sim$ 2 arcminute on a side, and applied \mcal\ directly
 to the full image using the PSF at the center of the image for deconvolutions.
 For each of the five artificially sheared images (see \S \ref{sec:mcal}), we
