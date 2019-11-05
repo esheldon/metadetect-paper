@@ -2,7 +2,9 @@
 % \documentclass[fleqn,useAMS,usenatbib]{mnras}
 
 % apj
-\documentclass[iop, twocolappendix, appendixfloats, numberedappendix, apj]{emulateapj}
+%\documentclass[iop, twocolappendix, appendixfloats, numberedappendix, apj]{emulateapj}
+\documentclass[iop, appendixfloats, numberedappendix, apj]{emulateapj}
+%\documentclass{emulateapj}
 
 %=====================================================================
 % CUSTOM: PACKAGES, MACROS & SETTINGS
@@ -72,6 +74,9 @@
 \newcommand{\bfd}{\textsc{BFD}}
 
 \newcommand{\vonkarman}{{von K\'arm\'an}~}
+
+
+%\setuphead[section][before={\testpage[2]}]
 
 %mnras
 %\title[\Mdet]{\Mdet: Mitigating Shear-dependent Object Detection Biases with \Mcal}
@@ -563,6 +568,22 @@ the bias is caused by shear-dependent detection. Next, we test with simulations
 of DES- and LSST-like surveys and show explicitly that by turning object
 detection off, we can eliminate these detection biases.
 
+
+\subsection{Bias in Simulations with Representative Galaxy Density and Noise}
+
+The results for simulations with representative galaxy density and noise are
+shown in Table~\ref{tab:shearmeas}.  \mcal\ with MOF deblending and \sx\
+detections results in large biases, $\sim-3\%$, for a full five year
+DES-like survey. Simulations of LSST-like surveys demonstrate somewhat larger
+biases, and a simulation with double the LSST galaxy density shows a very large
+bias\footnote{The bias numbers here are fairly noisy, but it is interesting to
+note that the bias for LSST year 10 is not very much larger than DES year 5,
+despite the fact that the galaxy density is about twice as high.  This may be
+partly due to the better resolution of the LSST images: the effective area
+of the PSF is 60\% smaller than the area of the DES PSF.  Thus the images of
+small galaxies, at fixed density, will overlap less in LSST images than they do
+in DES images}.  Note, we see similar biases when no deblending is performed.
+
 % raw outputs
 % DES mcal+MOF
 %                                              s2n: 10
@@ -836,77 +857,6 @@ detection off, we can eliminate these detection biases.
 %     c       : -0.000022 +/- 0.000019
 
 
-% \begin{table*}
-%   \centering
-%   \caption{
-%     Multiplicative biases in weak lensing simulations for various shear
-%     measurement techniques. In all cases, the simulations use realistic
-%     galaxy ellipticities, galaxy sizes and noise for the given survey. For measurements using standard \mcal\ with
-%     MOF deblending, a cut of $T/T_{PSF} > 0.5$ was also applied. Measurements with
-%     \mdet\ and moments used a size cut of $T/T_{PSF} > 1.2$. In the case of \mdet\ with moments,
-%     no deblending corrections are applied and the moments are a simple weighted moment
-%     with no PSF correction.}
-%   \label{tab:shearmeas}
-%
-%   \begin{tabular}{|l|l|l|c|c|}
-%     \hline
-%     Simulation & Method & Full Scene Sheared? & \snr\ Cut & m \\
-%     \hline
-%
-%     \hline
-%     \multicolumn{5}{c}{metacal+MOF - full scene sheared}\\
-%     \hline
-%     DESY5   & metacal+MOF & yes & \snr$ > 10$ & $-0.067 \pm 0.010$  \\
-%     DESY5   & metacal+MOF & yes & \snr$ > 15$ & $-0.050 \pm 0.009$  \\
-%     DESY5   & metacal+MOF & yes & \snr$ > 20$ & $-0.037 \pm 0.008$  \\
-%     \hline
-%     LSSTY10  & metacal+MOF & yes & \snr$ > 10$ & $-0.082 \pm 0.005$  \\
-%     LSSTY10  & metacal+MOF & yes & \snr$ > 15$ & $-0.067 \pm 0.005$  \\
-%     LSSTY10  & metacal+MOF & yes & \snr$ > 20$ & $-0.062 \pm 0.004$  \\
-%     \hline
-%
-%     \hline
-%     \multicolumn{5}{c}{metadetect+moments - full scene sheared}\\
-%     \hline
-%     DESY5   & metadetect+moments & yes & \snr$ > 10$ & $+0.00016 \pm 0.00086$  \\
-%     DESY5   & metadetect+moments & yes & \snr$ > 15$ & $+0.00041 \pm 0.00079$  \\
-%     DESY5   & metadetect+moments & yes & \snr$ > 20$ & $+0.00081 \pm 0.00075$  \\
-%     \hline
-%     LSSTY10  & metadetect+moments & yes & \snr$ > 10$ & $+0.00047 \pm 0.00043$  \\
-%     LSSTY10  & metadetect+moments & yes & \snr$ > 15$ & $-0.00002 \pm 0.00034$  \\
-%     LSSTY10  & metadetect+moments & yes & \snr$ > 20$ & $+0.00019 \pm 0.00028$  \\
-%     \hline
-%
-%     \hline
-%     \multicolumn{5}{c}{metadetect+moments - individual objects sheared}\\
-%     \hline
-%     DESY5   & metadetect+moments & no & \snr$ > 10$ & $-0.0029 \pm 0.0006$  \\
-%     DESY5   & metadetect+moments & no & \snr$ > 15$ & $-0.0017 \pm 0.0005$  \\
-%     DESY5   & metadetect+moments & no & \snr$ > 20$ & $-0.0023 \pm 0.0005$  \\
-%     \hline
-%     LSSTY10  & metadetect+moments & no & \snr$ > 10$ & $-0.0047 \pm 0.0006$  \\
-%     LSSTY10  & metadetect+moments & no & \snr$ > 15$ & $-0.0035 \pm 0.0004$  \\
-%     LSSTY10  & metadetect+moments & no & \snr$ > 20$ & $-0.0029 \pm 0.0004$  \\
-%     \hline
-%   \end{tabular}
-%
-% \end{table*}
-
-\subsection{Bias in Simulations with Representative Galaxy Density and Noise}
-
-The results for simulations with representative galaxy density and noise are
-shown in Table~\ref{tab:shearmeas}.  \mcal\ with MOF deblending and \sx\
-detections results in large biases, $\sim-3\%$, for a full five year
-DES-like survey. Simulations of LSST-like surveys demonstrate somewhat larger
-biases, and a simulation with double the LSST galaxy density shows a very large
-bias\footnote{The bias numbers here are fairly noisy, but it is interesting to
-note that the bias for LSST year 10 is not very much larger than DES year 5,
-despite the fact that the galaxy density is about twice as high.  This may be
-partly due to the better resolution of the LSST images: the effective area
-of the PSF is 60\% smaller than the area of the DES PSF.  Thus the images of
-small galaxies, at fixed density, will overlap less in LSST images than they do
-in DES images}.  Note, we see similar biases when no deblending is performed.
-
 In order to unpack the source of the bias in this case, we compared two
 different \mcal\ shear measurements. The first was performed on a catalog of the true
 source positions using a fixed 1.2 arcsecond Gaussian weighted moment
@@ -938,9 +888,7 @@ One of those causes is certainly the merging or splitting of object detections
 in a way that is shear dependent, as illustrated with the toy example in
 Figure~\ref{fig:toy} and the galaxy pair tests above.
 
-
-\section{Mitigating Shear-dependent Detection Biases}
-\label{sec:mitigate}
+\section{Mitigating Shear-dependent Detection Biases} \label{sec:mitigate}
 
 In the previous section, we demonstrated that source detection is a significant
 source of bias in shear measurements with \mcal. Here we show we can
@@ -1267,34 +1215,6 @@ National Laboratory.
 
 \section{Fast Approximate Variable PSF Models}\label{app:pspsf}
 
-\begin{figure*}
-    \begin{center}
-        \includegraphics[width=\textwidth]{figures/pspsf.pdf}
-        \caption{
-            Variable PSF model statistics for a DECam-like exposure. The top-left
-        panel shows the variation in the FWHM in arcseconds. The top-right panel
-        shows a visualization of the PSF ellipticity variation. The bottom-left panel shows
-        the variation in the $1$-component of the PSF ellipticity. The bottom-right panel
-        shows the variation in the $2$-component of the PSF ellipticity. The variation in
-        this model is $\gtrsim10\times$ larger than the typical PSF variation for
-        either DECam or expected LSST observations. The pixel scale is 0.263 arcsec
-        so that each panel is approximately 1 arcmin on a side.
-        \label{fig:pspsf}}
-    \end{center}
-\end{figure*}
-
-\begin{figure}
-    \begin{center}
-        \includegraphics[width=0.5\columnwidth]{figures/psxi.pdf}
-        \caption{
-            Variable PSF model shear correlation functions for a DECam-like exposure. LSST
-        is expected to have shear correlation function magnitudes around
-        $\sim\!10^{-4}$ \citep{jee2011}.
-        \label{fig:psxi}}
-    \end{center}
-\end{figure}
-
-
 In this work we used a fast, approximate variable PSF model. This model eases the
 computational requirements for the simulations while also retaining the
 essential features of realistic PSF variation. In this appendix, we present
@@ -1341,6 +1261,35 @@ using the methods of \citet{jee2011} but for DECam-like environmental conditions
 the optical contributions to the PSF, we use a set of randomly drawn
 aberrations (similar to GREAT3 \citep{great3}), but with values more typical of
 DECam observations\footnote{\url{https://github.com/GalSim-developers/GalSim/blob/releases/2.1/examples/great3/cgc.yaml}}.
+
+\begin{figure*}
+    \begin{center}
+        \includegraphics[width=\textwidth]{figures/pspsf.pdf}
+        \caption{
+            Variable PSF model statistics for a DECam-like exposure. The top-left
+        panel shows the variation in the FWHM in arcseconds. The top-right panel
+        shows a visualization of the PSF ellipticity variation. The bottom-left panel shows
+        the variation in the $1$-component of the PSF ellipticity. The bottom-right panel
+        shows the variation in the $2$-component of the PSF ellipticity. The variation in
+        this model is $\gtrsim10\times$ larger than the typical PSF variation for
+        either DECam or expected LSST observations. The pixel scale is 0.263 arcsec
+        so that each panel is approximately 1 arcmin on a side.
+        \label{fig:pspsf}}
+    \end{center}
+\end{figure*}
+
+\begin{figure}
+    \begin{center}
+        \includegraphics[width=0.5\columnwidth]{figures/psxi.pdf}
+        \caption{
+            Variable PSF model shear correlation functions for a DECam-like exposure. LSST
+        is expected to have shear correlation function magnitudes around
+        $\sim\!10^{-4}$ \citep{jee2011}.
+        \label{fig:psxi}}
+    \end{center}
+\end{figure}
+
+
 
 
 %\bsp
