@@ -200,11 +200,11 @@ regions into separate objects in these codes is not a simple threshold above
 noise, but is rather a relative quantity.  This is demonstrated clearly for
 \sx\ in \cite{Bertin96} figure 2.  Thus we would expect object detections
 produced by such a code to also manifest shear dependence. A simple local peak
-finder, run on a smoothed image, has similar properties.  An open question,
+finder, run on a smoothed image, has similar properties\footnote{An open question,
 which we will not address in this work, is whether it is possible to derive a
 shear-independent object detection algorithm  in the presence of a PSF and a
 detector with finite spatial resolution.  Such an algorithm would in principle
-eliminate the shear-dependent object detection biases explored in this work.
+eliminate the shear-dependent object detection biases explored in this work.}
 
 Published implementations of \mcal\
 \citep[e.g.,][]{HuffMcal2017,SheldonMcal2017}, when used with the common object
@@ -232,24 +232,6 @@ stamps, and re-running the object detection algorithm on each of the sheared
 images. In this process, ellipticity measurement biases, selection effects and
 object detection are all accounted for simultaneously. We call this technique
 \mdet.
-
-\begin{comment}
-In this work, we focus on elucidating the source of shear-dependent object
-detection biases and the performance of the core \mdet\ algorithm. We
-demonstrate that the largest biases occur for pairs of galaxies separated by a
-distance such that their images strongly overlap and one, rather than two
-objects is detected in half of the cases.  Further, we provide evidence that
-object deblending techniques that are based on objects detected in the image
-cannot correct for the biases. Next, we demonstrate that \mdet\ can produce
-unbiased shear estimates in simulations with realistic, LSST-like
-\citep[e.g.,][]{chang2013} levels of object blending.  After that, we estimate
-the impact of the main physical assumption made by \mdet, namely that all
-objects in a small region of the sky experience the same shear. Finally, we
-begin to address some of the technical challenges of implementing \mdet\ on
-real imaging data by demonstrating that the technique, when applied to a
-typical multi-epoch imaging survey, is unbiased in the presence of a spatially
-varying PSF.
-\end{comment}
 
 Calibration with simulations is an alternative route being explored by the
 community \citep[see, e.g.,][]{KIDS450shear,HSCY1shear}.  The idea is to use an
@@ -909,7 +891,7 @@ each detection in each image using an non-PSF corrected, Gaussian-weighted
 moment.  These five catalogs were then combined into a single estimate for the
 shear in the patch by computing the average shear response for the image
 \begin{eqnarray}
-\langle \boldsymbol\gamma \rangle &\approx& \langle \boldsymbol{R}\rangle^{-1}\langle\boldsymbol{e}\rangle\\
+\langle \boldsymbol\gamma \rangle &\approx& \langle \boldsymbol{R}\rangle^{-1}\langle\boldsymbol{e}\rangle\nonumber\\
 \langle R_{ij}\rangle &=& \frac{\langle e_i^{+}\rangle - \langle e_i^{-}\rangle}{\Delta\gamma_j}
 \end{eqnarray}
 where the equation for the response above is for a single shear component. We term this
