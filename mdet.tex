@@ -21,6 +21,7 @@
 \usepackage{natbib,graphicx,amsmath,subfigure,color,xcolor}
 %\usepackage{natbib,graphicx,amsmath,subfigure,color,xcolor,hyperref}
 \usepackage{verbatim}
+\usepackage{threeparttable}
 
 %\usepackage{lineno}
 %\linenumbers
@@ -671,6 +672,7 @@ in DES images}.  Note, we see similar biases when no deblending is performed.
 
 \begin{table*}
   \centering
+    \begin{threeparttable}
   \caption{
     Multiplicative biases in weak lensing simulations for various shear
     measurement techniques. In all cases, the simulations use realistic
@@ -768,6 +770,7 @@ in DES images}.  Note, we see similar biases when no deblending is performed.
     \hline
   \end{tabular}
 
+    \end{threeparttable}
 \end{table*}
 
 
@@ -1018,6 +1021,7 @@ don't expect these results to be representative of realistic scenarios.
 
 \begin{table}
   \centering
+  \begin{threeparttable}
   \caption{
     Multiplicative biases in weak lensing simulations for various source
     densities and PSF sizes when the space between objects is not sheared. See
@@ -1042,6 +1046,7 @@ don't expect these results to be representative of realistic scenarios.
     \noalign{\vskip 1mm}
     \hline
   \end{tabular}
+  \end{threeparttable}
 \end{table}
 
 In order to obtain an upper bound on this effect for real surveys, we made a
