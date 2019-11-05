@@ -955,6 +955,7 @@ expected from the actual survey.  Even at these higher densities we find
 no increase in the shear bias.
 
 \subsubsection{Testing the Physical Assumptions Behind \mdet}
+\label{sec:mdetphys}
 
 Here we address a key physical assumption made by \mdet, namely that each small
 region of sky that is processed (say 2 arcminutes on a side) has been
@@ -999,13 +1000,15 @@ for images with larger PSF.
 
 
 \begin{table}
+  \centering
   \caption{
     Multiplicative biases in weak lensing simulations for various source
-    densities and PSF sizes. In all cases, the simulations use a population of
-    round, exponential objects with a half-light-radius of 0.5 arcsec. We used
-    a DES-like pixel scale of 0.263 arcsec, applied \mdet\ with a simple
-    weighted moment with no PSF correction, and then finally used a size cut
-    of $T/T_{PSF} > 1.2$ for the measurements.}
+    densities and PSF sizes when the space between objects is not sheared. See
+    Section~\ref{sec:mdetphys} for details. In all cases, the simulations use a
+    population of round, exponential objects with a half-light-radius of 0.5
+    arcsec. We used a DES-like pixel scale of 0.263 arcsec, applied \mdet\
+    with a simple weighted moment with no PSF correction, and then finally
+    used a size cut of $T/T_{PSF} > 1.2$ for the measurements.}
   \label{tab:nssres}
   \begin{tabular}{llc}
     \hline
