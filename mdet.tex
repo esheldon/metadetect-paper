@@ -192,7 +192,7 @@ observations the image resolution is degraded by a point-spread-function (PSF)
 due to the atmosphere, telescope optics and detector. In this case the overlap
 of objects, and also the topology of contours of a given surface brightness,
 does depend on shear because the PSF convolution occurs after the shear
-mapping.  This effect is demonstrated in figure \ref{fig:toy}.  Thus the simple
+mapping.  This effect is demonstrated in Figure \ref{fig:toy}.  Thus the simple
 threshold object detection method described above will manifest a
 shear-dependent object detection bias. Note this effect is present even in the
 absence of pixel noise.
@@ -226,7 +226,7 @@ are based on thresholding, similar to the simple approach described above but
 differing in complexity and efficiency. The effective threshold used to divide
 regions into separate objects in these codes is not a simple threshold above
 noise, but is rather a relative quantity.  This is demonstrated clearly for
-\sx\ in \cite{Bertin96} figure 2.  Thus we would expect object detections
+\sx\ in \cite{Bertin96} Figure 2.  Thus we would expect object detections
 produced by such a code to also manifest shear dependence. A simple local peak
 finder, run on a smoothed image, has similar properties\footnote{An open question,
 which we will not address in this work, is whether it is possible to derive a
@@ -394,7 +394,7 @@ line between the pair had a uniform random orientation relative to the
 coordinate axes. Each object was given an additional random dither within a
 pixel. The galaxies were treated as transparent, such that the value in a pixel
 was equal to the total sum from both galaxies plus noise. Example images are
-shown in figure \ref{fig:pairs}
+shown in Figure \ref{fig:pairs}
 
 \begin{figure*}
     \begin{center}
@@ -517,18 +517,21 @@ simple local peak finder for
 detection\footnote{\url{https://github.com/esheldon/peaks}}.  We also saw
 similar levels of bias with and without performing deblending using MOF.
 
-The multiplicative bias $m$ is shown in figure \ref{fig:pairbias} as a function
-of the pair distance. For a large separation of 4 arcsec, two objects are
-detected in essentially all cases and no significant bias is seen.  For smaller
-separations, the two objects overlap more significantly and the detection
-becomes more ambiguous, with only one object detected in some cases.  The bias
-grows as the separation decreases, with the maximum bias occurring at about 1.5
-arcsec separation. At 1.5 arcsec separation the detection is most ambiguous,
-with two objects detected in half the cases. For smaller separations the
-objects overlap more and detection becomes less ambiguous, with one object
-detected in more than half of the cases. At separations of 1 arcsec, the two
-objects are detected as one by \sx\ in essentially every case, and again no
-significant bias is detected.
+The multiplicative bias $m$ is shown in Figure \ref{fig:pairbias} as a function
+of the pair distance. For a large separation of 4 arcsec, two objects were
+detected in essentially all cases, but as the separation was decreased the
+detection became more ambiguous, with only one object detected in some cases.
+At 1.5 arcsec separation the detection was most ambiguous, with two objects
+detected in half the cases. As the separation was decreased further, the one
+object was detected more often than two, and at 1.0 arcseconds only one object
+was detected in essentially all cases.  For close separations the blend is
+unrecognized but the detection is unambiguous.
+
+In the cases where the detection is unambiguous, at close and far separations,
+there is no bias in the recovered shear.  But the bias increases as the
+detection becomes more ambiguous. The maximum bias occurs at 1.5 arcsec
+separation, where two objects are detected in half the cases, the separation of
+maximum ambiguity.
 
 \begin{figure}
     \includegraphics[width=\columnwidth]{figures/pairs-mc-bdkpair.pdf}
@@ -974,7 +977,7 @@ imaging surveys in \S \ref{sec:wavg}.
 \subsection{Results for Simulated Galaxy Pairs}
 \label{sec:mdetpairs}
 
-In figure \ref{fig:pairbias} we show results for the simulations of galaxy
+In Figure~\ref{fig:pairbias} we show results for the simulations of galaxy
 pairs, now including detection in the \mcal\ process. The blue filled circles
 represent the case where deblending is performed using MOF. The green plus
 signs represent the case where no deblending was performed. For the case
@@ -1028,7 +1031,7 @@ of the sky will have different shears, is not in itself a source of bias,
 because it is the mean shear or other statistic that is recovered by the
 formalism \citep{SheldonMcal2017}}.
 
-In figure \ref{fig:toynoscene} we show a toy example, similar to figure
+In Figure \ref{fig:toynoscene} we show a toy example, similar to Figure
 \ref{fig:toy}, demonstrating the extreme and unphysical case of two objects
 that are in line-of-sight projection but sheared completely independently.  We
 did not allow the space between objects to be sheared. The contours of constant
@@ -1053,11 +1056,11 @@ don't expect these results to be representative of realistic scenarios.
     \begin{center}
         \includegraphics[width=\textwidth]{figures/toy-no-full-scene.png}
 
-        \caption{Same as figure \ref{fig:toy} but the shear was applied to the
+        \caption{Same as Figure \ref{fig:toy} but the shear was applied to the
         objects without shearing the space between them. This models the extreme
         and unphysical case where two objects are in line-of-sight projection but
         sheared completely independently.  The contours changed less after shearing
-        in this case as compared to the contours in figure \ref{fig:toy}.  This
+        in this case as compared to the contours in Figure \ref{fig:toy}.  This
         case differs from the \mdet\ process, in which the entire image is sheared,
         including the space between images.  \label{fig:toynoscene} }
     \end{center}
