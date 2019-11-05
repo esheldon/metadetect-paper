@@ -94,17 +94,28 @@ Niall MacCrann$^{3,4}$, Michael Jarvis$^5$
     is needed, in principle.  We demonstrate that shear-dependent object
     detection biases are accurately removed when including object detection in
     the \mcal\ process, a technique we call \mdet. We furthermore show that the
-    primary technical challenge, a spatially varying point-spread-function,
-    does not result in a significant bias for typical imaging surveys.
-    Finally, we discuss the physical limits of \mdet's accuracy. We find that
-    \mdet's key assumption, that the entire image is sheared, as opposed to
-    only the objects in the image, can result in few tenths of percent biases
-    in a worse case scenario.  However, more work will be required to estimate
-    this effect in realistic surveys where lensing over cosmological distances
-    produces a combination of objects that are sheared independently of their
-    line-of-sight neighbors and objects that are sheared together, including
-    the space between them. Future work will address these issues and apply
-    \mdet\ to data from current surveys.
+    primary technical challenge, deconvolution with a spatially varying
+    point-spread-function, does not result in a significant bias for typical
+    imaging surveys.  Finally, we discuss the physical limits of \mdet's
+    accuracy.  The key assumption behind \mdet\ is that the entire region of
+    sky under consideration is sheared, including the space between objects, as
+    opposed to only the shapes of the objects.  In the real universe, lensing
+    over cosmological distances produces a combination of these scenarios.  We
+    test a worst case scenario for \mdet, in which only the object shapes are
+    sheared, and find the bias should be at most a few tenths of a percent for
+    future surveys.  We discuss the technical challenges that must be met
+    in order to implement \mdet\ in real surveys.
+    
+    %We find that \mdet's key assumption, that the entire image is
+    %sheared, as opposed to only the objects in the image, can result in few
+    %tenths of percent biases in a worst case scenario.  However, more work will
+    %be required to estimate the expected bias in realistic surveys where
+    %lensing over cosmological distances produces a combination of objects that
+    %are sheared independently of their line-of-sight neighbors and objects that
+    %are sheared together, including the space between them.
+    
+    %Future work will
+    %address these issues and apply \mdet\ to data from current surveys.
 
     %detection in the \mcal\ process, a technique we call \mdet. Finally, we
     %discuss the physical limits of \mdet's accuracy and address one of the
