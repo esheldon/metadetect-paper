@@ -1181,30 +1181,38 @@ issue in more detail in a future work.
 In this work, we explored how \mcal\ weak lensing measurements perform in
 scenarios where the images of objects overlap and the detection of objects can
 be ambiguous. These conditions will characterize all future weak lensing
-surveys, especially those executed beneath the atmosphere, so accurate
-performance in this regime is critical. We find that \mcal\ used with MOF-like
-object deblending techniques has severe, many percent biases that get worse as
-the degree of blending increases. We then demonstrated that we can eliminate
-these biases at high precision by including the detection of objects in the
-\mcal\ process, even for an LSST-like survey. We call this technique \mdet.
-In future work we must address a number of technical challenges associated
-with implementing \mdet\ on real data.
+surveys, especially those executed beneath the atmosphere where PSF smearing
+signficiantly increases the blending of images, so accurate performance in this
+regime is critical. We find that \mcal\ used with MOF-like object deblending
+techniques has many percent biases that get worse as the degree of
+blending increases. We then demonstrated that we can eliminate these biases at
+high precision by including the detection of objects in the \mcal\ process,
+even for an LSST-like survey. We call this technique \mdet.
 
-First, we must run \mdet\ over relatively large images ($\sim1-2$ arcminutes on
-a side) in order to accurately capture ambiguities in the detection of objects.
-Detection is less efficient in smaller images, because the larger perimeter to
-area ratio results in a higher fraction of objects, including blends, near the
-edge.  Also, over these large scales, the assumption that the PSF and world
-coordinate system (WCS) transformations are approximately constant will fail,
-complicating the application of an artificial shear. We have shown in this work
-that PSF variation is unlikely to be a problem when coadding many tens of
-images. However, in order to reconstruct accurate PSF models for the coadd, the
-input images can have no edges within the coadd region. This requirement will
-result in the loss of some precision \citep{ArmstrongCoadd}. Finally, we should
-be able to handle non-constant WCS transformations by coadding the images into
-a nearly constant WCS, but this procedure remains to be tested.
+We tested an important assumption of \mdet, that the space between objects in
+an image is sheared coherently, an assumption that does not perfectly match
+real data.  We placed an upper bound on the bias associated with this effect at
+a few tenths of percents for future surveys. More detailed study will be needed
+to predict the actual effect for specific data sets.
 
-Second, additional issues arise from masking. Large regions of images can have
+In future work we must address a number of technical challenges associated with
+implementing \mdet\ on real data.  We must run \mdet\ over relatively large
+images ($\sim1-2$ arcminutes on a side) in order efficiently capture
+ambiguities in the detection of objects.  Detection is less efficient in
+smaller images, because the larger perimeter to area ratio results in a higher
+fraction of objects, including blends, near the edge.  Also, over these large
+scales, the assumption that the PSF and world coordinate system (WCS)
+transformations are approximately constant will fail, complicating the
+application of an artificial shear. We have shown in this work that PSF
+variation is unlikely to be a problem when coadding many tens of images.
+However, in order to reconstruct accurate PSF models for the coadd, the input
+images can have no edges within the coadd region. This requirement means some
+images must be left out of the coadd process, resulting in some loss of some
+precision \citep{ArmstrongCoadd}. Finally, we should be able to handle
+non-constant WCS transformations by coadding the images into a nearly constant
+WCS, but this procedure remains to be tested.
+
+Additional issues arise from masking. Large regions of images can have
 non-trivial masking patterns due to stellar diffraction spikes, streaks from
 moving objects, cosmic rays, etc. In the implementation presented in this work,
 we use fast Fourier transforms (FFTs) to handle convolutions. The FFT does not
@@ -1227,9 +1235,8 @@ selection criterion to each of the five catalogs in order to properly measure
 the shear response. These restrictions may have important downstream effects on
 the analysis.
 
-The degree to which all of these technical challenges can be overcome will
-ultimately determine the accuracy of \mdet\ when used to analyze imaging survey
-data.
+The degree to which these technical challenges can be overcome will ultimately
+determine the accuracy of \mdet\ when used to analyze imaging survey data.
 
 
 \section*{Acknowledgments}
