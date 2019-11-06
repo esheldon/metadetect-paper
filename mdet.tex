@@ -595,8 +595,8 @@ biases, and a simulation with double the LSST galaxy density shows a very large
 bias\footnote{The bias numbers here are fairly noisy, but it is interesting to
 note that the bias for LSST year 10 is not very much larger than DES year 5,
 despite the fact that the galaxy density is about twice as high.  This may be
-partly due to the better resolution of the LSST images: the effective area
-of the PSF is 60\% smaller than the area of the DES PSF.  Thus the images of
+partly due to the better resolution of the LSST images: the area of the LSST
+PSF 60\% smaller than DES PSF.  Thus the images of
 small galaxies, at fixed density, will overlap less in LSST images than they do
 in DES images}.  Note, we see similar biases when no deblending is performed.
 
@@ -901,8 +901,8 @@ technique used to measure ellipticities on the sheared \mcal\ images.}
 
 This set of tests also demonstrates explicitly that source detection can cause
 significant shear measurement biases even for techniques which are robust to
-blending. The source detection biases probably originate from multiple causes.
-One of those causes is certainly the merging or splitting of object detections
+blending. The source detection biases probably originate from multiple causes,
+but one of those causes is certainly the merging or splitting of object detections
 in a way that is shear dependent, as illustrated with the toy example in
 Figure~\ref{fig:toy} and the galaxy pair tests above.
 
@@ -911,15 +911,16 @@ Figure~\ref{fig:toy} and the galaxy pair tests above.
 In the previous section, we demonstrated that source detection is a significant
 source of bias in shear measurements with \mcal. Here we show we can
 mitigate this bias by including source detection in the
-\mcal\ process. The algorithm works as follows.  We generated relatively
-large images, $\sim$ 2 arcminute on a side, and applied \mcal\ directly
-to the full image using the PSF at the center of the image for deconvolutions.
-For each of the five artificially sheared images (see \S \ref{sec:mcal}), we
-detected sources, in this case using \sx\ but we expect other detection algorithms
-could be used. We then measured shears in postage stamps around
-each detection in each image using an non-PSF corrected, Gaussian-weighted
-moment.  These five catalogs were then combined into a single estimate for the
-shear in the patch by computing the average shear response for the image
+\mcal\ process.
+
+We generated relatively large images, $\sim$ 2 arcminute on a side, and applied
+\mcal\ directly to the full image using the PSF at the center of the image for
+deconvolutions.  We performed object detection on each of the five artificially
+sheared images (see \S \ref{sec:mcal}) using \sx.  We then
+measured shears in postage stamps around each detection in each image using an
+non-PSF corrected, Gaussian-weighted moment.  These five catalogs were then
+combined into a single estimate for the shear in the patch by computing the
+average shear response for the image
 \begin{eqnarray}
 \langle \boldsymbol\gamma \rangle &\approx& \langle \boldsymbol{R}\rangle^{-1}\langle\boldsymbol{e}\rangle\nonumber\\
 \langle R_{ij}\rangle &=& \frac{\langle e_i^{+}\rangle - \langle e_i^{-}\rangle}{\Delta\gamma_j}
@@ -933,7 +934,7 @@ effect the ``total derivative'' response, shown in section 3 of
 \cite{SheldonMcal2017}, without any attempt to split the response into the
 shear response and selection response using the chain rule.  Shear responses
 for individual detected objects, as used in both \cite{SheldonMcal2017} and
-\cite{HuffMcal2017}, are not calculated.  Doing so would require matching the
+\cite{HuffMcal2017}, were not calculated.  Doing so would require matching the
 lists of detections found on the different sheared images, so that finite
 differences for each object could be formed.  This act of matching would
 introduce the very shear-dependent object detection biases we wish to
