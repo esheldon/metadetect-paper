@@ -978,15 +978,15 @@ LSST-like survey where the number density of objects is approximately twice that
 expected from the actual survey.  Even at these higher densities we find
 no increase in the shear bias.
 
-\subsubsection{Testing the Physical Assumptions Behind \mdet}
+\subsection{Testing the Physical Assumptions Behind \mdet}
 \label{sec:mdetphys}
 
 Here we address a key physical assumption made by \mdet, namely that the space
 between all objects is sheared coherently.   With \mdet\ we shear the entire
-image, so the shapes of objects are changed as well as the space between them,
-and this is completely coherent across the image.  In \S \ref{sec:res:constpsf}
-we showed that, when the shear in the simulation matches this procedure
-exactly, we calculate the response accurately.
+image, so the space between object is sheared as well as their shapes, and this
+is completely coherent across the image.  In \S \ref{sec:res:constpsf} we
+showed that, when the shear in the simulation matches this procedure exactly,
+we calculate the response accurately.
 
 But real data typically contains images of objects sheared by different amounts
 at different redshifts, and can be thought of as a sum of a series of constant,
@@ -995,8 +995,8 @@ completely coherent.  Variable shear itself is not a source of bias for \mdet;
 the formalism presented in \citep{SheldonMcal2017} recovers the mean shear or
 other ensemble statistic for a population.  But because the shearing of the
 space between objects in real data is not completely coherent, we may expect
-that the part of \mdet\ response associated with {\em detection} to be slightly
-biased.
+that the part of the \mdet\ response associated with {\em detection} is
+slightly biased.
 
 \begin{comment}
 each small
@@ -1136,14 +1136,13 @@ with a relatively small number of images. We created the images for the
 simulation by coadding a number of images with random, variable PSFs.  \mdet\
 was then performed using the coadd of PSF models from the input images, with
 the PSF from each input image generated at the location of the center of the
-final coadd.  This model was correct only at that one location, so we expected
-a bias in the recovered shear.
+final coadd.
 
 In order to place an upper bound on this effect, we created a variable PSF
 model that had significantly more variation than we expect in real data. See
 Appendix~\ref{app:pspsf} for details.  Using a single PSF realization from
-Appendix~\ref{app:pspsf}, without stacking, we found a multiplicative bias of
-$-0.0065 +/- 0.00044$.  However, when stacking thirty of these models, which is
+Appendix~\ref{app:pspsf}, without coadding, we found a multiplicative bias of
+$-0.0065 +/- 0.00044$.  However, when coadding thirty of these models, which is
 the expected number of epochs for three bands in the final DES data set, we
 found a multiplicative bias of only $-0.00035 +/- 0.00037$.  For LSST many more
 epochs will be available for coadding.   While this test is not conclusive, we
@@ -1162,9 +1161,6 @@ response of summary statistics to shear.  Specifically, the process of
 selecting objects, such as removing objects with low signal-to-noise ratio or
 sorting objects into redshift bins, must be repeated using the measurements made on
 sheared images in order to include selection effects \citep{SheldonMcal2017}.
-As a result of this, one may need to incorporate the measurement of fluxes
-on sheared images in passbands not used for lensing into the \mdet\ analysis
-code.
 
 When calculating sums and averages for other, non-shear quantities, such as a
 redshift distribution, the appropriate object-by-object weight is the shear
