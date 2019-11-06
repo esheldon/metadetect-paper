@@ -485,32 +485,33 @@ Example images for each survey are shown in Figure~\ref{fig:simimages}.
 We report our results in terms of the standard parameterization of shear
 measurement biases \citep[see, e.g.,][]{heymans2006}
 
-\begin{equation}
+\begin{equation} \label{eq:m}
 g \equiv c + (1 + m)\gamma
 \end{equation}
 where $g$ is the recovered shear, $c$ is the additive bias, and $m$ is the
 multiplicative bias. Below we report only $m$, but we have found that $c$ is
-consistent with zero in all cases. We further used the technique of
-\citet{pujol2019} to reduce the noise on measurements of $m$ in our simulations.
-This technique works as follows. We made two simulations with identical galaxy
-and noise properties, but with opposite true shears applied. Then for this pair
-of simulations, we can calculate a difference in the recovered shear, which
-partially cancels the noise:
+consistent with zero in all cases.
+
+We used the technique of \citet{pujol2019} to reduce the noise on measurements
+of $m$ in our simulations.  This technique works as follows. We generated pairs
+of images with identical galaxy and noise properties, but with opposite true
+shears applied $\gamma_{\pm}$ (we use a scalar notation because the shear
+was only applied in one component).  For each pair of simulations, we calculate the mean
+ellipticity and mean response.  We then calculate ensemble means $\langle e_\pm \rangle$
+and $\langle R \rangle = ( \langle R_+ \rangle + \langle R_- \rangle)/2$ over all such
+pairs of images, and form a difference of the overall recovered shear that
+partially cancels noise:
 \begin{equation}
-g_{est} = \frac{g_{+\gamma} - g_{-\gamma}}{2}
+    \gamma_{est} = \frac{ \langle e_+ \rangle - \langle e_- \rangle}{2 \langle R \rangle},
 \end{equation}
-where $g_{\pm\gamma}$ are the mean shear estimates from each sim. We estimated
-the shear response $R_{est}$ for $g_{est}$ by computing the average of the
-response from the two simulations.  We then computed the final mean for $m$ by
-averaging $g_{est}$ over all simulations, averaging $R_{est}$ over all
-simulations, and then computing $m$ given the true shear. We estimated the
-errors on the mean $m$ via bootstrap resampling the set of simulation pairs and
-repeating the computation of $m$ for each bootstrap sample. We employed a
-similar procedure for $c$, except that we used the average of the two estimated
-shears so that any additive biases common to both simulations do not cancel. In
-all  cases we measured $m$ using the 1-component of the shear and $c$ with the
-2-component of the shear, though we have found this choice not to matter in
-explicit testing.
+We then calculated $m$ using equation \ref{eq:m} and the true
+input shear.  We estimated the errors on the mean $m$ using bootstrap
+resampling of the set of image pairs, repeating the computation of $m$ for each
+bootstrap sample. We employed a similar procedure for $c$, except that we used
+the average of the two estimated shears so that any additive biases common to
+both simulations do not cancel. In all  cases we measured $m$ using the
+1-component of the shear and $c$ with the 2-component of the shear, though we
+have found this choice not to matter in explicit testing.
 
 \section{Shear-dependent Detection Biases}\label{sec:detbiases}
 
