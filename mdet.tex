@@ -121,33 +121,45 @@ Department of Physics and Astronomy, University of Pennsylvania, Philadelphia, P
 \begin{abstract}
 
     \Mcal\ is a new technique for measuring weak gravitational lensing shear
-    that is unbiased for isolated galaxy images.  In this work we test the
-    \mcal\ method with overlapping, or ``blended'' galaxy images.  Using
-    standard \mcal\ we find a significant shear calibration bias when objects
-    overlap.  This bias is a few percent for galaxy densities relevant for
-    current surveys and increases with increasing galaxy number density.  We
-    show that this bias is not due to blending itself, but rather to
-    shear-dependent object detection.   If object detection is shear
-    independent, no deblending of images is needed, in principle.  We
-    demonstrate that shear-dependent object detection biases are accurately
-    removed when including object detection in the \mcal\ process, a technique
-    we call \mdet. This process involves applying an artificial shear to images
-    of small regions of sky, and performing detection and measurement on the
-    sheared images. The ensemble response of the measurements to the applied
-    shear is then calculated, with measurements now including the process of
-    detection, and this response is used to calibrate the final shear estimate.
-    We show that the primary technical challenge for \mdet, deconvolution using
-    a spatially varying point-spread-function, does not cause in a significant
-    bias for typical imaging surveys.  Finally, we discuss the physical limits
-    of \mdet's accuracy.  The key assumption behind \mdet\ is that the entire
-    region of sky under consideration, which we are free choose to be small, is
-    sheared, including the space between objects, as opposed to only the images
-    of the objects.  In the real universe, lensing over cosmological distances
-    produces a combination of these scenarios.  We test the worst case scenario
-    for \mdet, in which only images of objects are sheared, and find the bias
-    is at most a few tenths of a percent for future surveys.  We discuss
-    additional technical challenges that must be met in order to implement
-    \mdet\ for real surveys.
+    that is unbiased for isolated galaxy images.  In this work we test \mcal\
+    with overlapping, or ``blended'' galaxy images.  Using standard \mcal\ we
+    find a few percent bias for galaxy densities relevant for current surveys,
+    and the bias increases with increasing galaxy number density.  We show that
+    this bias is not due to blending itself, but rather to shear-dependent
+    object detection. If object detection is shear independent, no deblending
+    of images is needed, in principle.  We demonstrate that detection biases
+    are accurately removed when including object detection in the \mcal\
+    process, a technique we call \mdet.  This process involves applying an
+    artificial shear to images of small regions of sky, and performing
+    detection and measurement on the sheared images in order to calculate a
+    shear response.   Because the space between objects is sheared coherently
+    in this process, the accuracy of \mdet\ is ultimately limited by how
+    closely this matches images in real data, where some, but not all galaxies
+    in an image are sheared coherently.  We find the bias associated with such
+    a mismatch is at most a few tenths of a percent for future surveys.  We
+    show that the primary technical challenge for \mdet, deconvolution using a
+    spatially varying point-spread-function, does not cause in a significant
+    bias for typical imaging surveys.  We discuss additional technical
+    challenges that must be met in order to implement \mdet\ for real surveys.
+    
+    
+    %This process involves applying an artificial shear to images
+    %of small regions of sky, and performing detection and measurement on the
+    %sheared images. The ensemble response of the measurements to the applied
+    %shear is then calculated, with measurements now including the process of
+    %detection, and this response is used to calibrate the final shear estimate.
+    %We show that the primary technical challenge for \mdet, deconvolution using
+    %a spatially varying point-spread-function, does not cause in a significant
+    %bias for typical imaging surveys.  Finally, we discuss the physical limits
+    %of \mdet's accuracy.  The key assumption behind \mdet\ is that the entire
+    %region of sky under consideration, which we are free choose to be small, is
+    %sheared, including the space between objects, as opposed to only the images
+    %of the objects.  In the real universe, lensing over cosmological distances
+    %produces a combination of these scenarios.  We test the worst case scenario
+    %for \mdet, in which only images of objects are sheared, and find the bias
+    %is at most a few tenths of a percent for future surveys.  We discuss
+    %additional technical challenges that must be met in order to implement
+    %\mdet\ for real surveys.
 
 \end{abstract}
 
@@ -971,38 +983,46 @@ Here we address a key physical assumption made by \mdet, namely that each small
 region of sky that is processed (say 2 arcminutes on a side) has been
 transformed by a constant shear.  In such an image, the full scene is sheared,
 including the space between objects, not just the shapes of the objects. This
-shearing of the full scene matches the \mdet\ shearing steps exactly, and thus
-allows us to calibrate the mean shear from a set of such images to high
-precision, as shown in \S \ref{sec:res:constpsf}.  However, real data will
-typically contain images of objects sheared by different amounts at different
-redshifts, and can be thought of as a sum of a series of constant, but
-differently sheared images.  This image would not exactly match the \mdet\
+shearing of the space between all objects matches the \mdet\ shearing steps
+exactly, and thus allows us to calibrate the mean shear from a set of such
+images to high precision, as shown in \S \ref{sec:res:constpsf}.  However, real
+data will typically contain images of objects sheared by different amounts at
+different redshifts, and can be thought of as a sum of a series of constant,
+but differently sheared images.  Variable shear itself is not a source of bias,
+the formalism presented in \citep{SheldonMcal2017} recovers the mean shear or
+other ensemble statistic for a population.  But the space between objects in
+real images will not be sheared perfectly coherently, so we expect the response
+associated with {\em detection} calculated using \mdet\ may have some bias.
+
+\begin{comment}
+But This image would not exactly match the \mdet\
 assumption that the entire scene has experienced a single constant shear, and
-thus we might expect some residual bias in the shear calibration\footnote{Note
-that non-constant shear in the sense that objects from widely separated parts
-of the sky will have different shears, is not in itself a source of bias,
-because it is the mean shear or other statistic that is recovered by the
-formalism \citep{SheldonMcal2017}}.
+thus we might expect some residual bias in the shear calibration. Note that
+non-constant shear in the sense that objects will experience shears is not in
+itself a source of bias, because it is the mean shear, or other ensemble
+statistic, that is recovered by the formalism \citep{SheldonMcal2017}.
+\end{comment}
 
 In Figure \ref{fig:toynoscene} we show a toy example, similar to Figure
 \ref{fig:toy}, demonstrating the extreme and unphysical case of two objects
 that are in line-of-sight projection but sheared completely independently.  We
 did not allow the space between objects to be sheared. The contours of constant
-surface brightness differ less after shear than those that shown in
-\ref{fig:toy}.  This is intuitive, because the positions do not move relative
-to one another.  The \mdet\ process of shearing the full image, which does move
-the positions of objects, will over-predict the response in this case.
+surface brightness differ less after shear than those shown in \ref{fig:toy}.
+This is intuitive, because the positions do not move relative to one another.
+The \mdet\ process of shearing the full image, which does move the positions of
+objects, will over-predict the response in this case.
 
-In general, we expect larger biases for surveys with more object blending,
-which scales with object density and PSF size.  To test these expectations, we
-created a set of simple simulations in which we sheared the shapes of objects,
-but not the space between objects.  We simulated round galaxies with
-exponential light distributions and a half-light-radius of 0.5 arcsec. We then
-tested the accuracy \mdet\ shear recovery under varying conditions, namely with
-either 45 objects per square armin or 140 objects per square arcmin, and with
-either a 0.9 arcsec Gaussian PSF or a 1.1 arcsec Gaussian PSF. Our results are
-reported in Table~\ref{tab:nssres} and confirm these expectations. However, we
-don't expect these results to be representative of realistic scenarios.
+In general, we expect a larger bias due to this effect for surveys with more
+object blending, which scales with object density and PSF size.  To test these
+expectations, we created a set of simple simulations in which we sheared the
+shapes of objects, but not the space between objects.  We simulated round
+galaxies with exponential light distributions and a half-light-radius of 0.5
+arcsec. We then tested the accuracy \mdet\ shear recovery under varying
+conditions, namely with either 45 objects per square armin or 140 objects per
+square arcmin, and with either a 0.9 arcsec Gaussian PSF or a 1.1 arcsec
+Gaussian PSF. Our results are reported in Table~\ref{tab:nssres} and confirm
+these expectations. However, we don't expect these results to be representative
+of realistic scenarios.
 
 
 \begin{figure*}
