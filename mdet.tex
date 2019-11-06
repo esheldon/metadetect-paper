@@ -211,7 +211,7 @@ observations the image resolution is degraded by a point-spread-function (PSF)
 due to the atmosphere, telescope optics and detector. In this case the overlap
 of objects, and also the topology of contours of a given surface brightness,
 does depend on shear because the PSF convolution occurs after the shear
-mapping.  This effect is demonstrated in Figure \ref{fig:toy}.  Thus the simple
+mapping.  This effect is demonstrated in Figure~\ref{fig:toy}.  Thus the simple
 threshold object detection method described above will manifest a
 shear-dependent object detection bias. Note this effect is present even in the
 absence of pixel noise.
@@ -245,7 +245,7 @@ are based on thresholding, similar to the simple approach described above but
 differing in complexity and efficiency. The effective threshold used to divide
 regions into separate objects in these codes is not a simple threshold above
 noise, but is rather a relative quantity.  This is demonstrated clearly for
-\sx\ in \cite{Bertin96} Figure 2.  Thus we would expect object detections
+\sx\ in \cite{Bertin96} Figure~2.  Thus we would expect object detections
 produced by such a code to also manifest shear dependence. A simple local peak
 finder, run on a smoothed image, has similar properties\footnote{An open question,
 which we will not address in this work, is whether it is possible to derive a
@@ -413,7 +413,7 @@ line between the pair had a uniform random orientation relative to the
 coordinate axes. Each object was given an additional random dither within a
 pixel. The galaxies were treated as transparent, such that the value in a pixel
 was equal to the total sum from both galaxies plus noise. Example images are
-shown in Figure \ref{fig:pairs}
+shown in Figure~\ref{fig:pairs}
 
 \begin{figure*}
     \begin{center}
@@ -537,7 +537,7 @@ simple local peak finder for
 detection\footnote{\url{https://github.com/esheldon/peaks}}.  We also saw
 similar levels of bias with and without performing deblending using MOF.
 
-The multiplicative bias $m$ is shown in Figure \ref{fig:pairbias} as a function
+The multiplicative bias $m$ is shown in Figure~\ref{fig:pairbias} as a function
 of the pair distance. For a large separation of 4 arcsec, two objects were
 detected in essentially all cases, but as the separation was decreased the
 detection became more ambiguous, with only one object detected in some cases.
@@ -948,8 +948,8 @@ In Figure~\ref{fig:pairbias} we show results for the simulations of galaxy
 pairs, now including detection in the \mcal\ process. The blue filled circles
 represent the case where deblending is performed using MOF. The green plus
 signs represent the case where no deblending was performed. For the case
-without deblending,  we further simplified the process: simple weighted moments
-were taken at the position determined by \sx\ using a fixed weight function
+without deblending,  we further simplified the process: we calculated
+simple weighted moments at the position determined by \sx\ using a fixed weight function
 with full-width at half maximum 1.2 arcsec, without any correction for the PSF.
 
 In both cases the bias is greatly reduced, with significant bias seen only at
@@ -981,7 +981,25 @@ no increase in the shear bias.
 \subsubsection{Testing the Physical Assumptions Behind \mdet}
 \label{sec:mdetphys}
 
-Here we address a key physical assumption made by \mdet, namely that each small
+Here we address a key physical assumption made by \mdet, namely that the space
+between all objects is sheared coherently.   With \mdet\ we shear the entire
+image, so the shapes of objects are changed as well as the space between them,
+and this is completely coherent across the image.  In \S \ref{sec:res:constpsf}
+we showed that, when the shear in the simulation matches this procedure
+exactly, we calculate the response accurately.
+
+But real data typically contains images of objects sheared by different amounts
+at different redshifts, and can be thought of as a sum of a series of constant,
+but differently sheared images.  In such an image, the shearing is not
+completely coherent.  Variable shear itself is not a source of bias for \mdet;
+the formalism presented in \citep{SheldonMcal2017} recovers the mean shear or
+other ensemble statistic for a population.  But because the shearing of the
+space between objects in real data is not completely coherent, we may expect
+that the part of \mdet\ response associated with {\em detection} to be slightly
+biased.
+
+\begin{comment}
+each small
 region of sky that is processed (say 2 arcminutes on a side) has been
 transformed by a constant shear.  In such an image, the full scene is sheared,
 including the space between objects, not just the shapes of the objects. This
@@ -990,11 +1008,8 @@ exactly, and thus allows us to calibrate the mean shear from a set of such
 images to high precision, as shown in \S \ref{sec:res:constpsf}.  However, real
 data will typically contain images of objects sheared by different amounts at
 different redshifts, and can be thought of as a sum of a series of constant,
-but differently sheared images.  Variable shear itself is not a source of bias,
-the formalism presented in \citep{SheldonMcal2017} recovers the mean shear or
-other ensemble statistic for a population.  But the space between objects in
-real images will not be sheared perfectly coherently, so we expect the response
-associated with {\em detection} calculated using \mdet\ may have some bias.
+but differently sheared images.  
+\end{comment}
 
 \begin{comment}
 But This image would not exactly match the \mdet\
@@ -1005,14 +1020,15 @@ itself a source of bias, because it is the mean shear, or other ensemble
 statistic, that is recovered by the formalism \citep{SheldonMcal2017}.
 \end{comment}
 
-In Figure \ref{fig:toynoscene} we show a toy example, similar to Figure
-\ref{fig:toy}, demonstrating the extreme and unphysical case of two objects
-that are in line-of-sight projection but sheared completely independently.  We
-did not allow the space between objects to be sheared. The contours of constant
-surface brightness differ less after shear than those shown in \ref{fig:toy}.
-This is intuitive, because the positions do not move relative to one another.
-The \mdet\ process of shearing the full image, which does move the positions of
-objects, will over-predict the response in this case.
+In Figure~\ref{fig:toynoscene} we show a toy example, similar to
+Figure~\ref{fig:toy}, demonstrating the extreme and unphysical case of two
+objects that are in line-of-sight projection but sheared completely
+independently.  We did not allow the space between objects to be sheared. The
+contours of constant surface brightness differ less after shear than those
+shown in \ref{fig:toy}.  This is intuitive, because the relative separation
+between objects does not change.  The \mdet\ process of shearing the full
+image, which does move the positions of objects, will over-predict the response
+in this case.
 
 In general, we expect a larger bias due to this effect for surveys with more
 object blending, which scales with object density and PSF size.  To test these
@@ -1031,11 +1047,11 @@ of realistic scenarios.
     \begin{center}
         \includegraphics[width=\textwidth]{figures/toy-no-full-scene.png}
 
-        \caption{Same as Figure \ref{fig:toy} but the shear was applied to the
+        \caption{Same as Figure~\ref{fig:toy} but the shear was applied to the
         objects without shearing the space between them. This models the extreme
         and unphysical case where two objects are in line-of-sight projection but
         sheared completely independently.  The contours changed less after shearing
-        in this case as compared to the contours in Figure \ref{fig:toy}.  This
+        in this case as compared to the contours in Figure~\ref{fig:toy}.  This
         case differs from the \mdet\ process, in which the entire image is sheared,
         including the space between images.  \label{fig:toynoscene} }
     \end{center}
