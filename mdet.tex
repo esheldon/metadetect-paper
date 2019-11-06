@@ -124,22 +124,25 @@
     that is unbiased for isolated galaxy images.  In this work we test \mcal\
     with overlapping, or ``blended'' galaxy images.  Using standard \mcal, we
     find a few percent bias for galaxy densities relevant for current surveys,
-    and that this bias increases with increasing galaxy number density.  We show that
-    this bias is not due to blending itself, but rather to shear-dependent
-    object detection. If object detection is shear independent, no deblending
-    of images is needed, in principle.  We demonstrate that detection biases
-    are accurately removed when including object detection in the \mcal\
-    process, a technique we call \mdet.  This process involves applying an
-    artificial shear to images of small regions of sky, and performing
-    detection and measurement on the sheared images in order to calculate a
-    shear response.   Because the space between objects is sheared coherently
-    in this process, the accuracy of \mdet\ is ultimately limited by how
-    closely this matches images in real data, where some, but not all galaxies
-    in an image are sheared coherently.  We find the bias associated with such
-    a mismatch is at most a few tenths of a percent for future surveys.  We
-    show that the primary technical challenge for \mdet, deconvolution using a
-    spatially varying point-spread-function, does not result in a significant
-    bias for typical imaging surveys.  Finally, we discuss additional technical
+    and that this bias increases with increasing galaxy number density.  We
+    show that this bias is not due to blending itself, but rather to
+    shear-dependent object detection. If object detection is shear independent,
+    no deblending of images is needed, in principle.  We demonstrate that
+    detection biases are accurately removed when including object detection in
+    the \mcal\ process, a technique we call \mdet.  This process involves
+    applying an artificial shear to images of small regions of sky, and
+    performing detection and measurement on the sheared images in order to
+    calculate a shear response.   We show that the method works up to
+    second-order shear effects even in highly blended scenes.  However, because
+    the space between objects is sheared coherently in this process, the
+    accuracy of \mdet\ is ultimately limited by how closely this matches images
+    in real data, where some, but not all galaxies in an image are sheared
+    coherently.  We find that even in the worst case scenario, in which
+    overlapping objects are sheared completely incoherently, the bias is at
+    most a few tenths of a percent for future surveys.  We show that the
+    primary technical challenge for \mdet, deconvolution using a spatially
+    varying point-spread-function, does not result in a significant bias for
+    typical imaging surveys.  Finally, we discuss additional technical
     challenges that must be met in order to implement \mdet\ for real surveys.
 
 
