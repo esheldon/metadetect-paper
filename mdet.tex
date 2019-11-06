@@ -504,7 +504,7 @@ partially cancels noise:
 \begin{equation}
     \gamma_{est} = \frac{ \langle e_+ \rangle - \langle e_- \rangle}{2 \langle R \rangle},
 \end{equation}
-We then calculated $m$ using equation \ref{eq:m} and the true
+We then calculated $m$ using equation \ref{eq:m}, $\gamma_{est}$ and the true
 input shear.  We estimated the errors on the mean $m$ using bootstrap
 resampling of the set of image pairs, repeating the computation of $m$ for each
 bootstrap sample. We employed a similar procedure for $c$, except that we used
@@ -542,10 +542,11 @@ of the pair distance. For a large separation of 4 arcsec, two objects were
 detected in essentially all cases, but as the separation was decreased the
 detection became more ambiguous, with only one object detected in some cases.
 At 1.5 arcsec separation the detection was most ambiguous, with two objects
-detected in half the cases. As the separation was decreased further, the one
-object was detected more often than two, and at 1.0 arcseconds only one object
-was detected in essentially all cases.  For close separations the blend is
-unrecognized but the detection is unambiguous.
+detected in half the cases. As the separation was decreased further, one object
+was detected more often than two, and at 1.0 arcseconds only one object was
+detected in essentially all cases.  For close separations the blend is
+unrecognized but the detection is unambiguous, in the sense that the
+detection algorithm consistently finds one object.
 
 In the cases where the detection is unambiguous, at close and far separations,
 there is no bias in the recovered shear.  But the bias increases as the
