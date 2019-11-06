@@ -22,4 +22,5 @@ clean:
 	${texfile}.toc \
 	${texfile}.log \
 	${texfile}.fdb_latexmk \
-	${texfile}.fls
+	${texfile}.fls \
+	${texfile}.brf
