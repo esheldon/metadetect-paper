@@ -173,18 +173,21 @@ the time of writing, two methods have demonstrated sufficient accuracy without
 reliance on calibration from simulations, including rigorous mathematical
 formalisms to deal with selection effects:  the \bfd\ method
 \citep{BernBFD2016} and the \mcal\ method \citep{HuffMcal2017,SheldonMcal2017}.
-However, the existing tests of \bfd\ and \mcal, while stringent, did not
-include an important aspect of the real universe: the images of objects overlap
-on the sky and thus the light from separate objects is ``blended'' \citep[for
-discussion of blending effects see, e.g.,][]{DawsonBlending2016}.
+The FPFS method of \cite{FPFS2018} is also able to achieve the required
+accuracy using an iterative method to deal with selection effects.  However,
+these methods do not deal explicitly with an important aspect of the real
+universe: the images of objects overlap on the sky and thus the light from
+separate objects is ``blended''\footnote{In \cite{FPFS2018} blending related
+biases were corrected using simulations.}\citep[for discussion of blending
+effects see, e.g.,][]{DawsonBlending2016}.
 
-\mcal\ can, in principle, be used calibrate any shear measurement biases, even
+\mcal\ can be used calibrate essentially any shear measurement biases, even
 those associated with blending.  However, we will show below that there is a
-particular calibration bias associated the process of detecting objects in the
-presence of blending, and this is not addressed in naive implementations of
+particular calibration bias associated with the process of detecting objects in
+the presence of blending, and this is not addressed in naive implementations of
 \mcal. This bias is especially large for ambiguous detections on highly blended
-images and thus poses a challenge for future lensing surveys in which
-blending will be important \citep{DawsonBlending2016}.
+images and thus poses a challenge for future lensing surveys in which blending
+will be important \citep{DawsonBlending2016}.
 
 At this stage it is worthwhile to define exactly what we mean by object
 detection.  For isolated objects, object detection is closely related to the
