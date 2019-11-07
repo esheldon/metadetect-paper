@@ -177,8 +177,7 @@ The FPFS method of \cite{FPFS2018} is also able to achieve the required
 accuracy using an iterative method to deal with selection effects.  However,
 these methods do not deal explicitly with an important aspect of the real
 universe: the images of objects overlap on the sky and thus the light from
-separate objects is ``blended''\footnote{In \cite{FPFS2018} blending related
-biases were corrected using simulations.}\citep[for discussion of blending
+separate objects is ``blended'' \citep[for discussion of blending
 effects see, e.g.,][]{DawsonBlending2016}.
 
 \mcal\ can be used calibrate essentially any shear measurement biases, even
@@ -251,11 +250,11 @@ regions into separate objects in these codes is not a simple threshold above
 noise, but is rather a relative quantity.  This is demonstrated clearly for
 \sx\ in \cite{Bertin96} Figure~2.  Thus we would expect object detections
 produced by such a code to also manifest shear dependence. A simple local peak
-finder, run on a smoothed image, has similar properties\footnote{An open question,
+finder, run on a smoothed image, has similar properties. An open question,
 which we will not address in this work, is whether it is possible to derive a
 shear-independent object detection algorithm  in the presence of a PSF and a
 detector with finite spatial resolution.  Such an algorithm would in principle
-eliminate the shear-dependent object detection biases explored in this work.}
+eliminate the shear-dependent object detection biases explored in this work.
 
 Published implementations of \mcal\
 \citep[e.g.,][]{HuffMcal2017,SheldonMcal2017}, when used with the common object
@@ -596,13 +595,14 @@ shown in Table~\ref{tab:shearmeas}.  \mcal\ with MOF deblending and \sx\
 detections results in large biases, $\sim-3\%$, for a full five year
 DES-like survey. Simulations of LSST-like surveys demonstrate somewhat larger
 biases, and a simulation with double the LSST galaxy density shows a very large
-bias\footnote{The bias numbers here are fairly noisy, but it is interesting to
+bias.  Note, we see similar biases when no deblending is performed.
+
+The bias numbers presented above are relatively noisy, but it is interesting to
 note that the bias for LSST year 10 is not very much larger than DES year 5,
 despite the fact that the galaxy density is about twice as high.  This may be
 partly due to the better resolution of the LSST images: the area of the LSST
-PSF 60\% smaller than DES PSF.  Thus the images of
-small galaxies, at fixed density, will overlap less in LSST images than they do
-in DES images}.  Note, we see similar biases when no deblending is performed.
+PSF 60\% smaller than DES PSF.  Thus the images of small galaxies, at fixed
+density, will overlap less in LSST images than they do in DES images.
 
 % raw outputs
 % DES mcal+MOF
@@ -886,22 +886,27 @@ ellipticity measurement. The second employed \mcal\ with the same ellipticity
 measurement, but using \sx\ detections rather than the true object positions. We
 found that while the first \mcal\ shear measurement is unbiased
 ($-0.0011\pm0.0012$), the second exhibits a bias of
-$-0.058\pm0.001$.\footnote{The simulations with the true source positions are
-computationally slow because they involve measurements on all sources, even
-ones which are undetectable. Thus we were unable to decrease the errors on the
-multiplicative bias below $\sim0.1\%$. However, for simulations with round,
-exponential, high signal-to-noise objects only, we have found that \mcal\ with
-the true source positions and a weighted moment has bias ($0.00033 +/-
-0.00009$) in the presence of blending, consistent with the bias expected due to
-the breakdown of the weak lensing approximation.} Note that this ellipticity
+$-0.058\pm0.001$. Note that this ellipticity
 measurement makes no corrections for object blending, but in the case where we
 use the true object positions, it is still unbiased. Thus we have demonstrated
 that given a set of true source locations, \mcal\ is not sensitive to
-blending.\footnote{In practice, we have found that when using \mcal\ with true
-detections and more complex ellipticity measurements, for example using a
-non-linear model fit, biases can enter at the few tenths of a percent level.
-Thus whether \mcal\ is unbiased when using true detections does depend on the
-technique used to measure ellipticities on the sheared \mcal\ images.}
+blending.
+
+%\footnote{The simulations with the true source positions are
+%computationally slow because they involve measurements on all sources, even
+%ones which are undetectable. Thus we were unable to decrease the errors on the
+%multiplicative bias below $\sim0.1\%$. However, for simulations with round,
+%exponential, high signal-to-noise objects only, we have found that \mcal\ with
+%the true source positions and a weighted moment has bias ($0.00033 +/-
+%0.00009$) in the presence of blending, consistent with the bias expected due to
+%the breakdown of the weak lensing approximation.}
+
+%\footnote{In practice, we have found that when using \mcal\ with true
+%detections and more complex ellipticity measurements, for example using a
+%non-linear model fit, biases can enter at the few tenths of a percent level.
+%Thus whether \mcal\ is unbiased when using true detections does depend on the
+%technique used to measure ellipticities on the sheared \mcal\ images.}
+
 
 This set of tests also demonstrates explicitly that source detection can cause
 significant shear measurement biases even for techniques which are robust to
