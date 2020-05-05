@@ -283,12 +283,11 @@ Object detection effects can be naturally incorporated into \mcal\ by shearing
 larger images, rather than small postage stamps, and re-running the object
 detection algorithm on each of the sheared images. In this process, ellipticity
 measurement biases, selection effects and object detection are all accounted
-for simultaneously. We call this technique \mdet.  An outline of the method
-is as follows:
+for simultaneously. We call this technique \mdet.  An rough outline of the method
+is as follows (we give more detail in \S \ref{sec:mdet}):
 \begin{enumerate}
 
-    \item Artificially shear images of small regions of sky.  Use small shears
-        $\pm \gamma$ in each component. 
+    \item Artificially shear images of small regions of sky.
 
     \item Perform detection and measurement on the sheared images, as well as
         images without artificial shear.  Due to shear-dependent detection
@@ -296,22 +295,46 @@ is as follows:
         resulting in different object catalogs.
 
     \item Calculate ensemble shear statistics using measurements from the
-        unsheared images.  This step can include further selections based on
-        object measurements.  Let's take as an example a simple mean
-        ellipticity measurement $\left< \boldsymbol{e} \right>$, where
-        it should be understood $\boldsymbol{e}$ has two components.
+        unsheared images.  We assume our basic shear estimator responds
+        approximately linearly to a shear.
 
-    \item Use measurements from sheared images to calculate an ensemble shear
-        response $\boldsymbol{R}$. This involves selecting objects from catalogs generated on sheared
-        images and computing a finite difference derivative
-        $\boldsymbol{R} = (\left< \boldsymbol{e}^+ \right> - \left< \boldsymbol{e}^- \right>)/2 \gamma$.
+    \item Use measurements from sheared images to calculate how the
+        measurements responds to a shear.
 
     \item Correct the ensemble shear statistics using the response.
 
 \end{enumerate}
 The primary difference between \mdet\ and the \mcal\ method presented in
 \cite{SheldonMcal2017} is that the ensemble mean ellipticities are taken over
-different catalogs.  In \cite{SheldonMcal2017} we wrote the mean ellipticity
+different catalogs, whereas in \cite{SheldonMcal2017} all measurements were
+performed using a static detection catalog.
+As we will demonstrate, \mdet\ can correct for biases associated with
+shear-dependent detection, in addition to as model bias and pixel noise bias and
+ordinary shear-dependent selection effects.
+
+An alternative route being explored by the community is to calibrate shear
+measurements using simulations \citep[see, e.g.,][]{KIDS450shear,HSCY1shear}.
+The idea is to use an uncalibrated ellipticity measurement, which can manifest
+a large shear bias (of order 10\%) and  unknown selection and detection
+effects.  The final shear measurements are then calibrated using a simulation
+that matches the data as closely as possible.  Ultimately \mdet\ may have some
+remaining biases that must be calibrated with simulations.  Our goal in
+developing this algorithm is to make these biases as small as possible,
+sub-percent as opposed to 10 percent, which we expect will greatly reduce the
+sensitivity of the final calibration to small inaccuracies in the simulation.
+
+The paper is laid out as follows. In Section~\ref{sec:sims}, we describe our
+simulation and analysis techniques. In Section~\ref{sec:detbiases}, we study
+the effects of object detection on shear measurements with \mcal.
+In Section~\ref{sec:mitigate}, we describe \mdet\ which combines \mcal\ with
+an object detection algorithm in order to mitigate the shear biases from object
+detection. We also discuss the physical limits of \mdet\ there.
+In Section~\ref{sec:psfvar}, we study the effects of the PSF variation on \mdet.
+Finally, we conclude in Section~\ref{sec:conc}.
+
+\section{\Mdet} \label{sec:mdet}
+
+In \cite{SheldonMcal2017} we wrote the mean ellipticity
 as
 \begin{equation}
     \left< \boldsymbol{e} \right> = \left< \gamma \right> + \left< \frac{\partial \boldsymbol{e} }{\partial \boldsymbol{\gamma} } \right> + ...
@@ -328,30 +351,15 @@ common to all catalogs.  This is equivalent to calculating the ``total
 derivative'' response over sets of catalogs, as opposed to
 calculating a shear response and selection response separately.
 
+        $\left< \boldsymbol{e} \right>$.
 
-As we will demonstrate, \mdet\ can correct for biases associated with
-shear-dependent detection, in addition to as model bias and pixel noise bias and
-ordinary shear-dependent selection effects.
+    Use measurements from sheared images to calculate an ensemble shear
+        response $\boldsymbol{R}$. This involves selecting objects from catalogs generated on sheared
+        images and computing a finite difference derivative
+        $\boldsymbol{R} = (\left< \boldsymbol{e}^+ \right> - \left< \boldsymbol{e}^- \right>)/2 \gamma$.
 
-Calibration with simulations is an alternative route being explored by the
-community \citep[see, e.g.,][]{KIDS450shear,HSCY1shear}.  The idea is to use an
-uncalibrated ellipticity measurement, which can manifest a large shear bias (of
-order 10\%) and  unknown selection and detection effects.  The final shear
-measurements are then calibrated using a simulation that matches the data as
-closely as possible.  Ultimately \mdet\ may have some remaining biases that
-must be calibrated with simulations.  Our goal in developing this algorithm is
-to make these biases as small as possible, sub-percent as opposed to 10
-percent, which we expect will greatly reduce the sensitivity of the final
-calibration to small inaccuracies in the simulation.
+    Correct the ensemble shear statistics using the response: $\langle \boldsymbol\gamma \rangle \approx \langle \boldsymbol{R}\rangle^{-1}\langle\boldsymbol{e}\rangle$.
 
-The paper is laid out as follows. In Section~\ref{sec:sims}, we describe our
-simulation and analysis techniques. In Section~\ref{sec:detbiases}, we study
-the effects of object detection on shear measurements with \mcal.
-In Section~\ref{sec:mitigate}, we describe \mdet\ which combines \mcal\ with
-an object detection algorithm in order to mitigate the shear biases from object
-detection. We also discuss the physical limits of \mdet\ there.
-In Section~\ref{sec:psfvar}, we study the effects of the PSF variation on \mdet.
-Finally, we conclude in Section~\ref{sec:conc}.
 
 \section{Analysis and Simulation Techniques}
 \label{sec:sims}
