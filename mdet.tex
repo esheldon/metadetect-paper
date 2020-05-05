@@ -193,13 +193,13 @@ detection.  For isolated objects, object detection is closely related to the
 detection of regions of an image with pixel values above some threshold; this
 is perhaps the traditional meaning of the word detection. But when objects
 overlap on the sky, whether due to physical association or chance projection,
-there may be an additional desire to determine how many objects there are in
-each detected region. This may be desirable, for example, when assigning a
-redshift distribution to a set of detections.  We associate this process with
-object detection.  We reserve the term ``deblending'' to specifically mean the
-process of assigning a fraction of the light in each pixel to each detected
-object, which may or may not be a feature of the object detection.  In this
-work, for the sake of brevity, we will use the terms ``detection'' and ``object
+it may be useful to determine how many objects there are in each detected
+region. This may be important, for example, when calculating a redshift
+distribution for a set of detections.  We associate this process with object
+detection.  We reserve the term ``deblending'' to specifically mean the process
+of assigning a fraction of the light in each pixel to each detected object,
+which may or may not be a feature of the object detection.  In this work, for
+the sake of brevity, we will use the terms ``detection'' and ``object
 detection'' interchangeably.
 
 In the weak shear regime, the lensing mapping is one-to-one and preserves
@@ -252,7 +252,7 @@ noise, but is rather a relative quantity.  This is demonstrated clearly for
 produced by such a code to also manifest shear dependence. A simple local peak
 finder, run on a smoothed image, has similar properties. An open question,
 which we will not address in this work, is whether it is possible to derive a
-shear-independent object detection algorithm  in the presence of a PSF and a
+shear-independent object detection algorithm in the presence of a PSF and a
 detector with finite spatial resolution.  Such an algorithm would in principle
 eliminate the shear-dependent object detection biases explored in this work.
 
@@ -268,31 +268,81 @@ detection will already manifest a shear-dependent object detection bias, and
 thus any shear applied when running \mcal\ does not properly reflect the full
 response to shear.
 
-This shear-dependent object detection bias is a type of selection effect.
-Corrections for selection effects in a static catalog were already derived in
-\cite{SheldonMcal2017}, but that formalism implicitly assumes that the base
-catalog itself is unaffected by selection effects.  Similarly, that formalism
-cannot work for objects near the object detection threshold, even for isolated
-objects, because the object detections needed for the corrections will, by
-definition, not be present in the catalog.
+% Shear-dependent object detection bias is a type of selection effect.
+% Corrections for selection effects in a static catalog were already derived in
+% \cite{SheldonMcal2017}. In that formalism one applies selections to quantities
+% measured on artificially sheared images, and recalculates the shear estimate to
+% derive a selection shear response.  This selection response is then added
+% to the shear response.  However, that method assumes that the base
+% catalog itself is itself unaffected by shear-dependent selection effects.
+% Similarly, that formalism cannot work for objects near the object detection
+% threshold, even for isolated objects, because the object detections needed for
+% the corrections will, by definition, not be present in the catalog.
 
-As we will demonstrate, object detection effects can be naturally incorporated
-into \mcal\ by shearing somewhat larger images, rather than small postage
-stamps, and re-running the object detection algorithm on each of the sheared
-images. In this process, ellipticity measurement biases, selection effects and
-object detection are all accounted for simultaneously. We call this technique
-\mdet.
+Object detection effects can be naturally incorporated into \mcal\ by shearing
+larger images, rather than small postage stamps, and re-running the object
+detection algorithm on each of the sheared images. In this process, ellipticity
+measurement biases, selection effects and object detection are all accounted
+for simultaneously. We call this technique \mdet.  An outline of the method
+is as follows:
+\begin{enumerate}
+
+    \item Artificially shear images of small regions of sky.  Use small shears
+        $\pm \gamma$ in each component. 
+
+    \item Perform detection and measurement on the sheared images, as well as
+        images without artificial shear.  Due to shear-dependent detection
+        effects, the detections found the each image will be subtly different,
+        resulting in different object catalogs.
+
+    \item Calculate ensemble shear statistics using measurements from the
+        unsheared images.  This step can include further selections based on
+        object measurements.  Let's take as an example a simple mean
+        ellipticity measurement $\left< \boldsymbol{e} \right>$, where
+        it should be understood $\boldsymbol{e}$ has two components.
+
+    \item Use measurements from sheared images to calculate an ensemble shear
+        response $\boldsymbol{R}$. This involves selecting objects from catalogs generated on sheared
+        images and computing a finite difference derivative
+        $\boldsymbol{R} = (\left< \boldsymbol{e}^+ \right> - \left< \boldsymbol{e}^- \right>)/2 \gamma$.
+
+    \item Correct the ensemble shear statistics using the response.
+
+\end{enumerate}
+The primary difference between \mdet\ and the \mcal\ method presented in
+\cite{SheldonMcal2017} is that the ensemble mean ellipticities are taken over
+different catalogs.  In \cite{SheldonMcal2017} we wrote the mean ellipticity
+as
+\begin{equation}
+    \left< \boldsymbol{e} \right> = \left< \gamma \right> + \left< \frac{\partial \boldsymbol{e} }{\partial \boldsymbol{\gamma} } \right> + ...
+\end{equation}
+with the derivative {\em inside} the averages.  However, this can
+only work for a static catalog:  we require a measurement
+for each object, with the different shears, in order to calculate
+the finite d.  if the same detection is used 
+but we can just as well bring the derivative outside the average
+
+In the \mcal\ formalism, this is equivalent to
+bringing the derivative outside the integral.  In general, only a subset of the detected object will be
+common to all catalogs.  This is equivalent to calculating the ``total
+derivative'' response over sets of catalogs, as opposed to
+calculating a shear response and selection response separately.
+
+
+As we will demonstrate, \mdet\ can correct for biases associated with
+shear-dependent detection, in addition to as model bias and pixel noise bias and
+ordinary shear-dependent selection effects.
 
 Calibration with simulations is an alternative route being explored by the
 community \citep[see, e.g.,][]{KIDS450shear,HSCY1shear}.  The idea is to use an
-uncalibrated ellipticity measurement, which can manifest a large shear bias
-(of order 10\%) and  unknown selection effects.  The final shear
-measurements are then calibrated, including selection effects, using a
-simulation that matches the data as closely as possible.  Ultimately \mdet\ may
-have some remaining biases that must be calibrated with simulations.  Our goal
-in developing this algorithm is to make these biases as small as possible,
-sub-percent as opposed to 10 percent, which we expect will greatly reduce the
-sensitivity of the final calibration to small inaccuracies in the simulation.
+uncalibrated ellipticity measurement, which can manifest a large shear bias (of
+order 10\%) and  unknown selection and detection effects.  The final shear
+measurements are then calibrated using a simulation that matches the data as
+closely as possible.  Ultimately \mdet\ may have some remaining biases that
+must be calibrated with simulations.  Our goal in developing this algorithm is
+to make these biases as small as possible, sub-percent as opposed to 10
+percent, which we expect will greatly reduce the sensitivity of the final
+calibration to small inaccuracies in the simulation.
 
 The paper is laid out as follows. In Section~\ref{sec:sims}, we describe our
 simulation and analysis techniques. In Section~\ref{sec:detbiases}, we study
