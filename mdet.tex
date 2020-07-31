@@ -163,7 +163,7 @@
 
 \end{abstract}
 
-\section{Introduction}
+\section{Introduction} \label{sec:intro}
 
 Recently developed methods to estimate weak gravitational lensing shear can in
 principle provide calibration at the 0.1\% level or better, sufficient for the
@@ -323,59 +323,25 @@ developing this algorithm is to make these biases as small as possible,
 sub-percent as opposed to 10 percent, which we expect will greatly reduce the
 sensitivity of the final calibration to small inaccuracies in the simulation.
 
-The paper is laid out as follows. In Section~\ref{sec:sims}, we describe our
-simulation and analysis techniques. In Section~\ref{sec:detbiases}, we study
-the effects of object detection on shear measurements with \mcal.
-In Section~\ref{sec:mitigate}, we describe \mdet\ which combines \mcal\ with
-an object detection algorithm in order to mitigate the shear biases from object
-detection. We also discuss the physical limits of \mdet\ there.
-In Section~\ref{sec:psfvar}, we study the effects of the PSF variation on \mdet.
-Finally, we conclude in Section~\ref{sec:conc}.
+The paper is laid out as follows. In Section~\ref{sec:mdet} we introduce a
+generalized \mcal\ that accounts for shear dependent object detection.  In
+Section~\ref{sec:sims}, we describe the simulations we use to test our methods
+and the analysis techniques used to infer the shear signal. In
+Section~\ref{sec:detbiases}, we study the effects of object detection on shear
+measurements with \mcal.  In Section~\ref{sec:mitigate}, we describe in detail 
+our implementation of \mdet\ and apply it to recover the shear signal
+in our simulations. We also discuss the physical limits of
+\mdet.  In Section~\ref{sec:psfvar}, we study the effects of the PSF
+variation on \mdet.  Finally, we conclude in Section~\ref{sec:conc}.
 
-\section{\Mdet} \label{sec:mdet}
+\subsection{\textsc{Metacalibration} and \textsc{Metadetection}}
+\label{sec:mdet}
 
-In \cite{SheldonMcal2017} we wrote the mean ellipticity as
-\begin{equation}
-    \left< \boldsymbol{e} \right> = \left< \gamma \right> + \left< \frac{\partial \boldsymbol{e} }{\partial \boldsymbol{\gamma} } \right> + ...
-\end{equation}
-with the derivative {\em inside} the averages.  However, this can
-only work for a static catalog:  we require a measurement
-for each object, with the different shears, in order to calculate
-the finite d.  if the same detection is used 
-but we can just as well bring the derivative outside the average
+In this section we introduce a generalization of \mcal\ that naturally accounts
+for shear-dependent object detection.
 
-In the \mcal\ formalism, this is equivalent to
-bringing the derivative outside the integral.  In general, only a subset of the detected object will be
-common to all catalogs.  This is equivalent to calculating the ``total
-derivative'' response over sets of catalogs, as opposed to
-calculating a shear response and selection response separately.
-
-        $\left< \boldsymbol{e} \right>$.
-
-    Use measurements from sheared images to calculate an ensemble shear
-        response $\boldsymbol{R}$. This involves selecting objects from catalogs generated on sheared
-        images and computing a finite difference derivative
-        $\boldsymbol{R} = (\left< \boldsymbol{e}^+ \right> - \left< \boldsymbol{e}^- \right>)/2 \gamma$.
-
-    Correct the ensemble shear statistics using the response: $\langle \boldsymbol\gamma \rangle \approx \langle \boldsymbol{R}\rangle^{-1}\langle\boldsymbol{e}\rangle$.
-
-
-\section{Analysis and Simulation Techniques}
-\label{sec:sims}
-
-In this section, we describe our object simulation and measurement techniques.
-In all cases, we used the \galsim\ \citep{GALSIM2015} software package to
-generate images, perform convolutions etc. We used the \texttt{SEP} \citep{sep}
-Python wrapper of the \sx\ software package \citep{Bertin96} for
-source detection as needed. Finally, we made extensive use of \ngmix
-\footnote{\url{https://github.com/esheldon/ngmix/}} for object measurement and
-the \mcal\ implementation.
-
-\subsection{\textsc{Metacalibration}}
-\label{sec:mcal}
-
-\mcal\ is a general technique that computes the linear response of image
-measurements to an applied shear using only the observed image.  For a small
+\mcal\ is a general technique that computes the linear response of measurements
+on an image to an applied shear using only the observed image.  For a small
 applied shear $\boldsymbol{\gamma}$, we can expand a measurement $\boldsymbol{e}$ as
 \begin{eqnarray}
 \boldsymbol{e} & \approx & \left.\boldsymbol{e}\right|_{\gamma=0} +
@@ -397,22 +363,64 @@ R_{ij} \approx \frac{e_i^{+} - e_i^{-}}{\Delta\gamma_j}\ .
 \end{equation}
 where $R_{ij}$ is the estimated response of the measurement to shear and
 $\Delta\gamma_j = 2 \gamma_j$ is the difference between two applied shears,
-$\pm \gamma_j$, with $\gamma_j$ a small shear, usually of order 0.01. The
-quantity $e_i^{+/-}$ is the $i$-th ellipticity component measured on an image
-sheared with $\pm\Delta\gamma_j$.  The $e_i^{+/-}$ used in the finite
-differences measured on artificially sheared images \citep{SheldonMcal2017},
-the creation of which requires careful handling of the PSF and other
-observational effects.  Note that as the estimated responses per-object are
-quite noisy, they must be averaged over many images/objects in order to
-estimate the response of a set of images/objects to a shear.
-We will expand this method to include object detection in section
-\ref{sec:mitigate}.
+$\pm \gamma_j$, with $\gamma_j$ a small shear of order 0.01. The quantity
+$e_i^{+/-}$ is the $i$-th ellipticity component measured on an image sheared
+with $\pm\Delta\gamma_j$.  The creation of artificially sheared images requires
+careful handling of the PSF and other observational effects
+\citep{SheldonMcal2017}.
 
-We will focus on detection biases in this work, but there are a number of steps
-in the image processing that are shear dependent: detection, centroiding,
-ellipticity measurement, flux measurement, etc.  In this sense, the \mdet\
-method will measure the response of all image manipulations and measurements to
-an applied, constant shear.
+Because the estimated responses are quite noisy for a single object, they must
+be averaged over many images/objects in order to estimate the response of a set
+of images/objects to a shear.  
+
+Let's examine the case of estimating the mean shear from a 
+mean ellipticity.  In \cite{SheldonMcal2017} we wrote the mean ellipticity as
+\begin{equation}
+    \left< \boldsymbol{e} \right> \approx \left< \frac{\partial \boldsymbol{e} }{\partial \boldsymbol{\gamma} } \biggr\rvert_{\gamma=0} \boldsymbol{\gamma} \right>
+    = \left< \boldsymbol{R} \boldsymbol{\gamma} \right>
+\end{equation}
+The mean shear was then estimated using the mean response:
+\begin{eqnarray}
+    \left< \boldsymbol{R} \right> &=& \left< \frac{\partial \boldsymbol{e} }{\partial \boldsymbol{\gamma} } \biggr\rvert_{\gamma=0} \right>, \nonumber \\
+    \langle R_{ij}\rangle &=& \left< \frac{e_i^{+} - e_i^{-}}{\Delta\gamma_j} \right>, \nonumber \\
+    \langle \boldsymbol\gamma \rangle & \approx & \langle \boldsymbol{R}\rangle^{-1}\langle\boldsymbol{e}\rangle.
+\end{eqnarray}
+Note that the derivative appears {\em inside} the averages, implying
+we could take the derivative for each object separately.
+This is only possible for a static catalog.  Postage stamps are generated
+for each object, artificially sheared, and  measurements $\boldsymbol e$
+are then produced for the sheared images to calculate the response for
+each object.
+
+As discussed in \S \ref{sec:intro}, the detection of objects is
+shear-dependent.  In particular, the number of objects detected depends on
+shear, and we wish to accurately account for this effect in the response.  Thus
+we must repeat the detection on artificially sheared images, which will result
+in detection catalogs that differ for each sheared image. There is no static
+catalog with which to generate postage stamps and make individual response
+measurements.
+
+We can address this by moving the derivative outside of the average:
+\begin{eqnarray} \label{eq:fullR}
+    \left< \boldsymbol{R} \right> &=& \frac{\partial \left< \boldsymbol{e} \right> }{\partial \boldsymbol{\gamma} } \biggr\rvert_{\gamma=0},  \nonumber \\
+    \langle R_{ij}\rangle &=& \frac{\langle e_i^{+}\rangle - \langle e_i^{-}\rangle}{\Delta\gamma_j} \nonumber \\
+\end{eqnarray}
+The finite difference is now calculated over averages, based on detections 
+derived from the different sheared images.  In general, only a subset of the
+detected objects will be common to all detection catalogs.
+Note that Equation \ref{eq:fullR} is entirely equivalent to the response
+Equation 14 of \cite{SheldonMcal2017} in the case of a static catalog.
+
+\section{Analysis and Simulation Techniques}
+\label{sec:sims}
+
+In this section, we describe our object simulation and measurement techniques.
+In all cases, we used the \galsim\ \citep{GALSIM2015} software package to
+generate images, perform convolutions etc. We used the \texttt{SEP} \citep{sep}
+Python wrapper of the \sx\ software package \citep{Bertin96} for
+source detection as needed. Finally, we made extensive use of \ngmix
+\footnote{\url{https://github.com/esheldon/ngmix/}} for object measurement and
+the \mcal\ implementation.
 
 \subsection{Multi-object Fitting Deblending}
 
@@ -986,19 +994,16 @@ sheared images (see \S \ref{sec:mcal}) using \sx.  We then
 made measurements in postage stamps around each detection in each image using a
 non-PSF corrected, Gaussian-weighted moment.  These five catalogs were then
 combined into a single estimate for the shear by computing the
-average shear response for the image
+average shear response for the image, using Equation \ref{eq:fullR} from
+\S \ref{sec:mdet}, which we repeat here for clarity:
 \begin{eqnarray}
 \langle \boldsymbol\gamma \rangle &\approx& \langle \boldsymbol{R}\rangle^{-1}\langle\boldsymbol{e}\rangle\nonumber\\
-\langle R_{ij}\rangle &=& \frac{\langle e_i^{+}\rangle - \langle e_i^{-}\rangle}{\Delta\gamma_j}
+\langle R_{ij}\rangle &=& \frac{\langle e_i^{+}\rangle - \langle e_i^{-}\rangle}{\Delta\gamma_j}.
 \end{eqnarray}
-where the equation for the response above is for a single shear component. We term this
-process \mdet.
 
-Note that the averages above are over the {\it catalogs} from running source
-detection and ellipticity measurement on differently sheared images. This is in
-effect the ``total derivative'' response, shown in section 3 of
-\cite{SheldonMcal2017}, without any attempt to split the response into the
-shear response and selection response using the chain rule.  Shear responses
+We here reiterate that the averages above are over measurements from
+different {\it detection catalogs}, generated by running source
+detection and ellipticity measurement on differently sheared images. Shear responses
 for individual detected objects, as used in both \cite{SheldonMcal2017} and
 \cite{HuffMcal2017}, were not calculated.  Doing so would require matching the
 lists of detections found on the different sheared images, so that finite
