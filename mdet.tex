@@ -391,18 +391,18 @@ The mean shear was then estimated using the mean response:
 \end{eqnarray}
 Note that the derivative appears {\em inside} the averages, implying
 we could take the derivative for each object separately.
-This is only possible for a static catalog.  Postage stamps are generated
+This is possible for a single static catalog: postage stamp images are generated
 for each object, artificially sheared, and  measurements $\boldsymbol e$
 are then produced for the sheared images to calculate the response for
 each object.
 
 As discussed in \S \ref{sec:intro}, the detection of objects is
 shear-dependent.  In particular, the number of objects detected depends on
-shear, and we wish to accurately account for this effect in the response.  Thus
-we must repeat the detection on artificially sheared images, which will result
-in detection catalogs that differ for each sheared image. There is no static
-catalog with which to generate postage stamps and make individual response
-measurements.
+shear, and we wish to accurately account for this effect in the response.  To
+address this we will repeat the detection on artificially sheared images, which
+will result in detection catalogs that differ for each sheared image. There is
+no single static catalog with which to generate postage stamps and make
+individual response measurements.
 
 We can address this by moving the derivative outside of the average:
 \begin{eqnarray} \label{eq:fullR}
@@ -414,6 +414,7 @@ derived from the different sheared images.  In general, only a subset of the
 detected objects will be common to all detection catalogs.
 Note that Equation \ref{eq:fullR} is entirely equivalent to the response
 Equation 14 of \cite{SheldonMcal2017} in the case of a static catalog.
+We call this modified version of the method \mdet.
 
 \section{Analysis and Simulation Techniques}
 \label{sec:sims}
