@@ -1283,11 +1283,11 @@ scenarios where the images of objects overlap and the detection of objects can
 be ambiguous. These conditions will characterize all future weak lensing
 surveys, especially those executed beneath the atmosphere where PSF smearing
 significantly increases the blending of images, so accurate performance in this
-regime is critical. We find that \mcal\ used with MOF-like object deblending
-techniques has many percent biases that get worse as the degree of
-blending increases. We then demonstrated that we can eliminate these biases at
-high precision by including the detection of objects in the \mcal\ process,
-even for an LSST-like survey. We call this technique \mdet.
+regime is critical. We showed that \mcal\ has many percent biases that get worse
+as the degree of blending increases, even when objects are deblended.  We then
+demonstrated that we can accurately eliminate these biases by including
+the detection of objects in the \mcal\ process, even for an LSST-like survey.
+We call this technique \mdet.
 
 We tested an important assumption of \mdet, that the space between objects in
 an image is sheared coherently, an assumption that does not perfectly match
@@ -1320,10 +1320,12 @@ permit missing data, so the masked regions must be interpolated in some way.
 Care must be taken that this interpolation does not introduce a spurious shear
 signal.  Compensating masks, rotated at right angles to the real masks, must be
 used in addition to the real mask in order to restore symmetry to the image
-\citep{SheldonMcal2017}.  Also, interpolation correlates the noise in the
-image, as does the coadding process itself, so the noise field used for
-correcting correlated noise effects must also be propagated through the same
-coadding and interpolation \citep{SheldonMcal2017,ArmstrongCoadd}.
+\citep{SheldonMcal2017}; the camera rotations planned for Rubin telescope data
+will accomplish this cancellation of systematic effects even more efficiently.
+Also, interpolation correlates the noise in the image, as does the coadding
+process itself, so the noise field used for correcting correlated noise effects
+must also be propagated through the same coadding and interpolation
+\citep{SheldonMcal2017,ArmstrongCoadd}.
 
 Finally, the five separate \mdet\ catalogs must each be incorporated into the
 full set of downstream analysis tasks (e.g., photometric redshift estimation,
