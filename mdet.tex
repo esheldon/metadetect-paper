@@ -595,29 +595,30 @@ have found this choice not to matter in explicit testing.
 
 Note that, in the case that the entire scene is sheared, including the space
 between objects, the technique of \citet{pujol2019} does not cancel the noise
-as effectively as when only the shapes of objects is sheared.  This is because,
-when the objects move under different shears, the will sample slightly different
-parts of the noise field.
+as effectively as when only the shapes of objects are sheared.  This is because
+the objects move differently under the two different shears and thus sample
+slightly different parts of the noise field.
 
 \section{Shear-dependent Detection Biases}\label{sec:detbiases}
 
-In this section, we present results from a variety of specialized simulation
-setups to elucidate the role of detection biases in \mcal\ shear measurements.
-We first examine shear measurement on pairs of galaxies at various separations.
-We then study detection biases in DES- and LSST-like simulations with
-realistic galaxy densities and pixel noise. We find in all cases that object
-detection imparts a non-negligible shear measurement bias. As we will show in
-\S \ref{sec:mdetpairs}, we can correct this bias by including detection in the
-\mcal\ process, even if no explicit deblending (division of light between
-objects) is performed.
+In this section, we present results from a set of experiments using image
+simulations designed to elucidate the role of detection biases in \mcal\ shear
+measurements.  We first examine shear measurement on pairs of galaxies at
+various separations.  We then study detection biases in DES- and LSST-like
+simulations with realistic galaxy densities and pixel noise. We find in all
+cases that object detection imparts a significant shear measurement bias. As we
+will show in \S \ref{sec:mdetpairs}, we can correct this bias by including
+detection in the \mcal\ process, even if no explicit deblending (division of
+light between objects) is performed.
 
 \subsection{Basic Analysis Method}
 
 The full \mdet\ analysis method, which includes detection in the \mcal\
-process, was outlined in \S \ref{sec:intro}.  In the sections \S
+process, was outlined in \S \ref{sec:intro} and the formalism for calibration
+was given in \S \ref{sec:mdet}.  In the sections \S
 \ref{sec:pairbias} and \S \ref{sec:realbias} that follow, we show shear
-recovery bias using standard \mcal, not the full \mdet.   Rather than shearing
-the whole image and repeating detection, we ran detection once to produce a
+recovery bias using standard \mcal, without the full \mdet.   Rather than shearing
+a large image and repeating detection, we ran detection once to produce a
 static detection catalog.  We then performed basic \mcal\ on postage stamps for
 each detection.  During the measurement phase, we performed deblending using
 the MOF algorithm described in \S \ref{sec:mof}.  We also ran tests without
@@ -680,8 +681,8 @@ maximum ambiguity.
 
 The correspondence between detection ambiguity and shear bias is a hint that
 the bias is caused by shear-dependent detection. Next, we test with simulations
-of DES- and LSST-like surveys and show explicitly that by turning object
-detection off, we can eliminate these detection biases.
+of DES- and LSST-like surveys and show explicitly that by making object
+detection shear independent, we can eliminate these detection biases.
 
 
 \subsection{Bias in Simulations with Representative Galaxy Density and Noise}
@@ -692,7 +693,8 @@ shown in Table~\ref{tab:shearmeas}.  \mcal\ with MOF deblending and \sx\
 detections results in large biases, $\sim-3\%$, for a full five year
 DES-like survey. Simulations of LSST-like surveys demonstrate somewhat larger
 biases, and a simulation with double the LSST galaxy density shows a very large
-bias.  Note, we see similar biases when no deblending is performed.
+bias.  Note, we see similar biases when no deblending is performed but we again
+omitted them from the table for the sake of brevity.
 
 The bias numbers presented above are relatively noisy, but it is interesting to
 note that the bias for LSST year 10 is not very much larger than DES year 5,
@@ -979,11 +981,11 @@ density, will overlap less in LSST images than they do in DES images.
 In order to unpack the source of the bias in this case, we compared two
 different \mcal\ shear measurements. The first was performed on a catalog of
 the true source positions using a fixed 1.2 arcsecond Gaussian weighted moment
-ellipticity measurement. We did not run MOF deblending on the true detection catalog
-because the true catalog is very dense, which means the blended groups would
-be very numerous and would have many members.  Because there is a large 
-computing overhead associated with the deblending, the running time would
-have been prohibitively slow.
+ellipticity measurement. We did not run MOF deblending on the true detection
+catalog.  The true catalog is very dense, which means the blended groups would
+be very numerous and would have many members.  Because there is a large
+computing overhead associated with the deblending, the running time would have
+been prohibitively slow.
 
 The second measurement employed \mcal\ with the same weighted moment
 ellipticity measurement, but using \sx\ detections rather than the true object
@@ -993,8 +995,8 @@ We found that, while the \mcal\ shear measurement using true detections is
 unbiased ($-0.0011\pm0.0012$), the measurement using \sx\ detections exhibits a
 bias of $-0.058\pm0.001$. Note that this ellipticity measurement makes no
 corrections for object blending, but in the case where we use the true object
-positions, it is still unbiased. Thus we have demonstrated that given a set of
-true source locations, \mcal\ is not sensitive to blending.
+positions, it is still unbiased. Thus we have demonstrated that, given a set of
+true source locations, \mcal\ is unbiased when objects are blended.
 
 %\footnote{The simulations with the true source positions are
 %computationally slow because they involve measurements on all sources, even
