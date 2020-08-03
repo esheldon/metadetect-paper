@@ -130,37 +130,19 @@
     demonstrate that detection biases are accurately removed when including
     object detection in the \mcal\ process, a technique we call \mdet.  This
     process involves applying an artificial shear to images of small regions of
-    sky, and performing detection and measurement on the sheared images which
-    are used to calculate a shear response.   We demonstrate that the
+    sky and performing detection on the sheared images, as well as measurements
+    that are used to calculate a shear response.   We demonstrate that the
     method can accurately recover weak shear signals even in highly blended
-    scenes.  However, because the space between objects is sheared coherently
-    in \mcal, the accuracy is ultimately limited by how closely this process
-    matches real data, in which some, but not all, galaxy images are sheared
-    coherently.  We find that even for the worst case scenario, in which the
-    space between objects is completely unsheared, the resulting shear bias is
-    at most a few tenths of a percent for future surveys.  The primary
-    technical challenge for \mdet, deconvolution using a spatially varying
-    point-spread-function, does not result in a significant bias for typical
+    scenes.  In the \mcal\ process, the space between objects is sheared
+    coherently, which does not perfectly match the real universe in which some,
+    but not all, galaxy images are sheared coherently.  We find that even for
+    the worst case scenario, in which the space between objects is completely
+    unsheared, the resulting shear bias is at most a few tenths of a percent
+    for future surveys.  A technical challenge for \mdet\ is to deconvolve the
+    spatially varying point-spread-functions expected for real data, but we
+    find that using a constant deconvolution kernel is sufficient for typical
     imaging surveys.  Finally, we discuss additional technical challenges that
     must be met in order to implement \mdet\ for real surveys.
-
-    %This process involves applying an artificial shear to images
-    %of small regions of sky, and performing detection and measurement on the
-    %sheared images. The ensemble response of the measurements to the applied
-    %shear is then calculated, with measurements now including the process of
-    %detection, and this response is used to calibrate the final shear estimate.
-    %We show that the primary technical challenge for \mdet, deconvolution using
-    %a spatially varying point-spread-function, does not cause in a significant
-    %bias for typical imaging surveys.  Finally, we discuss the physical limits
-    %of \mdet's accuracy.  The key assumption behind \mdet\ is that the entire
-    %region of sky under consideration, which we are free choose to be small, is
-    %sheared, including the space between objects, as opposed to only the images
-    %of the objects.  In the real universe, lensing over cosmological distances
-    %produces a combination of these scenarios.  We test the worst case scenario
-    %for \mdet, in which only images of objects are sheared, and find the bias
-    %is at most a few tenths of a percent for future surveys.  We discuss
-    %additional technical challenges that must be met in order to implement
-    %\mdet\ for real surveys.
 
 \end{abstract}
 
