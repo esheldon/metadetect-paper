@@ -998,21 +998,6 @@ corrections for object blending, but in the case where we use the true object
 positions, it is still unbiased. Thus we have demonstrated that, given a set of
 true source locations, \mcal\ is unbiased when objects are blended.
 
-%\footnote{The simulations with the true source positions are
-%computationally slow because they involve measurements on all sources, even
-%ones which are undetectable. Thus we were unable to decrease the errors on the
-%multiplicative bias below $\sim0.1\%$. However, for simulations with round,
-%exponential, high signal-to-noise objects only, we have found that \mcal\ with
-%the true source positions and a weighted moment has bias ($0.00033 +/-
-%0.00009$) in the presence of blending, consistent with the bias expected due to
-%the breakdown of the weak lensing approximation.}
-
-%\footnote{In practice, we have found that when using \mcal\ with true
-%detections and more complex ellipticity measurements, for example using a
-%non-linear model fit, biases can enter at the few tenths of a percent level.
-%Thus whether \mcal\ is unbiased when using true detections does depend on the
-%technique used to measure ellipticities on the sheared \mcal\ images.}
-
 This set of tests also demonstrates explicitly that source detection can cause
 significant shear measurement biases even for techniques which are robust to
 blending. The source detection biases probably originate from multiple causes,
@@ -1031,9 +1016,9 @@ by running detection separately on each sheared image.
 
 We performed object detection on each image using \sx.  We then made
 measurements in postage stamps around each detection in each image using a
-non-PSF corrected, Gaussian-weighted moment.  These five catalogs were then
-combined into a single estimate for the shear by computing the average shear
-response for the image, using Equation \ref{eq:fullR} from \S
+non-PSF corrected, Gaussian-weighted moment.  We used these five catalogs 
+to calculate a single estimate for the shear using the mean shear
+response for the image as shown in \ref{eq:fullR} from \S
 \ref{sec:mdet}, which we repeat here for clarity:
 \begin{eqnarray}
 \langle \boldsymbol\gamma \rangle &\approx& \langle \boldsymbol{R}\rangle^{-1}\langle\boldsymbol{e}\rangle\nonumber\\
@@ -1138,7 +1123,7 @@ Figure~\ref{fig:toy}, demonstrating the extreme and unphysical case of two
 objects that are in line-of-sight projection but sheared completely
 independently.  We did not allow the space between objects to be sheared. The
 contours of constant surface brightness differ less after shear than those
-shown in \ref{fig:toy}.  This is intuitive, because the relative separation
+shown in \ref{fig:toy}.  We find this intuitive, because the relative separation
 between objects does not change.  The \mdet\ process of shearing the full
 image, which does move the positions of objects, will over-predict the response
 in this case.
@@ -1148,12 +1133,11 @@ object blending, which scales with object density and PSF size.  To test these
 expectations, we created a set of simple simulations in which we sheared the
 shapes of objects, but not the space between objects.  We simulated round
 galaxies with exponential light distributions and a half-light-radius of 0.5
-arcsec. We then tested the accuracy \mdet\ shear recovery under varying
-conditions, namely with either 45 objects per square arcmin or 140 objects per
-square arcmin, and with either a 0.9 arcsec Gaussian PSF or a 1.1 arcsec
-Gaussian PSF. Our results are reported in Table~\ref{tab:nssres} and confirm
-these expectations. However, we don't expect these results to be representative
-of realistic scenarios.
+arcsec. We then tested \mdet\ under varying conditions, namely with either 45
+objects per square arcmin or 140 objects per square arcmin, and with either a
+0.9 arcsec Gaussian PSF or a 1.1 arcsec Gaussian PSF. Our results are reported
+in Table~\ref{tab:nssres} and confirm these expectations. However, we don't
+expect these results to be representative of realistic scenarios.
 
 
 \begin{figure*}
@@ -1315,7 +1299,7 @@ ambiguities in the detection of objects.  Detection is less efficient in
 smaller images, because the larger perimeter to area ratio results in a higher
 fraction of objects, including blends, near the edge.  Also, over these large
 scales, the assumption that the PSF and world coordinate system (WCS)
-transformations are approximately constant will fail, complicating the
+transformations are approximately constant is incorrect, complicating the
 application of an artificial shear. We have shown in this work that PSF
 variation is unlikely to be a problem when coadding many tens of images.
 However, in order to reconstruct accurate PSF models for the coadd, the input
@@ -1331,24 +1315,28 @@ moving objects, cosmic rays, etc. In the implementation presented in this work,
 we use fast Fourier transforms (FFTs) to handle convolutions. The FFT does not
 permit missing data, so the masked regions must be interpolated in some way.
 Care must be taken that this interpolation does not introduce a spurious shear
-signal.  Compensating masks, rotated at right angles to the real masks, must be
-used in addition to the real mask in order to restore symmetry to the image
-\citep{SheldonMcal2017}; the camera rotations planned for Rubin telescope data
-will accomplish this cancellation of systematic effects even more efficiently.
-Also, interpolation correlates the noise in the image, as does the coadding
-process itself, so the noise field used for correcting correlated noise effects
-must also be propagated through the same coadding and interpolation
+signal.  An additional compensating mask, rotated at right angles to the real
+mask, can be used to restore symmetry to the image \citep{SheldonMcal2017}. The
+camera rotations planned for the Rubin telescope will accomplish this
+cancellation of systematic effects even more efficiently.  Also, interpolation
+correlates the noise in the image, as does the coadding process itself, so the
+noise field used for correcting correlated noise effects must also be
+propagated through the same coadding and interpolation
 \citep{SheldonMcal2017,ArmstrongCoadd}.
 
 Finally, the five separate \mdet\ catalogs must each be incorporated into the
 full set of downstream analysis tasks (e.g., photometric redshift estimation,
 the construction of summary statistics, etc.) in order to be used for
-cosmological constraints. The procedures for doing this cannot match the
-catalogs to each other or any external catalog. Any matching of this nature would
-reintroduce detection biases. The procedures also must apply the same
-selection criterion to each of the five catalogs in order to properly measure
-the shear response. These restrictions may have important downstream effects on
-the analysis.
+cosmological constraints (see \S \ref{sec:wavg} for details). This should be
+straightforward, but it does require a small change to how shear data are
+analyzed.
+
+% The procedures for doing this cannot match the
+% catalogs to each other or any external catalog. Any matching of this nature would
+% reintroduce detection biases. The procedures also must apply the same
+% selection criterion to each of the five catalogs in order to properly measure
+% the shear response. These restrictions may have important downstream effects on
+% the analysis.
 
 The degree to which these technical challenges can be overcome will ultimately
 determine the accuracy of \mdet\ when used to analyze imaging survey data.
