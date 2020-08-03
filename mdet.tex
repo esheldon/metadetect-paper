@@ -162,13 +162,13 @@ universe: the images of objects overlap on the sky and thus the light from
 separate objects is ``blended'' \citep[for discussion of blending
 effects see, e.g.,][]{DawsonBlending2016}.
 
-\mcal\ can be used calibrate essentially any shear measurement biases, even
-those associated with blending.  However, we will show below that there is a
-particular calibration bias associated with the process of detecting objects in
-the presence of blending, and this is not addressed in naive implementations of
-\mcal. This bias is especially large for ambiguous detections on highly blended
-images and thus poses a challenge for future lensing surveys in which blending
-will be important \citep{DawsonBlending2016}.
+\mcal\ can, in principle, be used calibrate any shear-dependent measurement
+biases, even those associated with blending.  However, we will show below that
+there is a particular calibration bias associated with the process of detecting
+objects in the presence of blending, and this is not addressed in naive
+implementations of \mcal. This bias, if left unaddressed, will greatly exceed
+the strict requirements for future lensing surveys \citep{huterer2006}, in
+which blending will be prevalent \citep{DawsonBlending2016}.
 
 At this stage it is worthwhile to define exactly what we mean by object
 detection.  For isolated objects, object detection is closely related to the
@@ -225,22 +225,23 @@ will also manifest a detection bias.
 
 \end{figure*}
 
-As we will demonstrate, the shear bias caused by this effect far exceeds the
-requirements for future surveys \citep{huterer2006}.  
+% As we will demonstrate, the shear bias caused by this effect far exceeds the
+% requirements for future surveys \citep{huterer2006}.  
 
 Common object detection schemes in use today, such at those in \sx\
-\citep{Bertin96} and the pipelines used for the Hyper-Surprime Camera
-survey and the Rubin Observatory Legacy Survey of Space and Time (LSST) \citep{BoschHSC2018,BoschLSST2018}
-are based on thresholding, similar to the simple approach described above but
-differing in complexity and efficiency.   The detection and splitting procedure
-is demonstrated clearly for \sx\ in \cite{Bertin96} Figure~2.  As we will
-demonstrate, the object detections produced by \sx\ do manifest shear
-dependence.  Even a simple local peak finder, run on a smoothed image, has
-similar properties and manifests the bias. An open question, which we will not
-address in this work, is whether it is possible to derive a shear-independent
-object detection algorithm in the presence of a PSF and a detector with finite
-spatial resolution.  Such an algorithm would in principle eliminate the
-shear-dependent object detection biases explored in this work.
+\citep{Bertin96} and the pipelines used for the Hyper-Surprime Camera survey
+and the Rubin Observatory Legacy Survey of Space and Time (LSST)
+\citep{BoschHSC2018,BoschLSST2018} are based on thresholding, similar to the
+simple approach described above but differing in complexity and efficiency.
+The detection and splitting procedure is demonstrated clearly for \sx\ in
+\cite{Bertin96} Figure~2.  As we will show, the object detections
+produced by \sx\ do manifest shear dependence.  Even a simple local peak
+finder, run on a smoothed image, has similar properties and manifests the bias.
+An open question, which we will not address in this work, is whether it is
+possible to derive a shear-independent object detection algorithm in the
+presence of a PSF and a detector with finite spatial resolution.  Such an
+algorithm would in principle eliminate the shear-dependent object detection
+biases explored in this work.
 
 Published implementations of \mcal\
 \citep[e.g.,][]{HuffMcal2017,SheldonMcal2017}, when used with the common object
@@ -266,20 +267,20 @@ the full response to shear.
 % threshold, even for isolated objects, because the object detections needed for
 % the corrections will, by definition, not be present in the catalog.
 
-However, object detection
-effects can be naturally incorporated into \mcal\ by shearing larger images,
-rather than small postage stamps, and re-running the object detection algorithm
-on each of the sheared images. In this process, ellipticity measurement biases,
-selection effects and object detection are all addressed.  We call this
-technique \mdet\ to indicate that detection is part of the \mcal\ process.  An
-rough outline of the method is as follows: \begin{enumerate}
+Object detection effects can be naturally incorporated into \mcal\ by shearing
+larger images, rather than small postage stamps, and re-running the object
+detection algorithm on each of the sheared images.
+% In this process, ellipticity
+% measurement biases, selection effects and object detection are all addressed.
+We call this technique \mdet\ to indicate that detection is part of the \mcal\
+process.  An rough outline of the method is as follows: \begin{enumerate}
 
     \item Artificially shear images of small regions of sky.
 
     \item Perform detection and measurement on the sheared images, as well as
         images without artificial shear.  Due to shear-dependent detection
-        effects, the detections found the each image will be slightly different,
-        resulting in different object catalogs.
+        effects, the number of detections found the each image will be slightly
+        different, resulting in different object catalogs.
 
     \item Calculate ensemble shear statistics using measurements from the
         unsheared images.
@@ -291,7 +292,7 @@ rough outline of the method is as follows: \begin{enumerate}
 
 \end{enumerate}
 The ensemble mean ellipticities are taken over different catalogs, whereas in
-\cite{SheldonMcal2017} all measurements were performed using a static
+\cite{SheldonMcal2017} all measurements were performed using a single static
 detection catalog.  
 
 As we will demonstrate, \mdet\ can correct for biases associated with
