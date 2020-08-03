@@ -3,7 +3,7 @@
 
 % apj
 %\documentclass[iop, twocolappendix, appendixfloats, numberedappendix, apj]{emulateapj}
-\documentclass[iop, twocolappendix, appendixfloats, numberedappendix, apj]{hackemulateapj}
+\documentclass[draft, iop, twocolappendix, appendixfloats, numberedappendix, apj]{hackemulateapj}
 %\documentclass{emulateapj}
 
 %=====================================================================
@@ -341,12 +341,13 @@ variation on \mdet.  Finally, we conclude in Section~\ref{sec:conc}.
 \subsection{\textsc{Metacalibration} and \textsc{Metadetection}}
 \label{sec:mdet}
 
-In this section we introduce a generalization of \mcal\ that naturally accounts
-for shear-dependent object detection.
+In this section we introduce an extension of \mcal\ that naturally accounts for
+shear-dependent object detection.
 
 \mcal\ is a general technique that computes the linear response of measurements
 on an image to an applied shear using only the observed image.  For a small
-applied shear $\boldsymbol{\gamma}$, we can expand a measurement $\boldsymbol{e}$ as
+applied shear $\boldsymbol{\gamma}$, we can expand a two-compoment
+measurement $\boldsymbol{e}$ as
 \begin{eqnarray}
 \boldsymbol{e} & \approx & \left.\boldsymbol{e}\right|_{\gamma=0} +
                            \left.\frac{\partial \boldsymbol{e}}{\partial\boldsymbol\gamma}\right|_{\gamma=0} \boldsymbol\gamma +
@@ -373,9 +374,8 @@ with $\pm\Delta\gamma_j$.  The creation of artificially sheared images requires
 careful handling of the PSF and other observational effects
 \citep{SheldonMcal2017}.
 
-Because the estimated responses are quite noisy for a single object, they must
-be averaged over many images/objects in order to estimate the response of a set
-of images/objects to a shear.  
+Because the estimated responses are noisy for a single object, we average the
+response over many images and objects.
 
 Let's examine the case of estimating the mean shear from a 
 mean ellipticity.  In \cite{SheldonMcal2017} we wrote the mean ellipticity as
@@ -416,16 +416,21 @@ Note that Equation \ref{eq:fullR} is entirely equivalent to the response
 Equation 14 of \cite{SheldonMcal2017} in the case of a static catalog.
 We call this modified version of the method \mdet.
 
+In what follows we will use simulations to test \mcal\ with and without
+including detection in the process.  We will demonstrate that, for standard
+detection algorithms, including detection is required to obtain accurate shear
+estimates when galaxies are blended.
+
 \section{Analysis and Simulation Techniques}
 \label{sec:sims}
 
 In this section, we describe our object simulation and measurement techniques.
 In all cases, we used the \galsim\ \citep{GALSIM2015} software package to
 generate images, perform convolutions etc. We used the \texttt{SEP} \citep{sep}
-Python wrapper of the \sx\ software package \citep{Bertin96} for
-source detection as needed. Finally, we made extensive use of \ngmix
-\footnote{\url{https://github.com/esheldon/ngmix/}} for object measurement and
-the \mcal\ implementation.
+Python wrapper of the \sx\ software package \citep{Bertin96} for source
+detection as needed. Finally, we used the \ngmix\ software
+package\footnote{\url{https://github.com/esheldon/ngmix/}} for object
+measurement and the \mcal\ implementation.
 
 \subsection{Multi-object Fitting Deblending} \label{sec:mof}
 
@@ -439,24 +444,24 @@ image before further processing.
 
 In this work, we used an \ngmix\ based MOF
 algorithm\footnote{\url{https://github.com/esheldon/mof/}}. It is an improved
-version of the MOF fitter used in \cite{DESY1cat} which is
-both more stable and faster. It uses a linear combination of a De Vaucouleurs'
-\citep{devauc1948} profile and exponential profile. The profiles are
-constrained to be cocentric, coelliptical, and to have a fixed one-to-one size
-ratio.  The relative amplitude of the two profiles, the fraction of the total
-flux in the De Vaucouleurs' profile, is a free parameter and is allowed to vary
-outside of the range [0, 1]. Finally, to process a large number of objects, we
-followed \citet{DESY1cat} and broke them up into associated groups.  These
-groups of objects were then simultaneously fit using a least-squares loss
-function.
+version of the MOF fitter used in \cite{DESY1cat} which is both more stable and
+faster. It uses a linear combination of a De Vaucouleurs' \citep{devauc1948}
+profile and exponential profile. The profiles are constrained to be cocentric,
+coelliptical, and to have a fixed one-to-one size ratio.  The relative
+amplitude of the two profiles, the fraction of the total flux in the De
+Vaucouleurs' profile, is a free parameter in the model. Finally, to process a
+large number of objects, we followed \citet{DESY1cat} and broke them up into
+associated groups.  These groups of objects were then simultaneously fit using
+a least-squares loss function.  When using MOF with \mcal, we created postage
+stamp images centered on each object and subtracted the light of neighbors
+using the MOF models.
 
 \subsection{Galaxy Pair Simulations}
 \label{sec:sims:pairs}
 
-In order to isolate the effects of detection easily, we employed a simulation
-setup consisting of two galaxies with a variable separation between them.  We
-varied the separation of the objects in order to carefully tune the effects of
-blending.
+In order to isolate the effects of detection, we employed a simulation setup
+consisting of two galaxies.   By varying the separation between the two
+galaxies we could carefully tune the effects of blending.
 
 The simulated galaxies were each a combination of a bulge component, modeled as
 a De Vaucouleurs' profile \citep{devauc1948} and disk component modeled as an
@@ -502,13 +507,13 @@ shown in Figure~\ref{fig:pairs}
 \subsection{Simulations with Representative Galaxy Density and Noise}
 \label{sec:sims:realgals}
 
-In this section we describe simulations with parameters chosen to mimic
-DES and LSST images.  We used the publicly available
-\texttt{WeakLensingDeblending}\footnote{\url{https://github.com/LSSTDESC/WeakLensingDeblending}
-to generate galaxy catalogs and images.
-Note this package uses Galsim for all object models and rendering.} package to
-generate image simulations with realistic galaxy densities and pixel noise for
-both the DES and LSST surveys.
+In this section we describe simulations with parameters chosen to mimic DES and
+LSST images.  We used the publicly available \texttt{WeakLensingDeblending}
+software package
+\citep{WeakLensingDeblending}\footnote{\url{https://github.com/LSSTDESC/WeakLensingDeblending}
+to generate galaxy catalogs and images.  Note this package uses Galsim for all
+object models and rendering.} to generate image simulations with
+realistic galaxy densities and pixel noise for both the DES and LSST surveys.
 
 We generated images in the r-, i-, and z-bands with an effective depth that is
 roughly equivalent to full 5 and 10 year coadd image for the DES and LSST
@@ -587,6 +592,12 @@ the average of the two estimated shears so that any additive biases common to
 both simulations do not cancel. In all  cases we measured $m$ using the
 1-component of the shear and $c$ with the 2-component of the shear, though we
 have found this choice not to matter in explicit testing.
+
+Note that, in the case that the entire scene is sheared, including the space
+between objects, the technique of \citet{pujol2019} does not cancel the noise
+as effectively as when only the shapes of objects is sheared.  This is because,
+when the objects move under different shears, the will sample slightly different
+parts of the noise field.
 
 \section{Shear-dependent Detection Biases}\label{sec:detbiases}
 
