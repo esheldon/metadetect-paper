@@ -226,7 +226,7 @@ will also manifest a detection bias.
 \end{figure*}
 
 % As we will demonstrate, the shear bias caused by this effect far exceeds the
-% requirements for future surveys \citep{huterer2006}.  
+% requirements for future surveys \citep{huterer2006}.
 
 Common object detection schemes in use today, such at those in \sx\
 \citep{Bertin96} and the pipelines used for the Hyper-Surprime Camera survey
@@ -293,7 +293,7 @@ process.  An rough outline of the method is as follows: \begin{enumerate}
 \end{enumerate}
 The ensemble mean ellipticities are taken over different catalogs, whereas in
 \cite{SheldonMcal2017} all measurements were performed using a single static
-detection catalog.  
+detection catalog.
 
 As we will demonstrate, \mdet\ can correct for biases associated with
 shear-dependent detection, in addition to model bias, pixel noise bias
@@ -315,7 +315,7 @@ generalized \mcal\ that accounts for shear dependent object detection.  In
 Section~\ref{sec:sims}, we describe the simulations we use to test our methods
 and the analysis techniques used to infer the shear signal. In
 Section~\ref{sec:detbiases}, we study the effects of object detection on shear
-measurements with \mcal.  In Section~\ref{sec:mitigate}, we describe in detail 
+measurements with \mcal.  In Section~\ref{sec:mitigate}, we describe in detail
 our implementation of \mdet\ and apply it to recover the shear signal
 in our simulations. We also discuss the physical limits of
 \mdet.  In Section~\ref{sec:psfvar}, we study the effects of the PSF
@@ -360,7 +360,7 @@ careful handling of the PSF and other observational effects
 Because the estimated responses are noisy for a single object, we average the
 response over many images and objects.
 
-Let's examine the case of estimating the mean shear from a 
+Let's examine the case of estimating the mean shear from a
 mean ellipticity.  In \cite{SheldonMcal2017} we wrote the mean ellipticity as
 \begin{equation}
     \left< \boldsymbol{e} \right> \approx \left< \frac{\partial \boldsymbol{e} }{\partial \boldsymbol{\gamma} } \biggr\rvert_{\gamma=0} \boldsymbol{\gamma} \right>
@@ -392,7 +392,7 @@ We can address this by moving the derivative outside of the average:
     \left< \boldsymbol{R} \right> &=& \frac{\partial \left< \boldsymbol{e} \right> }{\partial \boldsymbol{\gamma} } \biggr\rvert_{\gamma=0},  \nonumber \\
     \langle R_{ij}\rangle &=& \frac{\langle e_i^{+}\rangle - \langle e_i^{-}\rangle}{\Delta\gamma_j} \nonumber \\
 \end{eqnarray}
-The finite difference is now calculated over averages, based on detections 
+The finite difference is now calculated over averages, based on detections
 derived from the different sheared images.  In general, only a subset of the
 detected objects will be common to all detection catalogs.
 Note that Equation \ref{eq:fullR} is entirely equivalent to the response
@@ -997,7 +997,7 @@ by running detection separately on each sheared image.
 
 We performed object detection on each image using \sx.  We then made
 measurements in postage stamps around each detection in each image using a
-non-PSF corrected, Gaussian-weighted moment.  We used these five catalogs 
+non-PSF corrected, Gaussian-weighted moment.  We used these five catalogs
 to calculate a single estimate for the shear using the mean shear
 response for the image as shown in \ref{eq:fullR} from \S
 \ref{sec:mdet}, which we repeat here for clarity:
@@ -1115,7 +1115,7 @@ expectations, we created a set of simple simulations in which we sheared the
 shapes of objects, but not the space between objects.  We simulated round
 galaxies with exponential light distributions and a half-light-radius of 0.5
 arcsec. We then tested \mdet\ under varying conditions, namely with either 45
-objects per square arcmin or 140 objects per square arcmin, and with either a
+objects per square arcmin or 75 objects per square arcmin, and with either a
 0.9 arcsec Gaussian PSF or a 1.1 arcsec Gaussian PSF. Our results are reported
 in Table~\ref{tab:nssres} and confirm these expectations. However, we don't
 expect these results to be representative of realistic scenarios.
@@ -1158,9 +1158,9 @@ expect these results to be representative of realistic scenarios.
     \hline
     \noalign{\vskip 1mm}
     45 $\mathrm{arcmin}^{-2}$  & 0.9 arcsec & $-0.00087 \pm 0.00016$ \\
-    140 $\mathrm{arcmin}^{-2}$ & 0.9 arcsec & $-0.00247 \pm 0.00015$ \\
+    75 $\mathrm{arcmin}^{-2}$ & 0.9 arcsec & $-0.00127 \pm 0.00015$ \\
     45 $\mathrm{arcmin}^{-2}$  & 1.1 arcsec & $-0.00136 \pm 0.00022$ \\
-    140 $\mathrm{arcmin}^{-2}$ & 1.1 arcsec & $-0.00443 \pm 0.00021$ \\
+    75 $\mathrm{arcmin}^{-2}$ & 1.1 arcsec & $-0.00231 \pm 0.00018$ \\
     \noalign{\vskip 1mm}
     \hline
   \end{tabular}
