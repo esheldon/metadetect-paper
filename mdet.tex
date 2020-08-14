@@ -1067,37 +1067,15 @@ is completely coherent across the image.  In \S \ref{sec:res:constpsf} we
 showed that, when the shear in the simulation matches this procedure exactly,
 we calculate the response accurately.
 
-But real data typically contains images of objects sheared by different amounts
-at different redshifts, and can be thought of as a sum of a series of constant,
-but differently sheared images.  In such an image, the shearing is not
-completely coherent.  Variable shear itself is not a source of bias for \mdet;
-the formalism presented in \citep{SheldonMcal2017} recovers the mean shear or
-other ensemble statistic for a population.  But because the shearing of the
-space between objects in real data is not completely coherent, we may expect
-that the part of the \mdet\ response associated with {\em detection} is
+Real data, however, typically contains images of objects sheared by different
+amounts at different redshifts, and can be thought of as a sum of a series of
+constant, but differently sheared images.  In such an image, the shearing is
+not completely coherent.  Variable shear itself is not a source of bias for
+\mdet; the formalism presented in \citep{SheldonMcal2017} recovers the mean
+shear or other ensemble statistic for a population.  But because the shearing
+of the space between objects in real data is not completely coherent, we may
+expect that the part of the \mdet\ response associated with {\em detection} is
 slightly biased.
-
-\begin{comment}
-each small
-region of sky that is processed (say 2 arcminutes on a side) has been
-transformed by a constant shear.  In such an image, the full scene is sheared,
-including the space between objects, not just the shapes of the objects. This
-shearing of the space between all objects matches the \mdet\ shearing steps
-exactly, and thus allows us to calibrate the mean shear from a set of such
-images to high precision, as shown in \S \ref{sec:res:constpsf}.  However, real
-data will typically contain images of objects sheared by different amounts at
-different redshifts, and can be thought of as a sum of a series of constant,
-but differently sheared images.
-\end{comment}
-
-\begin{comment}
-But This image would not exactly match the \mdet\
-assumption that the entire scene has experienced a single constant shear, and
-thus we might expect some residual bias in the shear calibration. Note that
-non-constant shear in the sense that objects will experience shears is not in
-itself a source of bias, because it is the mean shear, or other ensemble
-statistic, that is recovered by the formalism \citep{SheldonMcal2017}.
-\end{comment}
 
 In Figure~\ref{fig:toynoscene} we show a toy example, similar to
 Figure~\ref{fig:toy}, demonstrating the extreme and unphysical case of two
@@ -1108,18 +1086,6 @@ shown in \ref{fig:toy}.  We find this intuitive, because the relative separation
 between objects does not change.  The \mdet\ process of shearing the full
 image, which does move the positions of objects, will over-predict the response
 in this case.
-
-In general, we expect a larger bias due to this effect for surveys with more
-object blending, which scales with object density and PSF size.  To test these
-expectations, we created a set of simple simulations in which we sheared the
-shapes of objects, but not the space between objects.  We simulated round
-galaxies with exponential light distributions and a half-light-radius of 0.5
-arcsec. We then tested \mdet\ under varying conditions, namely with either 45
-objects per square arcmin or 140 objects per square arcmin, and with either a
-0.9 arcsec Gaussian PSF or a 1.1 arcsec Gaussian PSF. Our results are reported
-in Table~\ref{tab:nssres} and confirm these expectations. However, we don't
-expect these results to be representative of realistic scenarios.
-
 
 \begin{figure*}
     \begin{center}
@@ -1137,54 +1103,67 @@ expect these results to be representative of realistic scenarios.
 \end{figure*}
 
 
-\begin{table}
-  \centering
-  \begin{threeparttable}
-  \caption{
-    Multiplicative biases in weak lensing simulations for various source
-    densities and PSF sizes when the space between objects is not sheared. See
-    Section~\ref{sec:mdetphys} for details. In all cases, the simulations use a
-    population of round, exponential objects with a half-light-radius of 0.5
-    arcsec. We used a DES-like pixel scale of 0.263 arcsec, applied \mdet\
-    with a simple weighted moment with no PSF correction, and then finally
-    used a size cut of $T/T_{PSF} > 1.2$ for the measurements.}
-  \label{tab:nssres}
-  \begin{tabular}{llc}
-    \noalign{\vskip 1mm}
-    \hline
-    \noalign{\vskip 1mm}
-    Galaxy Density & PSF FWHM & m \\
-    \noalign{\vskip 1mm}
-    \hline
-    \noalign{\vskip 1mm}
-    45 $\mathrm{arcmin}^{-2}$  & 0.9 arcsec & $-0.00087 \pm 0.00016$ \\
-    140 $\mathrm{arcmin}^{-2}$ & 0.9 arcsec & $-0.00247 \pm 0.00015$ \\
-    45 $\mathrm{arcmin}^{-2}$  & 1.1 arcsec & $-0.00136 \pm 0.00022$ \\
-    140 $\mathrm{arcmin}^{-2}$ & 1.1 arcsec & $-0.00443 \pm 0.00021$ \\
-    \noalign{\vskip 1mm}
-    \hline
-  \end{tabular}
-  \end{threeparttable}
-\end{table}
+In general, we expect a larger bias due to this effect for surveys with more
+object blending, which scales with object density and PSF size.  In order to
+obtain an upper bound on this effect for real surveys, we made a simple
+modification to our simulations with realistic galaxy density and noise.  When
+building them, rather than shearing the full scene to impart the true shear to
+the image, we sheared each object individually and then added it to the image,
+without any change in the object position. This modification leaves the space
+between objects unsheared, which is maximally different from what happens
+during the \mcal\ image shearing process.
 
-In order to obtain an upper bound on this effect for real surveys, we made a
-simple modification to our simulations with realistic galaxy density and noise.
-When building them, rather than shearing the full scene to impart the true
-shear to the image, we sheared each object individually and then added it to
-the image, without any change in the object position. This modification leaves
-the space between objects unsheared, which is maximally different from what
-happens during the \mcal\ image shearing process.
 
-Results for our more realistic survey simulations are in the bottom rows
-of Table~\ref{tab:shearmeas}. We found small residual biases in this case,
-of order $\sim-0.3\%$. While the fact that we find more bias for a DES-like
-survey than an LSST-like survey can be explained by the large PSFs in the
-DES-like survey and the smaller pixel scale in the LSST-like survey, some of
-the DES-like results are puzzling. In particular, the trend with object density
-in the DES-like surveys appears to be opposite our naive expectation. We do
-not fully understand this effect. While predicting the expected level of this
-bias for experiments such as such as DES and LSST is essential, it is beyond
-the scope of this work.
+% To test these
+% expectations, we created a set of simple simulations in which we sheared the
+% shapes of objects, but not the space between objects.  We simulated round
+% galaxies with exponential light distributions and a half-light-radius of 0.5
+% arcsec. We then tested \mdet\ under varying conditions, namely with either 45
+% objects per square arcmin or 140 objects per square arcmin, and with either a
+% 0.9 arcsec Gaussian PSF or a 1.1 arcsec Gaussian PSF. Our results are reported
+% in Table~\ref{tab:nssres} and confirm these expectations. However, we don't
+% expect these results to be representative of realistic scenarios.
+%
+% \begin{table}
+%   \centering
+%   \begin{threeparttable}
+%   \caption{
+%     Multiplicative biases in weak lensing simulations for various source
+%     densities and PSF sizes when the space between objects is not sheared. See
+%     Section~\ref{sec:mdetphys} for details. In all cases, the simulations use a
+%     population of round, exponential objects with a half-light-radius of 0.5
+%     arcsec. We used a DES-like pixel scale of 0.263 arcsec, applied \mdet\
+%     with a simple weighted moment with no PSF correction, and then finally
+%     used a size cut of $T/T_{PSF} > 1.2$ for the measurements.}
+%   \label{tab:nssres}
+%   \begin{tabular}{llc}
+%     \noalign{\vskip 1mm}
+%     \hline
+%     \noalign{\vskip 1mm}
+%     Galaxy Density & PSF FWHM & m \\
+%     \noalign{\vskip 1mm}
+%     \hline
+%     \noalign{\vskip 1mm}
+%     45 $\mathrm{arcmin}^{-2}$  & 0.9 arcsec & $-0.00087 \pm 0.00016$ \\
+%     140 $\mathrm{arcmin}^{-2}$ & 0.9 arcsec & $-0.00247 \pm 0.00015$ \\
+%     45 $\mathrm{arcmin}^{-2}$  & 1.1 arcsec & $-0.00136 \pm 0.00022$ \\
+%     140 $\mathrm{arcmin}^{-2}$ & 1.1 arcsec & $-0.00443 \pm 0.00021$ \\
+%     \noalign{\vskip 1mm}
+%     \hline
+%   \end{tabular}
+%   \end{threeparttable}
+% \end{table}
+
+Results are shown in the bottom rows of
+Table~\ref{tab:shearmeas}. We found small residual biases in this case, of
+order $\sim-0.3\%$. The fact that we find more bias for a DES-like survey than
+an LSST-like survey might be explained by the large PSFs in the DES-like survey
+and the smaller pixel scale in the LSST-like survey. However, some of the
+DES-like results are puzzling. In particular, the trend with object density in
+the DES-like surveys appears to be opposite our naive expectation. We do not
+fully understand this effect. While predicting the expected level of this bias
+for experiments such as such as DES and LSST is essential, it is beyond the
+scope of this work.
 
 \section{Handling PSF Variation}
 \label{sec:psfvar}
