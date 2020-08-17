@@ -119,31 +119,53 @@
 
 \begin{abstract}
 
-    \Mcal\ is a new technique for measuring weak gravitational lensing shear
-    that is unbiased for isolated galaxy images.  In this work we test \mcal\
-    with overlapping, or ``blended'' galaxy images.  Using standard \mcal, we
-    find a few percent shear measurement bias for galaxy densities relevant for
-    current surveys, and that this bias increases with increasing galaxy number
-    density.  We show that this bias is not due to blending itself, but rather
-    to shear-dependent object detection. If object detection is shear
-    independent, no deblending of images is needed, in principle.  We
-    demonstrate that detection biases are accurately removed when including
-    object detection in the \mcal\ process, a technique we call \mdet.  This
-    process involves applying an artificial shear to images of small regions of
-    sky and performing detection on the sheared images, as well as measurements
-    that are used to calculate a shear response.   We demonstrate that the
-    method can accurately recover weak shear signals even in highly blended
-    scenes.  In the \mcal\ process, the space between objects is sheared
-    coherently, which does not perfectly match the real universe in which some,
-    but not all, galaxy images are sheared coherently.  We find that even for
-    the worst case scenario, in which the space between objects is completely
-    unsheared, the resulting shear bias is at most a few tenths of a percent
-    for future surveys.  A technical challenge for \mdet\ is to deconvolve the
-    spatially varying point-spread-functions expected for real data, but we
-    find that using a constant deconvolution kernel is sufficient for typical
-    imaging surveys.  Finally, we discuss additional technical challenges that
-    must be met in order to implement \mdet\ for real surveys.
+    
+    \Mcal\ is a new technique for measuring weak gravitational lensing shear that
+    is unbiased for isolated galaxy images.  In this work we test \mcal\ with
+    overlapping, or ``blended'' galaxy images.  Using standard \mcal, we find a few
+    percent shear measurement bias for galaxy densities relevant for current
+    surveys, and that this bias increases with increasing galaxy number density.
+    We show that this bias is not due to blending itself, but rather to
+    shear-dependent object detection. If object detection is shear independent, no
+    deblending of images is needed, in principle.  We demonstrate that detection
+    biases are accurately removed when including object detection in the \mcal\
+    process, a technique we call \mdet.  This process involves applying an
+    artificial shear to images of small regions of sky and performing detection on
+    the sheared images, as well as measurements that are used to calculate a shear
+    response.   We demonstrate that the method can accurately recover weak shear
+    signals even in highly blended scenes.  In the \mcal\ process, the space
+    between objects is sheared coherently, which does not perfectly match the real
+    universe in which some, but not all, galaxy images are sheared coherently.  We
+    find that even for the worst case scenario, in which the space between objects
+    is completely unsheared, the resulting shear bias is at most a few tenths of a
+    percent for future surveys.  We discuss additional technical challenges that
+    must be met in order to implement \mdet\ for real surveys.       
 
+    % \Mcal\ is a new technique for measuring weak gravitational lensing shear
+    % that is unbiased for isolated galaxy images.  In this work we test \mcal\
+    % with overlapping, or ``blended'' galaxy images.  Using standard \mcal, we
+    % find a few percent shear measurement bias for galaxy densities relevant for
+    % current surveys, and that this bias increases with increasing galaxy number
+    % density.  We show that this bias is not due to blending itself, but rather
+    % to shear-dependent object detection. If object detection is shear
+    % independent, no deblending of images is needed, in principle.  We
+    % demonstrate that detection biases are accurately removed when including
+    % object detection in the \mcal\ process, a technique we call \mdet.  This
+    % process involves applying an artificial shear to images of small regions of
+    % sky and performing detection on the sheared images, as well as measurements
+    % that are used to calculate a shear response.   We demonstrate that the
+    % method can accurately recover weak shear signals even in highly blended
+    % scenes.  In the \mcal\ process, the space between objects is sheared
+    % coherently, which does not perfectly match the real universe in which some,
+    % but not all, galaxy images are sheared coherently.  We find that even for
+    % the worst case scenario, in which the space between objects is completely
+    % unsheared, the resulting shear bias is at most a few tenths of a percent
+    % for future surveys.  A technical challenge for \mdet\ is to deconvolve the
+    % spatially varying point-spread-functions expected for real data, but we
+    % find that using a constant deconvolution kernel is sufficient for typical
+    % imaging surveys.  Finally, we discuss additional technical challenges that
+    % must be met in order to implement \mdet\ for real surveys.
+    %
 \end{abstract}
 
 \section{Introduction} \label{sec:intro}
